@@ -1,4 +1,4 @@
-// Intro: logo build, kicker, two-line headline, "No coding needed". Every value is a pure function of t.
+// Intro: logo build, kicker, two-line headline. Every value is a pure function of t.
 E.scene({
   name: 'intro',
   from: () => 0,
@@ -12,8 +12,7 @@ E.scene({
     this.kicker = h('div', { class: 'kicker abs', style: { width: '1920px', justifyContent: 'center' } }, [h('span', { class: 'dot' }), h('span', { text: C.kicker })]);
     this.hl = E.headline([[C.title[0]], [[C.title[1], 'pink']]], 'headline');
     this.hlEl = h('div', { class: 'abs', style: { width: '1920px', textAlign: 'center' } }, [this.hl.el]);
-    this.sub = h('div', { class: 'abs', style: { width: '1920px', display: 'flex', justifyContent: 'center' } }, [h('div', { class: 'pill', style: { fontSize: '28px', gap: '14px' } }, [UI.heroIcon('CheckCircle', 30, '#3ee6c1', 2), h('span', { text: C.sub })])]);
-    this.wrap = h('div', { class: 'cam' }, [this.logo, this.kicker, this.hlEl, this.sub]);
+    this.wrap = h('div', { class: 'cam' }, [this.logo, this.kicker, this.hlEl]);
     root.appendChild(this.wrap);
   },
   update(t) {
@@ -28,10 +27,8 @@ E.scene({
       const p = prog(t, 1.25 + i * 0.05, 0.6, ease.outQuart);
       set(g, { y: (1 - p) * 30, o: p });
     });
-    set(this.kicker, { y: 375, o: prog(t, TL.vo.s01 - 0.2, 0.5) });
-    set(this.hlEl, { y: 430 });
+    set(this.kicker, { y: 405, o: prog(t, TL.vo.s01 - 0.2, 0.5) });
+    set(this.hlEl, { y: 460 });
     E.revealWords(this.hl.words, t, TL.cue('introTitle') - 0.1);
-    const sp = prog(t, TL.cue('noCode') - 0.1, 0.6, ease.outBack);
-    set(this.sub, { y: 700 + (1 - sp) * 24, o: Math.min(1, sp * 1.4), s: 0.9 + 0.1 * sp });
   },
 });

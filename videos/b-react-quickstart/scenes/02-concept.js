@@ -1,5 +1,5 @@
-// Concept: files, database and pipelines stay inside each workspace; the dataset is what moves
-// between workspaces. Then the three workspace roles.
+// Concept: B-REACT workspaces in Bluesquare's organization. Files, database, pipelines, notebooks and web
+// apps stay inside each workspace; the dataset is what moves between workspaces. Then the three roles.
 E.scene({
   name: 'concept',
   from: () => TL.scenes.concept,
@@ -11,11 +11,14 @@ E.scene({
     this.titleEl = h('div', { class: 'abs', style: { width: '1920px', textAlign: 'center' } }, [this.title.el]);
     this.org = h('div', { class: 'abs br-org' }, [h('div', { class: 'concept-org-label' }, [UI.heroIcon('BuildingOffice', 26, '#8d93b8', 1.6), h('span', { text: C.org })])]);
     this.locks = [];
+    this.stays = [];
     this.ws = C.workspaces.map(([name, flag]) => {
       const items = C.stays.map(([ic, label]) => {
         const lock = h('span', { class: 'br-lock' }, [UI.heroIcon('LockClosed', 18, '#8d93b8', 2)]);
         this.locks.push(lock);
-        return h('div', { class: 'br-stay' }, [UI.heroIcon(ic, 24, '#b3baff', 1.7), h('span', { text: label }), lock]);
+        const el = h('div', { class: 'br-stay' }, [UI.heroIcon(ic, 24, '#b3baff', 1.7), h('span', { text: label }), lock]);
+        this.stays.push(el);
+        return el;
       });
       return h('div', { class: 'abs br-wscard' }, [h('div', { class: 'br-wshead' }, [h('span', { class: 'flag', html: FLAGS[flag] }), h('span', { text: name })]), h('div', { class: 'br-stays' }, items)]);
     });
@@ -37,7 +40,7 @@ E.scene({
   },
   update(t) {
     const { set, prog, ease, lerp } = E;
-    const t0 = TL.scenes.concept, tB = TL.vo.s03 - 0.45, tOut = TL.scenes.join;
+    const t0 = TL.scenes.concept, tB = TL.vo.s04 - 0.45, tOut = TL.scenes.join;
     const swap = prog(t, tB - 0.2, 0.7, ease.inOutCubic);
     set(this.phaseA, { s: 1 + swap * 0.08, o: 1 - swap, blur: swap * 8 });
     set(this.titleEl, { y: 70 });
@@ -49,9 +52,15 @@ E.scene({
       const p = prog(t, wsT - 0.1 + i * 0.12, 0.7, ease.outBackSoft);
       set(el, { x: 195 + i * 530, y: 350 + (1 - p) * 50, s: lerp(0.9, 1, p), o: Math.min(1, p * 1.5) });
     });
+    // Files, database, pipelines, notebooks, web apps appear as they are named, then lock in place.
+    const ho = TL.cue('holds');
+    this.stays.forEach((el, i) => {
+      const p = prog(t, ho + 0.1 + (i % 5) * 0.38, 0.4, ease.outCubic);
+      set(el, { o: p, x: (1 - p) * -10 });
+    });
     const st = TL.cue('stay');
     this.locks.forEach((el, i) => {
-      const p = prog(t, st - 0.1 + (i % 3) * 0.08 + Math.floor(i / 3) * 0.05, 0.45, ease.outBack);
+      const p = prog(t, st - 0.1 + (i % 5) * 0.06 + Math.floor(i / 5) * 0.05, 0.45, ease.outBack);
       set(el, { s: 0.5 + 0.5 * p, o: Math.min(1, p * 1.5) });
     });
     // The dataset leaves the first workspace and reaches the other two.

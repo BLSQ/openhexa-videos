@@ -160,5 +160,185 @@
   "voice": "XrExE9yKIg1WjnnlVkGX",
   "cost": 0.01404,
   "at": "2026-11-05T17:33:25.321Z"
+ },
+ {
+  "lang": "en",
+  "id": "s01",
+  "chars": 64,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.00954,
+  "at": "2026-11-05T22:56:12.068Z"
+ },
+ {
+  "lang": "en",
+  "id": "s02",
+  "chars": 132,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.02034,
+  "at": "2026-11-05T22:56:13.175Z"
+ },
+ {
+  "lang": "en",
+  "id": "s03",
+  "chars": 76,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.0117,
+  "at": "2026-11-05T22:56:13.778Z"
+ },
+ {
+  "lang": "en",
+  "id": "s04",
+  "chars": 143,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.02178,
+  "at": "2026-11-05T22:56:14.680Z"
+ },
+ {
+  "lang": "en",
+  "id": "s08",
+  "chars": 91,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.013680000000000001,
+  "at": "2026-11-05T22:56:15.333Z"
+ },
+ {
+  "lang": "en",
+  "id": "s10",
+  "chars": 93,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01386,
+  "at": "2026-11-05T22:56:15.915Z"
+ },
+ {
+  "lang": "en",
+  "id": "s13",
+  "chars": 133,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01998,
+  "at": "2026-11-05T22:56:16.779Z"
+ },
+ {
+  "lang": "en",
+  "id": "s14",
+  "chars": 106,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01584,
+  "at": "2026-11-05T22:56:17.387Z"
+ },
+ {
+  "lang": "en",
+  "id": "s15",
+  "chars": 95,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01404,
+  "at": "2026-11-05T22:56:18.074Z"
+ },
+ {
+  "lang": "en",
+  "id": "s16",
+  "chars": 116,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01728,
+  "at": "2026-11-05T22:56:18.833Z"
+ },
+ {
+  "lang": "en",
+  "id": "s17",
+  "chars": 86,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.012780000000000001,
+  "at": "2026-11-05T22:56:19.397Z"
+ },
+ {
+  "lang": "en",
+  "id": "s18",
+  "chars": 110,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01674,
+  "at": "2026-11-05T22:56:20.008Z"
+ },
+ {
+  "lang": "en",
+  "id": "s19",
+  "chars": 123,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01818,
+  "at": "2026-11-05T22:56:20.703Z"
+ },
+ {
+  "lang": "en",
+  "id": "s21",
+  "chars": 86,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.012780000000000001,
+  "at": "2026-11-05T22:56:21.262Z"
+ },
+ {
+  "lang": "en",
+  "id": "s23",
+  "chars": 112,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01728,
+  "at": "2026-11-05T22:56:21.976Z"
+ },
+ {
+  "lang": "en",
+  "id": "s24",
+  "chars": 110,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.016380000000000002,
+  "at": "2026-11-05T22:56:22.775Z"
+ },
+ {
+  "lang": "en",
+  "id": "s25",
+  "chars": 94,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01386,
+  "at": "2026-11-05T22:56:23.376Z"
+ },
+ {
+  "lang": "en",
+  "id": "s26",
+  "chars": 126,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.0189,
+  "at": "2026-11-05T22:56:24.072Z"
+ },
+ {
+  "lang": "en",
+  "id": "s17",
+  "chars": 90,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.013500000000000002,
+  "at": "2026-11-05T22:58:37.068Z"
+ },
+ {
+  "lang": "en",
+  "id": "s21",
+  "chars": 86,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01242,
+  "at": "2026-11-05T22:58:37.927Z"
  }
 ]

@@ -192,9 +192,10 @@
       el: sh.el, create, ok, name, update(t) {
         const A = TL.at;
         this.dim = showModal(m, t, A.dsOpen, A.dsClose);
-        const tn = Math.max(TL.cue('dsName') - 0.05, A.dsOpen + 0.3);
-        type(name, C.dsName, t, tn, 0.7);
-        type(desc, C.dsDesc, t, Math.max(TL.cue('description'), tn + 0.75), Math.max(0.5, Math.min(1.4, A.dsClose - TL.cue('description') - 0.7)));
+        // The narration moves on fast here, so the fields fill in quickly.
+        const span = Math.max(0.6, A.dsClose - A.dsOpen - 0.45);
+        type(name, C.dsName, t, A.dsOpen + 0.2, span * 0.3);
+        type(desc, C.dsDesc, t, A.dsOpen + 0.25 + span * 0.35, span * 0.6);
       },
     };
   };
@@ -230,7 +231,7 @@
     ]);
     const stat = (k, v, hot) => h('tr', { class: hot ? 'br-stat-hot' : '' }, [h('td', { text: k }), h('td', { html: v })]);
     const pencil = h('div', { class: 'ox-btn br-pencil' }, [icon('Pencil', 14, '#4338ca', 1.8)]);
-    const tags = [['Unit', 'cases'], ['Source', 'DHIS2 Tracker'], ['PII', 'No']].map(([l, v]) => h('span', { class: 'br-badge', text: `${l}: ${v}` }));
+    const tags = [['Unit', 'cases'], ['Source', 'DHIS2 Tracker']].map(([l, v]) => h('span', { class: 'br-badge', text: `${l}: ${v}` }));
     const missRows = [];
     const colBlock = (name, basic, numeric, extra) => {
       const miss = stat('Missing', basic[1]);
@@ -261,7 +262,7 @@
 
     // Column drawer (ColumnMetadataDrawer)
     const dDesc = typedInput('Enter a description for this column', { height: '62px', alignItems: 'flex-start', paddingTop: '9px', lineHeight: '1.4', fontSize: '13px' });
-    const attrRows = [['Unit', 'cases'], ['Source', 'DHIS2 Tracker'], ['PII', 'No']].map(([l, v]) => {
+    const attrRows = [['Unit', 'cases'], ['Source', 'DHIS2 Tracker']].map(([l, v]) => {
       const L = typedInput('Label', { height: '32px', fontSize: '13px' }), V = typedInput('Value', { height: '32px', fontSize: '13px' });
       return { el: h('div', { class: 'br-attr' }, [L.el, V.el, icon('XMark', 14, '#9ca3af', 2)]), L, V, l, v };
     });
@@ -348,7 +349,7 @@
           E.set(drawer, { x: (1 - p) * 400 });
           dim = Math.max(dim, p * 0.6);
           const ta = a + 0.4;
-          const ends = [TL.cue('unit'), TL.cue('source'), TL.cue('pii')];
+          const ends = [TL.cue('unit'), TL.cue('source')];
           type(dDesc, 'Suspected cases reported this week', t, ta, Math.max(0.4, ends[0] - ta - 0.35));
           attrRows.forEach((r, i) => {
             const at = ends[i] - 0.05;
@@ -402,31 +403,14 @@
       h('div', { style: { marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px' } }, [h('span', { style: { color: '#6b7280' }, text: 'Last Run' }), h('span', { class: 'ox-pill', style: { background: '#ecfdf5', color: '#10b981' }, text: 'Succeeded' }), h('span', { style: { color: '#6b7280' }, text: '8 hours ago' })]),
     ]);
     const cards = [card('DHIS2 extraction', 'Template', 'dhis2-extraction', 'v4', 'Extracts weekly alerts and cases from DHIS2 into the workspace.'), card('Weekly SitRep', 'Notebook', 'weekly-sitrep', 'v7', 'Builds the weekly situation report as PDF.')];
-    const tpl = (name, badge, desc) => {
-      const b = h('div', { class: 'ox-btn', style: { background: '#e0e7ff', color: '#4338ca' }, text: 'Create pipeline' });
-      return { b, el: h('div', { class: 'ox-card', style: { padding: '16px 18px', display: 'flex', flexDirection: 'column', height: '186px' } }, [
-        h('div', { style: { display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px' } }, [h('div', { style: { fontWeight: 600, fontSize: '15.5px' }, text: name }), AppUI.pill(badge, badge === 'Community' ? 'gray' : 'pink')]),
-        h('div', { style: { fontSize: '13px', color: '#4b5563', marginTop: '8px', lineHeight: 1.45 }, text: desc }),
-        h('div', { style: { marginTop: 'auto', display: 'flex', gap: '8px' } }, [b]),
-      ]) };
-    };
-    const tpls = [tpl('DHIS2 data extraction', 'Bluesquare', 'Extracts data elements and indicators from a DHIS2 instance.'), tpl('ERA5 climate data', 'Bluesquare', 'Downloads temperature and rainfall for your areas.'), tpl('WorldPop population', 'Bluesquare', 'Population estimates per administrative area.'), tpl('Data quality checks', 'Community', 'Flags outliers and missing reports.')];
     const tabs = ['Pipelines', 'Available Templates'].map((x) => h('div', { class: 'ox-tab', text: x }));
-    // Wrappers carry the show/hide, so E.show doesn't reset the inner display: grid.
     const gridOf = (kids) => h('div', { class: 'abs', style: { left: '24px', right: '24px', top: '74px' } }, [h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' } }, kids)]);
     const grid = gridOf(cards);
-    const tgrid = gridOf(tpls.map((x) => x.el));
     const sh = shell(['Pipelines'], [btn('Create', 'primary', 'Plus')], [h('div', { class: 'ox-tabs', style: { marginTop: 0 } }, tabs)]);
-    sh.el.append(grid, tgrid);
-    const created = toast('Successfully created pipeline DHIS2 data extraction');
-    sh.el.append(created);
+    sh.el.append(grid);
     return {
-      el: sh.el, card0: cards[0], tabs, tplBtn: tpls[0].b, update(t) {
-        const tt = t >= TL.cue('template') + 0.05;
-        tabs.forEach((el, i) => el.classList.toggle('on', tt ? i === 1 : i === 0));
-        E.show(grid, !tt);
-        E.show(tgrid, tt);
-        showToast(created, t, TL.cue('template') + 1.0, 2.0);
+      el: sh.el, card0: cards[0], create: sh.el.querySelector('.ox-header .ox-btn.primary'), update(t) {
+        tabs.forEach((el, i) => el.classList.toggle('on', i === 0));
       },
     };
   };
@@ -518,11 +502,152 @@
     };
   };
 
-  // ---------- Create a pipeline dialog with "Create with AI" (overlaid on Data Studio) ----------
-  B.createWithAi = () => {
+  // ---------- sidebar card for users with no organization of their own (ExternalCollaboratorNotice) ----------
+  B.orgNotice = (O) => h('div', { class: 'br-notice' }, [
+    h('div', { class: 'br-notice-row' }, [icon('Sparkles', 16, '#fff', 2), h('div', {}, [
+      h('div', { class: 'br-notice-t', text: O.card[0] }),
+      h('div', { class: 'br-notice-d', text: O.card[1] }),
+      h('div', { class: 'br-notice-a' }, [h('span', { text: O.card[2] }), icon('ArrowTopRightOnSquare', 11, '#fff', 2)]),
+    ])]),
+  ]);
+
+  // ---------- JupyterHub: JupyterLab with a Python notebook using the SDK (illustrative content) ----------
+  const py = (src) => src
+    .replace(/(".*?")/g, '<span class="sq-s">$1</span>')
+    .replace(/\b(from|import|as)\b/g, '<span class="sq-k">$1</span>')
+    .replace(/(#.*)$/gm, '<span class="nb-com">$1</span>');
+  B.notebooksPage = () => {
+    const cellsSrc = [
+      'from openhexa.sdk import workspace\nimport pandas as pd',
+      'ds = workspace.get_dataset("weekly-cases-by-zone-a1b2c3")\nf = ds.latest_version.get_file("cases_by_zone.csv")\ndf = pd.read_csv(f.download_url)\ndf.head(3)',
+      'summary = workspace.create_dataset("Zone summary", "Cases per zone, all weeks")',
+      'v = summary.create_version("v1")\nv.add_file(f"{workspace.files_path}/exports/zone_summary.csv")',
+    ];
+    const cells = cellsSrc.map((src, i) => h('div', { class: 'nb-cell' }, [h('div', { class: 'nb-prompt', text: `[${i + 1}]:` }), h('div', { class: 'nb-code', html: py(src) })]));
+    const out = h('div', { class: 'nb-out br-dfout' }, [h('table', { class: 'br-df' }, [
+      h('thead', {}, [h('tr', {}, ['', 'health_zone', 'week', 'suspected', 'confirmed'].map((x) => h('th', { text: x })))]),
+      h('tbody', {}, [['0', 'ZS-01', '2026-W44', '42', '9'], ['1', 'ZS-02', '2026-W44', '17', '3'], ['2', 'ZS-03', '2026-W44', '28', '6']].map((r) => h('tr', {}, r.map((x, i) => h(i ? 'td' : 'th', { text: x })))))])]);
+    const doc = h('div', { class: 'nb-doc' }, [h('div', { class: 'nb-tab', text: 'weekly_cases.ipynb' }), cells[0], cells[1], out, cells[2], cells[3]]);
+    const kernel = h('div', { class: 'br-kernel', text: 'Python 3 (ipykernel)' });
+    const tile = (label, sub) => h('div', { class: 'br-ltile' }, [h('div', { class: 'br-ltile-i', text: sub }), h('span', { text: label })]);
+    const tiles = [tile('Python 3 (ipykernel)', 'Py'), tile('R', 'R')];
+    const launcher = h('div', { class: 'br-launcher' }, [h('div', { class: 'br-lsec' }, [icon('BookOpen', 18, '#f57c00', 1.8), h('span', { text: 'Notebook' })]), h('div', { class: 'br-ltiles' }, tiles)]);
+    const lab = h('div', { class: 'nb-lab' }, [
+      h('div', { class: 'nb-menu' }, [...['File', 'Edit', 'View', 'Run', 'Kernel', 'Tabs', 'Settings', 'Help'].map((x) => h('span', { text: x })), kernel]),
+      h('div', { class: 'nb-main' }, [
+        h('div', { class: 'nb-files' }, ['exports', 'raw', 'weekly_cases.ipynb', 'line_list_codebook.xlsx'].map((f, i) => h('div', { class: 'nb-file' + (i === 2 ? ' on' : ''), text: f }))),
+        h('div', { style: { position: 'relative', flex: 1 } }, [doc, launcher]),
+      ]),
+    ]);
+    const sh = shell(['Notebooks'], [], [lab], { pad: false });
+    return {
+      el: sh.el, tiles, update(t) {
+        const c = TL.cue;
+        const lp = 1 - E.prog(t, c('signedIn') - 0.45, 0.3);
+        E.set(launcher, { o: lp });
+        tiles.forEach((el, i) => el.classList.toggle('hot', t >= c('python') + i * 0.45 && lp > 0.5));
+        E.set(kernel, { o: 1 - lp });
+        const at = [c('signedIn') - 0.2, c('readDs') - 0.2, c('createDs') - 0.1, c('publishVer') - 0.1];
+        cells.forEach((el, i) => { const p = E.prog(t, at[i], 0.35, E.ease.outCubic); E.set(el, { o: p, y: (1 - p) * 8 }); el.classList.toggle('run', t >= at[i] && t < (at[i + 1] ?? TL.end('s14') + 0.5)); });
+        const op = E.prog(t, at[1] + 0.7, 0.35);
+        E.set(out, { o: op, y: (1 - op) * 6 });
+      },
+    };
+  };
+
+  // ---------- Account settings, Access tokens (AccountAccessTokens, WorkspaceAccessTokenCell) ----------
+  B.accountPage = () => {
+    const eye = h('span', { class: 'br-eye' }, [icon('Eye', 16, '#374151', 1.8)]);
+    const copy = h('span', { class: 'br-copy' }, [icon('Square2Stack', 16, '#374151', 1.8)]);
+    const masked = h('span', { class: 'br-masked' }, [icon('LockClosed', 12, '#6b7280', 2), h('span', { text: '*********' })]);
+    const shown = h('code', { class: 'br-token', text: 'hx_8f3KqZ2vT9mLx4Wc7Rb1Ya6Nd0Pe5Gs3Uh2Jk' });
+    const row = (ws, role, cell) => h('tr', {}, [h('td', { class: 'strong', text: ws }), h('td', { text: role }), h('td', {}, [cell])]);
+    const cell0 = h('div', { class: 'br-tcell' }, [h('div', { class: 'br-tslot' }, [masked, shown]), eye, copy]);
+    const maskedRow = () => h('div', { class: 'br-tcell' }, [h('div', { class: 'br-tslot' }, [h('span', { class: 'br-masked' }, [icon('LockClosed', 12, '#6b7280', 2), h('span', { text: '*********' })])]), icon('Eye', 16, '#374151', 1.8)]);
+    const tbl = h('table', { class: 'ox-table' }, [h('thead', {}, [h('tr', {}, ['Workspace', 'Role', 'Token'].map((x) => h('th', { text: x })))]), h('tbody', {}, [
+      row('B-REACT Surveillance', 'Admin', cell0),
+      row('B-REACT Laboratory', 'Editor', maskedRow()),
+      row('B-REACT Analysis', 'Viewer', h('span', { class: 'br-ask', text: 'Ask a workspace admin for an editor role.' })),
+    ])]);
+    const block = h('div', { class: 'ox-card br-pad' }, [
+      h('div', { class: 'br-sec', style: { fontSize: '17px' }, text: 'Access tokens' }),
+      h('p', { class: 'br-tokdesc', html: 'Use these tokens to authenticate with the <code>openhexa</code> CLI and the OpenHEXA SDK. Workspaces you are a direct member of have a long-lived token; workspaces you only administer issue a temporary one that has to be generated again once it expires.' }),
+      tbl,
+    ]);
+    const el = h('div', { class: 'abs br-account' }, [h('div', { class: 'ox-h1', style: { marginBottom: '16px' }, text: 'Your account' }), block]);
+    return {
+      el, eye, copy, update(t) {
+        const A = TL.at;
+        const on = t >= A.tokenEye;
+        E.show(masked, !on);
+        E.show(shown, on);
+        E.show(copy, on);
+        copy.classList.toggle('hot', t >= A.tokenCopy - 0.05 && t < A.tokenCopy + 0.5);
+      },
+    };
+  };
+
+  // ---------- Web apps: list, Create a web app (Create with AI), editor with the AI Assistant ----------
+  B.webappsPage = () => {
+    const cards = [['Weekly SitRep dashboard', 'Static'], ['Lab turnaround', 'Static']].map(([n, ty]) => h('div', { class: 'ox-card', style: { padding: '14px 16px', display: 'flex', alignItems: 'center', gap: '12px' } }, [
+      h('div', { style: { width: '36px', height: '36px', borderRadius: '8px', background: '#e0e7ff', display: 'flex', alignItems: 'center', justifyContent: 'center' } }, [icon('GlobeAlt', 20, '#4f46e5', 1.6)]),
+      h('div', {}, [h('div', { style: { fontSize: '15px', fontWeight: 600 }, text: n }), h('div', { style: { marginTop: '4px' } }, [AppUI.pill(ty, 'gray')])]),
+    ]));
+    const create = btn('Create', 'primary', 'Plus');
+    const sh = shell(['Web Apps'], [create], [h('div', { style: { fontWeight: 600, fontSize: '15px', marginBottom: '12px' }, text: 'All apps' }), h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' } }, cards)]);
+    const opts = [['Sparkles', 'Create with AI', 'Describe what you want, AI writes the code'], ['CodeBracket', 'From code', 'Write or upload your own HTML, CSS and JavaScript'], ['GlobeAlt', 'iFrame', 'Embed an existing website by its URL']].map(([ic, tt, d]) => h('div', { class: 'pl-opt' }, [icon(ic, 26, '#60a5fa', 1.5), h('div', { class: 'pl-opt-t', text: tt }), h('div', { class: 'pl-opt-d', text: d })]));
+    const choose = h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' } }, opts);
+    const prompt = typedInput('e.g. Create a dashboard that shows the monthly number of malaria cases per district from the workspace database', { height: '92px', alignItems: 'flex-start', paddingTop: '10px', lineHeight: '1.45', fontSize: '13px' });
+    const stepTexts = ['Generating web app code', 'Creating web app', 'Opening web app editor'];
+    const steps = stepTexts.map((x) => h('div', { class: 'br-aistep' }, [h('span', { class: 'br-spin' }), h('span', { text: x })]));
+    const goBtn = btn('Create', 'primary');
+    const aiForm = h('div', {}, [
+      h('div', { style: { fontSize: '13px', color: '#6b7280', marginBottom: '8px' }, text: '← Back' }),
+      h('div', { style: { fontSize: '13.5px', color: '#374151', marginBottom: '10px' }, text: 'Describe your web app and the AI will generate the code to get you started.' }),
+      prompt.el, h('div', { class: 'br-aisteps' }, steps), h('div', { style: { display: 'flex', justifyContent: 'flex-end', marginTop: '12px' } }, [goBtn]),
+    ]);
+    const m = modal('Create a web app', [choose, aiForm], [], { w: 620, top: -190 });
+    m.dialog.querySelector('.ox-dialog-actions').remove();
+    // Editor: preview on the left, the AI Assistant chat on the right.
+    const bars = [62, 41, 55, 23, 34].map((v, i) => `<div><i style="height:${(v / 62) * 100}%"></i><span>ZS-0${i + 1}</span></div>`).join('');
+    const preview = h('div', { class: 'br-dash' }, [
+      h('div', { class: 'br-dash-h', text: 'Weekly cases by health zone' }),
+      h('div', { class: 'wa-kpis' }, [['126', 'suspected, W44'], ['21', 'confirmed'], ['5', 'health zones']].map(([v, l]) => h('div', { class: 'wa-kpi' }, [h('b', { text: v }), h('span', { text: l })]))),
+      h('div', { class: 'wa-bars', style: { height: '150px' }, html: bars }),
+    ]);
+    const chat = h('div', { class: 'br-chat' }, [
+      h('div', { class: 'br-chat-h' }, [icon('Sparkles', 16, '#4f46e5', 1.8), h('b', { text: 'AI Assistant' })]),
+      h('div', { class: 'br-bubble me', text: 'A dashboard of weekly suspected cases by health zone' }),
+      h('div', { class: 'br-bubble', text: 'Done: KPI cards and a bar chart by health zone. Want a map next?' }),
+    ]);
+    const editor = h('div', { class: 'abs br-editor' }, [h('div', { class: 'ox-header' }, [h('div', { class: 'ox-crumbs' }, [h('span', { text: 'Web Apps' }), icon('ChevronRight', 14, '#9ca3af', 2), h('b', { text: 'Weekly cases dashboard' })])]), h('div', { class: 'br-editor-body' }, [preview, chat])]);
+    sh.el.append(m.el, editor);
+    return {
+      el: sh.el, create, opts, goBtn, prompt, update(t) {
+        const A = TL.at;
+        this.dim = showModal(m, t, A.appOpen, A.appDone - 0.2);
+        const ai = t >= A.appAi + 0.2;
+        E.show(choose, !ai);
+        E.show(aiForm, ai);
+        opts[0].classList.toggle('hot', t >= A.appAi - 0.15);
+        type(prompt, 'A dashboard of weekly suspected cases by health zone', t, A.appAi + 0.35, Math.max(0.6, A.appSend - A.appAi - 0.75));
+        const sd = (A.appDone - 0.25 - A.appSend) / 3;
+        steps.forEach((el, i) => { E.show(el, t >= A.appSend + 0.1 + i * sd); el.classList.toggle('done', t >= A.appSend + 0.1 + (i + 1) * sd); });
+        const ep = E.prog(t, A.appDone - 0.15, 0.4, E.ease.outCubic);
+        E.show(editor, ep > 0);
+        E.set(editor, { o: ep });
+        const bp = E.prog(t, A.appDone + 0.2, 0.6, E.ease.outCubic);
+        E.set(preview, { o: 0.3 + 0.7 * bp, y: (1 - bp) * 8 });
+      },
+    };
+  };
+
+  // ---------- Create a pipeline dialog ----------
+  B.createPipelineDialog = () => {
     const opts = [['Sparkles', 'Create with AI', 'Describe what you want, AI writes the code'], ['Square2Stack', 'From Template', 'Start from a shared template'], ['BookOpen', 'From Notebook', 'Use a Jupyter notebook']].map(([ic, tt, d]) => h('div', { class: 'pl-opt' }, [icon(ic, 30, '#60a5fa', 1.5), h('div', { class: 'pl-opt-t', text: tt }), h('div', { class: 'pl-opt-d', text: d })]));
-    const m = modal('Create a pipeline', [h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' } }, opts), h('div', { style: { color: '#2563eb', fontSize: '13.5px', fontWeight: 500, marginTop: '18px' }, text: 'From OpenHEXA CLI →' })], [btn('Close', 'white')], { w: 640, top: -160 });
-    return { el: m.el, m, opts };
+    const cli = h('div', { class: 'br-cli', text: 'From OpenHEXA CLI →' });
+    const m = modal('Create a pipeline', [h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' } }, opts), h('div', { style: { marginTop: '18px', display: 'flex' } }, [cli])], [btn('Close', 'white')], { w: 640, top: -160 });
+    return { el: m.el, m, opts, cli };
   };
 
   window.BR = B;

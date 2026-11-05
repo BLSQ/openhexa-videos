@@ -24,7 +24,7 @@ window.STAGE = {
   },
   update(t, L) {
     const SC = TL.scenes;
-    const starts = [SC.join, SC.files, SC.datasets, SC.pipelines, SC.members, SC.ai];
+    const starts = [SC.join, SC.files, SC.datasets, SC.notebooks, SC.pipelines, SC.members, SC.webapps];
     const vis = E.window(t, SC.join - 0.2, SC.rules + 0.2, 0.6, 0.5);
     E.set(L.stepper, { y: (1 - E.ease.outCubic(Math.min(1, vis * 1.2))) * -40, o: vis });
     L.steps.forEach((el, i) => {

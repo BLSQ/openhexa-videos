@@ -1,8 +1,8 @@
-// Rules for AI: the access ceiling, then two habits, as three cards timed to the narration.
+// Rules for AI: the access ceiling and reviewing proposals, as two cards timed to the narration.
 E.scene({
   name: 'rules',
   from: () => TL.scenes.rules,
-  to: () => TL.scenes.outro + 0.8,
+  to: () => TL.scenes.org + 0.8,
   build(root) {
     const R = I18N[LANG].rules;
     const { h } = E;
@@ -19,15 +19,15 @@ E.scene({
   update(t) {
     const { set, prog, ease, lerp } = E;
     const t0 = TL.scenes.rules;
-    const out = prog(t, TL.scenes.outro - 0.3, 0.8, ease.inCubic);
+    const out = prog(t, TL.scenes.org - 0.3, 0.8, ease.inCubic);
     const inn = prog(t, t0, 0.6, ease.outCubic);
     set(this.cam, { o: inn * (1 - out), s: 1 + out * 0.12, blur: out * 8 });
     set(this.hlEl, { y: 170 });
     E.revealWords(this.hl.words, t, TL.cue('never') - 0.25);
-    const ct = [TL.cue('never') + 0.4, TL.cue('review') - 0.1, TL.cue('keepOut') - 0.1];
+    const ct = [TL.cue('never') + 0.4, TL.cue('review') - 0.1];
     this.cards.forEach((el, i) => {
       const p = prog(t, ct[i], 0.6, ease.outBackSoft);
-      set(el, { x: 195 + i * 530, y: 480 + (1 - p) * 50, s: lerp(0.9, 1, p), o: Math.min(1, p * 1.5) });
+      set(el, { x: 460 + i * 530, y: 480 + (1 - p) * 50, s: lerp(0.9, 1, p), o: Math.min(1, p * 1.5) });
     });
   },
 });

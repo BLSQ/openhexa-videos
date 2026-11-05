@@ -282,3 +282,38 @@ Checked at `4c2a83b4f`. FR strings were not checked for this section.
 - Typing an unknown email in User offers "Invite new user: {email}". Toast after Invite: "Member invited successfully".
 
 **Role permissions** (`docs/en/workspaces.md`): Viewers read and download files and datasets and launch pipelines; Editors also write files and datasets, create pipelines and use notebooks; only Admins manage and invite users.
+
+## Own organization, access tokens, SDKs and AI web apps (b-react-quickstart v2, EN only)
+
+Checked at openhexa-app `4c2a83b4f` and BLSQ/openhexa-sdk-r v0.1.2 (4 Nov 2026).
+
+**Creating your own organization**
+- Users who are not a direct member of any organization (`useOrganizationsQuery({ directMembershipOnly: true })` is empty), e.g. partners invited only into workspaces, see a card at the bottom of the workspace sidebar (`workspaces/features/ExternalCollaboratorNotice`).
+  - Indigo-to-purple gradient, Sparkles icon: "Create your own organization", "Get full control over workspaces, pipelines, and team management.", "Get started" with an external-link icon. Collapsed sidebar: a Sparkles square.
+  - It links to `CONSOLE_URL` in a new tab; `.env.dist` gives `https://console.bluesquarehub.com` (the Bluesquare Console, live).
+  - It only renders when `CONSOLE_URL` is set. `/workspaces` with no workspace also shows "Or create your own organization".
+- The Console creates the organization through `createOrganization` (needs `manage_all_organizations`), with a subscription and the user as **Owner**, or an invitation if the user doesn't exist yet (`backend/hexa/user_management/schema/mutations.py`).
+- "Create an organization" in the organizations sidebar is for superusers only (`createSelfHostedOrganization`, self-hosted mode, no subscription).
+
+**Access tokens** (`identity/features/AccountAccessTokens`, `workspaces/features/WorkspaceAccessToken/WorkspaceAccessTokenCell.tsx`, page `/user/account`)
+- Block "Access tokens": "Use these tokens to authenticate with the `openhexa` CLI and the OpenHEXA SDK. Workspaces you are a direct member of have a long-lived token; workspaces you only administer issue a temporary one…".
+- Table Workspace / Role / Token, one row per workspace. The cell shows a lock and `*********`; the eye ("Show the access token") reveals it, then a copy button appears. Temporary tokens carry a clock icon. Viewers see "Ask a workspace admin for an editor role."
+- User menu (`workspaces/features/UserMenu`): Account settings, Administration, MCP, Documentation, Sign out, Interface language.
+
+**R package** (`BLSQ/openhexa-sdk-r`, R/client.R, R/login_gadget.R)
+- Install: `remotes::install_github("BLSQ/openhexa-sdk-r")`. Preinstalled and configured in OpenHEXA notebooks.
+- `login(token, server_url, workspace)`; values fall back to `HEXA_TOKEN`, `HEXA_SERVER_URL`, `HEXA_WORKSPACE`.
+  - In RStudio with shiny (and rstudioapi), `login()` opens a dialog titled "OpenHEXA": h3 "Log in to OpenHEXA", Server ("OpenHEXA (api.openhexa.org)" or "Custom API URL"), API token (password), help "Copy your token from your account settings in OpenHEXA." (links to `app.…/user/account/`), Cancel / "Log in".
+  - After checking the token, the same dialog adds Workspace (`Name ("slug")`) and the button reads "Continue". Elsewhere it prompts in the console.
+- Console messages: `✔ Authenticated as {name} on {url}.` and `✔ Using workspace {name} ("{slug}").`
+- Datasets: `list_datasets()`, `get_dataset_file(ds, file, version=)`, `create_dataset(name)`, `create_dataset_version(ds, name, changelog=)`, `add_dataset_file(ds, path)`. Web apps: `publish_webapp(name, html | file | folder | htmlwidget)` returns the app with its `url`.
+
+**Python SDK** (`BLSQ/openhexa-sdk-python`)
+- `pip install openhexa.sdk`; `from openhexa.sdk import workspace`.
+- `workspace.get_dataset(id)`, `dataset.latest_version.get_file(name).download_url`, `workspace.create_dataset(name, description)`, `dataset.create_version(name)`, `version.add_file(path)`, `workspace.files_path`.
+- The CLI (`openhexa workspaces add`, `openhexa pipelines push`) is what "From OpenHEXA CLI →" in Create a pipeline points to.
+- `docs/en/notebooks.md` still says "we don't have an SDK for R yet": outdated since the R package.
+
+**Create a web app** (`webapps/features/CreateWebappDialog`)
+- Cards: "Create with AI" ("Describe what you want, AI writes the code"; only when AI is on, "Monthly AI budget reached" when out), "From code" ("Write or upload your own HTML, CSS and JavaScript"), Superset ("Embed a Superset dashboard", only when a Superset instance exists), iFrame ("Embed an existing website by its URL").
+- Create with AI: "← Back", "Describe your web app and the AI will generate the code to get you started.", a prompt, "Create". Steps: "Generating web app code", "Creating web app", "Opening web app editor".
