@@ -37,7 +37,7 @@ E.scene({
   },
   update(t) {
     const { set, prog, ease, lerp } = E;
-    const t0 = TL.scenes.concept, tB = TL.vo.s03 - 0.55, tOut = TL.scenes.join;
+    const t0 = TL.scenes.concept, tB = TL.vo.s03 - 0.45, tOut = TL.scenes.join;
     const swap = prog(t, tB - 0.2, 0.7, ease.inOutCubic);
     set(this.phaseA, { s: 1 + swap * 0.08, o: 1 - swap, blur: swap * 8 });
     set(this.titleEl, { y: 70 });
@@ -60,11 +60,11 @@ E.scene({
     set(this.chips[0], { x: 300, y: 790, s: 0.8 + 0.2 * c0, o: Math.min(1, c0 * 1.5) });
     [0, 1].forEach((k) => {
       const len = 700;
-      const p = prog(t, dm + 0.15 + k * 0.45, 0.7, ease.inOutCubic);
+      const p = prog(t, dm + 0.1 + k * 0.35, 0.6, ease.inOutCubic);
       E.attr(this.paths[k], 'stroke-dashoffset', '0');
       this.paths[k].style.strokeDasharray = `${(p * len).toFixed(1)} ${len}`;
       E.css(this.paths[k], 'opacity', p > 0 ? '0.8' : '0');
-      const q = prog(t, dm + 0.45 + k * 0.45, 0.5, ease.outBack);
+      const q = prog(t, dm + 0.4 + k * 0.35, 0.5, ease.outBack);
       set(this.chips[k + 1], { x: 830 + k * 530, y: 790, s: 0.8 + 0.2 * q, o: Math.min(1, q * 1.5) });
     });
 
