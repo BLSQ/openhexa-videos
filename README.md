@@ -50,4 +50,20 @@ videos/_template/     what `new` copies
 docs/                 playbook, app facts (verified UI labels EN/FR), component catalog, lessons learned
 ```
 
+## As a Claude skill
+
+The `openhexa-video` skill makes Claude use this kit whenever someone asks for an OpenHEXA
+video: setup, facts, the build loop, delivery.
+
+- **Claude Code** (local or cloud sessions on this repo): automatic. The skill lives in
+  `.claude/skills/openhexa-video/`.
+- **claude.ai** (Enterprise, code execution): `npm run skill` builds `dist/openhexa-video-skill.zip`,
+  which bundles the skill, the docs and the whole kit (built from `HEAD`). An org admin uploads it
+  as an organization skill.
+  - The sandbox needs network access to `api.edenai.run`, `registry.npmjs.org`, `pypi.org` and
+    `files.pythonhosted.org`, plus optionally Hugging Face and the Playwright CDN.
+    [`cloud.md`](.claude/skills/openhexa-video/references/cloud.md) has the full list and what
+    each one unlocks.
+  - Rebuild and re-upload after merging changes to `main`.
+
 [`CLAUDE.md`](CLAUDE.md) is the short version for AI agents working in this repo.

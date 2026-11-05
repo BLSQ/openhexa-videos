@@ -1,6 +1,6 @@
 // Voiceover: one clip per script line, via Eden AI (OpenAI-compatible /v3/audio/speech).
 //   node tools/tts.mjs <video> --lang en [lineId ...]     only missing lines, or the ids given
-//   node tools/tts.mjs <video> --lang fr --placeholder     macOS `say` stand-in for timing work
+//   node tools/tts.mjs <video> --lang fr --placeholder     free stand-in for timing work (say, espeak-ng or noise)
 // Voices live in video.json ("voices": {lang: {model, voice}}); `say` in script.json overrides
 // the spoken text (pronunciation). Spend is logged to vo/cost-ledger.json and capped per video.
 import fs from 'node:fs';
@@ -27,11 +27,12 @@ const has = (bin) => { try { execFileSync('which', [bin], { stdio: 'ignore' }); 
 // clip as long as the line would take to speak (~15 characters per second), so timing still works
 // in a bare cloud sandbox. Placeholder clips are never .mp3, which is how `check` spots them.
 function placeholder(id, text) {
-  if (has('say')) {
+  const force = typeof opts.placeholder === 'string' ? opts.placeholder : null;  // --placeholder noise|espeak-ng to force one
+  if (!force && has('say')) {
     execFileSync('say', ['-v', voice.placeholder || 'Samantha', '-r', '185', '-o', path.join(dir, `${id}.aiff`), text]);
     return 'say';
   }
-  const espeak = ['espeak-ng', 'espeak'].find(has);
+  const espeak = force === 'noise' ? null : ['espeak-ng', 'espeak'].find(has);
   if (espeak) {
     execFileSync(espeak, ['-v', lang, '-s', '165', '-w', path.join(dir, `${id}.wav`), text]);
     return espeak;
