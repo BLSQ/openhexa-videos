@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { execFileSync } from 'node:child_process';
 
 export const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const require = createRequire(import.meta.url);
@@ -42,10 +43,22 @@ export function parseArgs(argv) {
   return { opts, rest };
 }
 
-// ffmpeg: $FFMPEG, else the npm ffmpeg-static binary, else whatever is on PATH.
-export const FFMPEG = process.env.FFMPEG || (() => {
-  try { return require('ffmpeg-static'); } catch { return 'ffmpeg'; }
-})();
+// ffmpeg: $FFMPEG, the npm ffmpeg-static binary, ffmpeg on PATH, or the binary bundled with the
+// imageio-ffmpeg pip package (the fallback for cloud sandboxes where npm can't download binaries).
+const onPath = (bin) => {
+  try { return execFileSync('which', [bin], { encoding: 'utf8' }).trim() || null; } catch { return null; }
+};
+function findFfmpeg() {
+  if (process.env.FFMPEG) return process.env.FFMPEG;
+  try { const p = require('ffmpeg-static'); if (p && fs.existsSync(p)) return p; } catch {}
+  const sys = onPath('ffmpeg');
+  if (sys) return sys;
+  for (const py of [path.join(ROOT, '.venv', 'bin', 'python'), 'python3']) {
+    try { return execFileSync(py, ['-c', 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch {}
+  }
+  return 'ffmpeg';
+}
+export const FFMPEG = findFfmpeg();
 
 export const outDir = (video, lang) => {
   const d = path.join(video.dir, 'out', lang);
@@ -59,12 +72,37 @@ export function readTimeline(video, lang) {
   return JSON.parse(fs.readFileSync(f, 'utf8'));
 }
 
-// Headless Chrome: puppeteer-core with a local Chrome (macOS default or $CHROME), else Playwright
-// Chromium (cloud sandboxes). Returns { newPage(), close() } with a common page API.
+// Headless Chrome or Chromium for rendering: $CHROME, a system install, or one downloaded by
+// Playwright/Puppeteer into their caches; driven with puppeteer-core. Falls back to the Playwright
+// package itself when it is installed but no executable is found. Returns { newPage(), close() }.
+export function findChrome() {
+  if (process.env.CHROME) return process.env.CHROME;
+  const home = process.env.HOME || '';
+  const fixed = [
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/snap/bin/chromium',
+  ];
+  for (const f of fixed) if (fs.existsSync(f)) return f;
+  const caches = [path.join(home, '.cache', 'ms-playwright'), process.env.PLAYWRIGHT_BROWSERS_PATH, path.join(home, '.cache', 'puppeteer', 'chrome')].filter(Boolean);
+  for (const c of caches) {
+    if (!fs.existsSync(c)) continue;
+    for (const d of fs.readdirSync(c).sort().reverse()) {
+      for (const rel of ['chrome-linux/chrome', 'chrome-linux64/chrome', 'chrome-linux/headless_shell', 'chrome-headless-shell-linux64/chrome-headless-shell', 'chrome-mac/Chromium.app/Contents/MacOS/Chromium']) {
+        const f = path.join(c, d, rel);
+        if (fs.existsSync(f)) return f;
+      }
+    }
+  }
+  return null;
+}
+
 export async function launchBrowser() {
-  const chrome = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
   const args = ['--hide-scrollbars', '--disable-gpu-vsync', '--force-color-profile=srgb'];
-  if (fs.existsSync(chrome)) {
+  // Containers usually run as root without user namespaces; Chrome's sandbox can't start there.
+  if (process.platform === 'linux') args.push('--no-sandbox', '--disable-dev-shm-usage');
+  const chrome = findChrome();
+  if (chrome) {
     const puppeteer = (await import('puppeteer-core')).default;
     const b = await puppeteer.launch({ executablePath: chrome, headless: 'new', args });
     return {
@@ -76,7 +114,10 @@ export async function launchBrowser() {
       close: () => b.close(),
     };
   }
-  const { chromium } = require('playwright');
+  let chromium;
+  try { ({ chromium } = require('playwright')); } catch {
+    throw new Error('no Chrome/Chromium found: set $CHROME, or run `npx -y playwright install chromium` (see scripts/setup.sh)');
+  }
   const b = await chromium.launch({ args });
   return {
     async newPage() {

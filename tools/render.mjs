@@ -1,10 +1,11 @@
 // Frame-accurate render of a video to MP4, muxed with its mastered mix.
-//   node tools/render.mjs <video> --lang en [--fps 60] [--workers 6] [--from 0] [--to <dur>] [--sub 1] [--preview] [--out file]
+//   node tools/render.mjs <video> --lang en [--fps 60] [--workers N] [--crf 14] [--from 0] [--to <dur>] [--sub 1] [--preview] [--out file]
 // Each worker drives its own headless Chrome over a slice of frames and encodes a segment; the
 // segments are concatenated. --preview renders 30 fps and adds a small 720p copy for review.
 // --sub N averages N sub-frames per frame (motion blur). Keep workers <= 6 on a laptop: more
 // starves Chrome and some segments come out empty.
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { spawn, execFileSync } from 'node:child_process';
 import { loadVideo, langOf, parseArgs, launchBrowser, serve, playerUrl, readTimeline, outDir, FFMPEG } from './lib.mjs';
@@ -14,7 +15,9 @@ const video = loadVideo(rest[0]);
 const lang = langOf(video, process.argv);
 const TL = readTimeline(video, lang);
 const FPS = Number(opts.fps || (opts.preview ? 30 : 60));
-const WORKERS = Number(opts.workers || 6);
+// One Chrome per core, leaving one for ffmpeg; more than 6 starves Chrome even on big laptops.
+const WORKERS = Number(opts.workers || Math.max(1, Math.min(6, os.cpus().length - 1)));
+const CRF = String(opts.crf || 14);
 const SUB = Number(opts.sub || 1);
 const FROM = Number(opts.from || 0);
 const TO = Number(opts.to || TL.duration);
@@ -41,7 +44,7 @@ async function worker(w) {
 
   const vf = SUB > 1 ? ['-vf', `tmix=frames=${SUB}:weights=${Array(SUB).fill(1).join(' ')},select='not(mod(n\\,${SUB}))',setpts=N/${FPS}/TB`] : [];
   const ff = spawn(FFMPEG, ['-v', 'error', '-y', '-f', 'image2pipe', '-framerate', String(FPS * SUB), '-c:v', 'png', '-i', '-', ...vf,
-    '-c:v', 'libx264', '-preset', 'slow', '-crf', '14', '-pix_fmt', 'yuv420p', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-r', String(FPS), seg], { stdio: ['pipe', 'inherit', 'inherit'] });
+    '-c:v', 'libx264', '-preset', 'slow', '-crf', CRF, '-pix_fmt', 'yuv420p', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-r', String(FPS), seg], { stdio: ['pipe', 'inherit', 'inherit'] });
 
   for (let f = a; f < b; f++) {
     for (let s = 0; s < SUB; s++) {

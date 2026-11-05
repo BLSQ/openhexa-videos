@@ -6,7 +6,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { loadVideo, langOf, parseArgs } from './lib.mjs';
+import { loadVideo, langOf, parseArgs, FFMPEG } from './lib.mjs';
 
 const { opts, rest } = parseArgs(process.argv.slice(2));
 const video = loadVideo(rest[0]);
@@ -21,14 +21,33 @@ fs.mkdirSync(dir, { recursive: true });
 const ledgerFile = path.join(video.dir, 'vo', 'cost-ledger.json');
 const ledger = fs.existsSync(ledgerFile) ? JSON.parse(fs.readFileSync(ledgerFile, 'utf8')) : [];
 const drop = (f) => fs.existsSync(f) && fs.unlinkSync(f);
+const has = (bin) => { try { execFileSync('which', [bin], { stdio: 'ignore' }); return true; } catch { return false; } };
+
+// Free stand-in voice for timing work: macOS `say`, else espeak-ng (Linux), else a quiet noise
+// clip as long as the line would take to speak (~15 characters per second), so timing still works
+// in a bare cloud sandbox. Placeholder clips are never .mp3, which is how `check` spots them.
+function placeholder(id, text) {
+  if (has('say')) {
+    execFileSync('say', ['-v', voice.placeholder || 'Samantha', '-r', '185', '-o', path.join(dir, `${id}.aiff`), text]);
+    return 'say';
+  }
+  const espeak = ['espeak-ng', 'espeak'].find(has);
+  if (espeak) {
+    execFileSync(espeak, ['-v', lang, '-s', '165', '-w', path.join(dir, `${id}.wav`), text]);
+    return espeak;
+  }
+  const secs = Math.max(1.2, text.length / 15).toFixed(2);
+  execFileSync(FFMPEG, ['-v', 'error', '-y', '-f', 'lavfi', '-i', `anoisesrc=color=pink:amplitude=0.03:duration=${secs}`, '-ar', '48000', '-ac', '1', path.join(dir, `${id}.wav`)]);
+  return `noise ${secs}s`;
+}
 
 for (const line of script.lines) {
   if (only.length && !only.includes(line.id)) continue;
   const text = line.say || line.text;
   if (opts.placeholder) {
-    execFileSync('say', ['-v', voice.placeholder || 'Samantha', '-r', '185', '-o', path.join(dir, `${line.id}.aiff`), text]);
-    drop(path.join(dir, `${line.id}.mp3`));
-    console.log(lang, line.id, 'placeholder');
+    for (const ext of ['mp3', 'aiff', 'wav']) drop(path.join(dir, `${line.id}.${ext}`));
+    const how = placeholder(line.id, text);
+    console.log(lang, line.id, 'placeholder', how);
     continue;
   }
   const out = path.join(dir, `${line.id}.mp3`);

@@ -21,7 +21,7 @@ const trimFilter = 'silenceremove=start_periods=1:start_threshold=-45dB:start_si
 const data = {};
 let trimmed = 0;
 for (const line of script.lines) {
-  const raw = ['mp3', 'aiff'].map((e) => path.join(vo, 'raw', `${line.id}.${e}`)).find((f) => fs.existsSync(f));
+  const raw = ['mp3', 'aiff', 'wav'].map((e) => path.join(vo, 'raw', `${line.id}.${e}`)).find((f) => fs.existsSync(f));
   if (!raw) throw new Error(`missing raw clip ${path.relative(ROOT, path.join(vo, 'raw', line.id))}.mp3: run tts first`);
   const wav = path.join(vo, 'trim', `${line.id}.wav`);
   if (opts.force || !fs.existsSync(wav) || fs.statSync(wav).mtimeMs < fs.statSync(raw).mtimeMs) {
@@ -30,13 +30,24 @@ for (const line of script.lines) {
   }
   // WAV header: 16-bit mono at 48 kHz -> bytes / 96000 = seconds
   const dur = (fs.statSync(wav).size - 44) / 96000;
-  data[line.id] = { dur: +dur.toFixed(3), placeholder: raw.endsWith('.aiff'), words: [] };
+  data[line.id] = { dur: +dur.toFixed(3), placeholder: !raw.endsWith('.mp3'), words: [] };
 }
 console.log(`${video.id}/${lang}: ${trimmed} clip(s) trimmed, ${script.lines.length - trimmed} up to date`);
 
+// Word timings: local faster-whisper (free) when it can run, else Eden AI (Deepgram, a few cents),
+// else none, and the timeline estimates cue times from the script text.
 if (video.words === 'whisper' && !opts['no-words']) {
   const venv = path.join(ROOT, '.venv', 'bin', 'python');
-  execFileSync(fs.existsSync(venv) ? venv : 'python3', [path.join(ROOT, 'tools', 'audio', 'words.py'), '--video', video.dir, '--lang', lang], { stdio: 'inherit' });
+  const py = fs.existsSync(venv) ? venv : 'python3';
+  let local = false;
+  try { execFileSync(py, ['-c', 'import faster_whisper'], { stdio: 'ignore' }); local = !opts['words-eden']; } catch {}
+  try {
+    if (local) execFileSync(py, [path.join(ROOT, 'tools', 'audio', 'words.py'), '--video', video.dir, '--lang', lang], { stdio: 'inherit' });
+    else if (process.env.EDEN_AI_API_KEY || process.env.EDEN_API) execFileSync(process.execPath, [path.join(ROOT, 'tools', 'words-eden.mjs'), video.id, '--lang', lang], { stdio: 'inherit' });
+    else console.warn('no word timings: faster-whisper unavailable and no EDEN_AI_API_KEY; cues will be estimated');
+  } catch (e) {
+    console.warn(`word timings failed (${e.message.split('\n')[0]}); cues will be estimated. Retry with --words-eden or fix the Whisper install.`);
+  }
 }
 for (const line of script.lines) {
   const wf = path.join(vo, 'words', `${line.id}.json`);

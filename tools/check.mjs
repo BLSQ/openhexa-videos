@@ -15,8 +15,9 @@ const vo = path.join(video.dir, 'vo', lang);
 
 const durs = {};
 for (const l of script) {
-  const mp3 = path.join(vo, 'raw', `${l.id}.mp3`), aiff = path.join(vo, 'raw', `${l.id}.aiff`), wav = path.join(vo, 'trim', `${l.id}.wav`);
-  if (!fs.existsSync(mp3) && !fs.existsSync(aiff)) problems.push(`${l.id}: no voice clip (tts)`);
+  const mp3 = path.join(vo, 'raw', `${l.id}.mp3`), wav = path.join(vo, 'trim', `${l.id}.wav`);
+  const stand = ['aiff', 'wav'].some((e) => fs.existsSync(path.join(vo, 'raw', `${l.id}.${e}`)));
+  if (!fs.existsSync(mp3) && !stand) problems.push(`${l.id}: no voice clip (tts)`);
   else if (!fs.existsSync(mp3)) problems.push(`${l.id}: placeholder voice only (tts without --placeholder)`);
   if (fs.existsSync(wav)) durs[l.id] = (fs.statSync(wav).size - 44) / 96000;
   else problems.push(`${l.id}: not trimmed (prep)`);

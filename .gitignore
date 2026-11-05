@@ -6,3 +6,4 @@ node_modules/
 __pycache__/
 videos/*/out/
 videos/*/vo/*/trim/
+dist/
