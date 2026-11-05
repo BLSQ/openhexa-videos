@@ -1,0 +1,32 @@
+{
+ "text": "responsible ai by design",
+ "usage": null,
+ "task": "transcribe",
+ "language": "en",
+ "duration": 1.81725,
+ "words": [
+  {
+   "word": "responsible",
+   "start": 0,
+   "end": 0.56
+  },
+  {
+   "word": "ai",
+   "start": 0.56,
+   "end": 1.04
+  },
+  {
+   "word": "by",
+   "start": 1.04,
+   "end": 1.36
+  },
+  {
+   "word": "design",
+   "start": 1.36,
+   "end": 1.76
+  }
+ ],
+ "provider_name": "deepgram",
+ "cost": 0.0001302423075,
+ "provider": "deepgram"
+}

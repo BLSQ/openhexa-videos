@@ -1,0 +1,24 @@
+
+/* ---------- light app UI (OpenHEXA web app screens) ---------- */
+.app { position: absolute; color: #111827; font-family: var(--sans); }
+.app .muted { color: #6b7280; }
+.app .faint { color: #9ca3af; }
+.app .box { position: absolute; border: 1.5px solid #e5e7eb; border-radius: 12px; background: #fff; }
+.app .cb { position: absolute; width: 24px; height: 24px; border-radius: 5px; border: 2px solid #d1d5db; background: #fff; display: flex; align-items: center; justify-content: center; }
+.app .cb.on { background: #3b82f6; border-color: #3b82f6; }
+.app .link { color: #2563eb; }
+.app .seg { position: absolute; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding: 3px; border-radius: 10px; border: 1.5px solid #e5e7eb; background: #f9fafb; }
+.app .seg span { display: flex; align-items: center; justify-content: center; height: 36px; border-radius: 7px; font-size: 16px; font-weight: 600; color: #4b5563; white-space: nowrap; }
+.app .seg span.off { color: #d1d5db; }
+.app .seg .sel { position: absolute; top: 3px; height: 36px; border-radius: 7px; background: #2563eb; box-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+.app .seg .lbl { position: relative; }
+.app .seg .lbl.on { color: #fff; }
+.app .row { position: absolute; left: 0; right: 0; border-top: 1.5px solid #e5e7eb; }
+.app .amber { display: inline-flex; align-items: center; border-radius: 5px; background: #fffbeb; color: #b45309; font-size: 14px; font-weight: 600; padding: 2px 8px; }
+.app .btn { position: absolute; display: flex; align-items: center; justify-content: center; height: 50px; border-radius: 10px; font-size: 19px; font-weight: 600; }
+.app .btn.blue { background: #2563eb; color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.app .btn.white { background: #fff; color: #374151; border: 1.5px solid #d1d5db; }
+.card.light .chrome { background: #f3f4f6; border-bottom-color: #e5e7eb; }
+.card.light .chrome i { background: #d1d5db; }
+.card.light .chrome .url { color: #6b7280; border-color: #e5e7eb; background: #fff; }
+.card.light .chrome .url b { color: #111827; }

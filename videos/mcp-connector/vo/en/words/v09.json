@@ -1,0 +1,47 @@
+{
+ "text": "open hexa bring your agents keep control",
+ "usage": null,
+ "task": "transcribe",
+ "language": "en",
+ "duration": 2.5685625,
+ "words": [
+  {
+   "word": "open",
+   "start": 0,
+   "end": 0.24
+  },
+  {
+   "word": "hexa",
+   "start": 0.24,
+   "end": 0.88
+  },
+  {
+   "word": "bring",
+   "start": 0.88,
+   "end": 1.12
+  },
+  {
+   "word": "your",
+   "start": 1.12,
+   "end": 1.28
+  },
+  {
+   "word": "agents",
+   "start": 1.28,
+   "end": 1.76
+  },
+  {
+   "word": "keep",
+   "start": 1.76,
+   "end": 2.08
+  },
+  {
+   "word": "control",
+   "start": 2.08,
+   "end": 2.48
+  }
+ ],
+ "provider_name": "deepgram",
+ "cost": 0.000184088874375,
+ "provider": "deepgram"
+}

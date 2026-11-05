@@ -1,0 +1,37 @@
+{
+ "text": "start your free trial today",
+ "usage": null,
+ "task": "transcribe",
+ "language": "en",
+ "duration": 1.41025,
+ "words": [
+  {
+   "word": "start",
+   "start": 0,
+   "end": 0.24
+  },
+  {
+   "word": "your",
+   "start": 0.24,
+   "end": 0.48
+  },
+  {
+   "word": "free",
+   "start": 0.48,
+   "end": 0.71999997
+  },
+  {
+   "word": "trial",
+   "start": 0.71999997,
+   "end": 1.04
+  },
+  {
+   "word": "today",
+   "start": 1.04,
+   "end": 1.36
+  }
+ ],
+ "provider_name": "deepgram",
+ "cost": 0.0001010726175,
+ "provider": "deepgram"
+}

@@ -1,0 +1,107 @@
+{
+ "text": "but would you hand one the keys to your health data what can it see what can it change",
+ "usage": null,
+ "task": "transcribe",
+ "language": "en",
+ "duration": 4.56625,
+ "words": [
+  {
+   "word": "but",
+   "start": 0,
+   "end": 0.08
+  },
+  {
+   "word": "would",
+   "start": 0.08,
+   "end": 0.32
+  },
+  {
+   "word": "you",
+   "start": 0.32,
+   "end": 0.39999998
+  },
+  {
+   "word": "hand",
+   "start": 0.39999998,
+   "end": 0.64
+  },
+  {
+   "word": "one",
+   "start": 0.64,
+   "end": 0.79999995
+  },
+  {
+   "word": "the",
+   "start": 0.79999995,
+   "end": 0.96
+  },
+  {
+   "word": "keys",
+   "start": 0.96,
+   "end": 1.28
+  },
+  {
+   "word": "to",
+   "start": 1.28,
+   "end": 1.36
+  },
+  {
+   "word": "your",
+   "start": 1.36,
+   "end": 1.5999999
+  },
+  {
+   "word": "health",
+   "start": 1.5999999,
+   "end": 1.8399999
+  },
+  {
+   "word": "data",
+   "start": 1.8399999,
+   "end": 2.4799998
+  },
+  {
+   "word": "what",
+   "start": 2.48,
+   "end": 2.72
+  },
+  {
+   "word": "can",
+   "start": 2.72,
+   "end": 2.8799999
+  },
+  {
+   "word": "it",
+   "start": 2.8799999,
+   "end": 3.04
+  },
+  {
+   "word": "see",
+   "start": 3.04,
+   "end": 3.6
+  },
+  {
+   "word": "what",
+   "start": 3.6,
+   "end": 3.76
+  },
+  {
+   "word": "can",
+   "start": 3.76,
+   "end": 3.9199998
+  },
+  {
+   "word": "it",
+   "start": 3.9199998,
+   "end": 4.08
+  },
+  {
+   "word": "change",
+   "start": 4.08,
+   "end": 4.4
+  }
+ ],
+ "provider_name": "deepgram",
+ "cost": 0.0003272631375,
+ "provider": "deepgram"
+}

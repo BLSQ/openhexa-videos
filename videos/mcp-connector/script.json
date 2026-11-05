@@ -1,0 +1,46 @@
+{
+  "en": {
+    "lines": [
+      {
+        "id": "v01",
+        "text": "AI agents can now do real data work."
+      },
+      {
+        "id": "v02",
+        "text": "But would you hand one the keys to your health data? What can it see? What can it change?"
+      },
+      {
+        "id": "v03",
+        "text": "With the Open Hexa MCP connector, bring the agent you already use. Claude, ChatGPT, Gemini... with governance built in."
+      },
+      {
+        "id": "v04",
+        "text": "You choose exactly which workspaces it can reach, which resources it can use, and whether it can only read, or also write."
+      },
+      {
+        "id": "v05",
+        "text": "It acts with your permissions, never more. If you can't open a workspace, neither can your agent. And connection secrets stay out of reach."
+      },
+      {
+        "id": "v06",
+        "text": "Then it gets real work done. Exploring datasets, building pipelines, publishing web apps. Every call is logged, and every result is code you can read."
+      },
+      {
+        "id": "v07",
+        "text": "Change your mind? Narrow or revoke access at any time. It applies on the very next call."
+      },
+      {
+        "id": "v08",
+        "text": "Responsible AI, by design."
+      },
+      {
+        "id": "v09",
+        "text": "Open Hexa. Bring your agents. Keep control."
+      },
+      {
+        "id": "v10",
+        "text": "Start your free trial today."
+      }
+    ]
+  }
+}

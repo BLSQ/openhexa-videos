@@ -1,0 +1,11 @@
+{
+  "title": "OpenHEXA MCP connector: bring your agents, keep control",
+  "langs": ["en"],
+  "voices": {
+    "en": { "model": "elevenlabs/eleven_multilingual_v2", "voice": "XrExE9yKIg1WjnnlVkGX", "voiceName": "Matilda - Knowledgable, Professional" }
+  },
+  "words": "none",
+  "timeline": ["words.js", "timeline.js"],
+  "css": ["video.css"],
+  "scripts": ["scenes/01-hook.js", "scenes/02-connect.js", "scenes/03-scope.js", "scenes/04-ceiling.js", "scenes/05-work.js", "scenes/06-control.js", "scenes/07-vision.js", "scenes/08-cta.js", "stage.js"]
+}

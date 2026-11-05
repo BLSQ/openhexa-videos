@@ -1,0 +1,132 @@
+{
+ "text": "it acts with your permissions never more if you can't open a workspace neither can your agent and connection secrets stay out of reach",
+ "usage": null,
+ "task": "transcribe",
+ "language": "en",
+ "duration": 8.16925,
+ "words": [
+  {
+   "word": "it",
+   "start": 0,
+   "end": 0.16
+  },
+  {
+   "word": "acts",
+   "start": 0.16,
+   "end": 0.39999998
+  },
+  {
+   "word": "with",
+   "start": 0.39999998,
+   "end": 0.56
+  },
+  {
+   "word": "your",
+   "start": 0.56,
+   "end": 0.71999997
+  },
+  {
+   "word": "permissions",
+   "start": 0.71999997,
+   "end": 1.52
+  },
+  {
+   "word": "never",
+   "start": 1.5999999,
+   "end": 1.8399999
+  },
+  {
+   "word": "more",
+   "start": 1.8399999,
+   "end": 2.4799998
+  },
+  {
+   "word": "if",
+   "start": 2.6399999,
+   "end": 2.8799999
+  },
+  {
+   "word": "you",
+   "start": 2.8799999,
+   "end": 2.96
+  },
+  {
+   "word": "can't",
+   "start": 2.96,
+   "end": 3.28
+  },
+  {
+   "word": "open",
+   "start": 3.28,
+   "end": 3.52
+  },
+  {
+   "word": "a",
+   "start": 3.52,
+   "end": 3.6799998
+  },
+  {
+   "word": "workspace",
+   "start": 3.6799998,
+   "end": 4.48
+  },
+  {
+   "word": "neither",
+   "start": 4.48,
+   "end": 4.7999997
+  },
+  {
+   "word": "can",
+   "start": 4.7999997,
+   "end": 4.96
+  },
+  {
+   "word": "your",
+   "start": 4.96,
+   "end": 5.12
+  },
+  {
+   "word": "agent",
+   "start": 5.12,
+   "end": 5.84
+  },
+  {
+   "word": "and",
+   "start": 6.08,
+   "end": 6.24
+  },
+  {
+   "word": "connection",
+   "start": 6.24,
+   "end": 6.64
+  },
+  {
+   "word": "secrets",
+   "start": 6.64,
+   "end": 7.12
+  },
+  {
+   "word": "stay",
+   "start": 7.12,
+   "end": 7.52
+  },
+  {
+   "word": "out",
+   "start": 7.52,
+   "end": 7.68
+  },
+  {
+   "word": "of",
+   "start": 7.68,
+   "end": 7.8399997
+  },
+  {
+   "word": "reach",
+   "start": 7.8399997,
+   "end": 8.08
+  }
+ ],
+ "provider_name": "deepgram",
+ "cost": 0.0005854901475,
+ "provider": "deepgram"
+}

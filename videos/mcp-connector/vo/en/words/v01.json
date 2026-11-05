@@ -1,0 +1,52 @@
+{
+ "text": "ai agents can now do real data work",
+ "usage": null,
+ "task": "transcribe",
+ "language": "en",
+ "duration": 2.070375,
+ "words": [
+  {
+   "word": "ai",
+   "start": 0,
+   "end": 0.39999998
+  },
+  {
+   "word": "agents",
+   "start": 0.39999998,
+   "end": 0.71999997
+  },
+  {
+   "word": "can",
+   "start": 0.71999997,
+   "end": 0.96
+  },
+  {
+   "word": "now",
+   "start": 0.96,
+   "end": 1.12
+  },
+  {
+   "word": "do",
+   "start": 1.12,
+   "end": 1.28
+  },
+  {
+   "word": "real",
+   "start": 1.28,
+   "end": 1.52
+  },
+  {
+   "word": "data",
+   "start": 1.52,
+   "end": 1.76
+  },
+  {
+   "word": "work",
+   "start": 1.76,
+   "end": 2.08
+  }
+ ],
+ "provider_name": "deepgram",
+ "cost": 0.00014838377625,
+ "provider": "deepgram"
+}

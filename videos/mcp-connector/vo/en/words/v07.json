@@ -1,0 +1,97 @@
+{
+ "text": "change your mind narrow or revoke access at any time it applies on the very next call",
+ "usage": null,
+ "task": "transcribe",
+ "language": "en",
+ "duration": 5.339625,
+ "words": [
+  {
+   "word": "change",
+   "start": 0,
+   "end": 0.32
+  },
+  {
+   "word": "your",
+   "start": 0.32,
+   "end": 0.48
+  },
+  {
+   "word": "mind",
+   "start": 0.48,
+   "end": 1.04
+  },
+  {
+   "word": "narrow",
+   "start": 1.04,
+   "end": 1.5999999
+  },
+  {
+   "word": "or",
+   "start": 1.5999999,
+   "end": 1.68
+  },
+  {
+   "word": "revoke",
+   "start": 1.68,
+   "end": 2.08
+  },
+  {
+   "word": "access",
+   "start": 2.08,
+   "end": 2.48
+  },
+  {
+   "word": "at",
+   "start": 2.48,
+   "end": 2.72
+  },
+  {
+   "word": "any",
+   "start": 2.72,
+   "end": 2.96
+  },
+  {
+   "word": "time",
+   "start": 2.96,
+   "end": 3.5199997
+  },
+  {
+   "word": "it",
+   "start": 3.52,
+   "end": 3.76
+  },
+  {
+   "word": "applies",
+   "start": 3.76,
+   "end": 4.08
+  },
+  {
+   "word": "on",
+   "start": 4.08,
+   "end": 4.3199997
+  },
+  {
+   "word": "the",
+   "start": 4.3199997,
+   "end": 4.4
+  },
+  {
+   "word": "very",
+   "start": 4.4,
+   "end": 4.72
+  },
+  {
+   "word": "next",
+   "start": 4.72,
+   "end": 4.96
+  },
+  {
+   "word": "call",
+   "start": 4.96,
+   "end": 5.2799997
+  }
+ ],
+ "provider_name": "deepgram",
+ "cost": 0.00038269092375,
+ "provider": "deepgram"
+}
