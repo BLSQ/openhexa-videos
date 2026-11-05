@@ -1,0 +1,14 @@
+{
+  "name": "openhexa-videos",
+  "private": true,
+  "type": "module",
+  "description": "Monorepo for OpenHEXA videos: shared animation core, voiceover/score/render tool chain, one folder per video.",
+  "scripts": {
+    "v": "node tools/cli.mjs",
+    "serve": "node tools/server.mjs 8080"
+  },
+  "devDependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "puppeteer-core": "^25.12.0"
+  }
+}

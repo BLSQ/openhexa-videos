@@ -1,0 +1,14 @@
+{
+  "title": "OpenHEXA: TITLE",
+  "langs": ["en"],
+  "voices": {
+    "en": { "model": "elevenlabs/eleven_multilingual_v2", "voice": "XrExE9yKIg1WjnnlVkGX", "voiceName": "Matilda - Knowledgable, Professional", "placeholder": "Flo (English (US))" },
+    "fr": { "model": "elevenlabs/eleven_multilingual_v2", "voice": "kwhMCf63M8O3rCfnQ3oQ", "voiceName": "Caroline - Top France (native French)", "placeholder": "Flo (French (France))", "tempo": 1.06 }
+  },
+  "words": "whisper",
+  "gen": ["gen/script.js", "gen/vo-{lang}.js"],
+  "timeline": ["i18n.js", "core/timeline-kit.js", "timeline.js"],
+  "coreCss": ["app.css"],
+  "coreJs": ["app-strings.js", "app-ui.js"],
+  "scripts": ["scenes/01-intro.js", "scenes/02-feature.js", "scenes/03-outro.js"]
+}

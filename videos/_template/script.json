@@ -1,0 +1,10 @@
+{
+  "_note": "Narration per language. `text` is shown in captions; `say` (optional) is what the TTS reads when pronunciation needs help (see docs/lessons.md). `scene` groups lines into scenes, in order.",
+  "en": {
+    "lines": [
+      { "id": "s01", "scene": "intro", "text": "Meet the new FEATURE in OpenHEXA.", "say": "Meet the new FEATURE in Open Hexa." },
+      { "id": "s02", "scene": "feature", "text": "Open Files in your workspace, then upload what your team needs, and everyone can use it right away." },
+      { "id": "s03", "scene": "outro", "text": "Try it today. Guides are at docs.openhexa.com.", "say": "Try it today. Guides are at docs dot open hexa dot com." }
+    ]
+  }
+}
