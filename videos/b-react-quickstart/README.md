@@ -1,6 +1,6 @@
 # OpenHEXA quick start for B-REACT users (EN)
 
-A 3:42 narrated walkthrough for B-REACT consortium members (INRB, INSP and partners), many of them
+A 3:43 narrated walkthrough for B-REACT consortium members (INRB, INSP and partners), many of them
 data scientists. Adapted from the written guide "OpenHEXA quick-start for B-REACT users" (Nov 5,
 2026). It covers joining, files, datasets (the longest chapter), notebooks and the Python and R
 SDKs, R in RStudio with an access token, pipelines, inviting colleagues, web apps and AI, and

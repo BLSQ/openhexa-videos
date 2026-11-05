@@ -52,15 +52,17 @@ E.scene({
     const click = c('ownOrg') + 0.4;
     this.notice.classList.toggle('pressed', Math.abs(t - click) < 0.15);
     const nb = this.box(this.notice);
-    const ro = E.window(t, c('ownOrg') - 0.3, c('console') + 0.4, 0.25, 0.3);
+    const ro = E.window(t, c('ownOrg') - 0.3, click + 1.2, 0.25, 0.3);
     set(this.ring, { x: nb.x - 8, y: nb.y - 8, o: ro });
     E.css(this.ring, 'width', (nb.w + 16).toFixed(1) + 'px');
     E.css(this.ring, 'height', (nb.h + 16).toFixed(1) + 'px');
     const cur = prog(t, c('ownOrg') - 0.4, 0.7, ease.inOutCubic);
     set(this.cursor, { x: lerp(560, nb.x + nb.w * 0.5, cur) - 8, y: lerp(900, nb.y + nb.h * 0.5, cur) - 6, s: 1 - 0.14 * Math.max(0, 1 - Math.abs(t - click) / 0.12), o: E.window(t, t0 + 0.6, TL.scenes.outro, 0.3, 0.3) });
-    const a1 = prog(t, c('console') - 0.5, 0.45, ease.outCubic), a2 = prog(t, c('console') + 0.45, 0.45, ease.outCubic);
+    // The diagram follows the click rather than the word "Console", which comes late in the line.
+    const tc = Math.min(c('console') - 0.2, click + 0.7);
+    const a1 = prog(t, tc - 0.3, 0.45, ease.outCubic), a2 = prog(t, tc + 0.65, 0.45, ease.outCubic);
     [a1, a2].forEach((p, i) => { this.paths[i].style.strokeDasharray = `${(p * 160).toFixed(1)} 400`; });
-    const cp = prog(t, c('console') - 0.2, 0.6, ease.outBackSoft), yp = prog(t, c('console') + 0.75, 0.6, ease.outBackSoft);
+    const cp = prog(t, tc, 0.6, ease.outBackSoft), yp = prog(t, tc + 0.95, 0.6, ease.outBackSoft);
     set(this.console, { x: 790, y: 470 + (1 - cp) * 40, s: lerp(0.9, 1, cp), o: Math.min(1, cp * 1.5) });
     set(this.yours, { x: 1370, y: 470 + (1 - yp) * 40, s: lerp(0.9, 1, yp), o: Math.min(1, yp * 1.5) });
   },
