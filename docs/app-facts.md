@@ -223,3 +223,62 @@ Facts about the OpenHEXA web app that videos rely on, checked against
 - **Colors:** pink `#ff459a` (website) / `#ec4899` (app pink-500); navy `#192041`; app buttons blue-600 `#2563eb`.
 - **Type and logo:** Inter; logo mark `#FF3E96`.
 - **App screens:** white content, gray-800 sidebar. App mock-ups are built at the app's real CSS size and scaled ×1.28 (`core/css/app.css`).
+
+## Joining, files and datasets in depth (from the b-react-quickstart video, EN only)
+
+Checked at `4c2a83b4f`. FR strings were not checked for this section.
+
+**Workspace invitation email** (`backend/hexa/workspaces/utils.py`, `backend/hexa/workspaces/templates/workspaces/mails/invite_new_user.mjml`)
+- Subject: "You've been invited to join the workspace {name} on OpenHEXA", sent in the inviter's language.
+- Body: dark header with the white OpenHEXA logo; heading "{owner} has invited you to join the workspace "{workspace}" on OpenHEXA"; "Join {owner} ({email}) to start collaborating."; pink (`#FF499C`) button "Join Now".
+- The button opens `/register?email=…&token=…` (`pages/register.tsx`): logo, h2 "Create your account", fields Email address (disabled), First name, Last name, Password, Confirm Password, button "Create account" (full width).
+- Registering accepts every pending invitation for that email, logs the user in and sends them to `/workspaces`, which opens the workspace (`backend/hexa/user_management/schema/mutations.py` `resolve_register`).
+
+**Files upload** (`workspaces/features/UploadObjectDialog/UploadObjectDialog.tsx`, `BucketExplorer.tsx`)
+- Dialog title "Upload files in workspace"; dropzone "Drop files or folders here"; Cancel / "Upload", which reads "Uploading: {n}%" while sending.
+- Each file row has a download button with `ArrowDownTrayIcon` (folders have none).
+
+**Datasets list** (`pages/workspaces/[workspaceSlug]/datasets/index.tsx`)
+- Header button "Create". Pinned datasets show as `DatasetCard`s above the "All datasets" table.
+- Table columns: Name / Last updated / Created by / Workspace; a star (`PinDatasetButton`, outline/solid `StarIcon`) pins a dataset.
+
+**Create a dataset** (`datasets/features/CreateDatasetDialog`): title "Create a dataset"; Name and Description, both required; Cancel / Create.
+
+**Dataset page** (`datasets/layouts/DatasetLayout.tsx`)
+- Header: breadcrumbs, pin star, "Create new version". Below: the dataset name (h2) with the version picker at its right.
+- Tabs: General / Files / Access management.
+- General: Name, Description, Identifier, Source workspace, Organization sharing; "Current version" with Version, Created at, Created by, Changelog.
+
+**Upload a new version** (`datasets/features/UploadDatasetVersionDialog`)
+- Tabs "Using SDK" (first) / "Upload files".
+- Upload files: Name (placeholder "Version name. ex: v2"), Changelog, Files* (dropzone "Drag & drop the files from your desktop to create a new version manually.").
+- Buttons Close / Create ("Creating ({n}%)" while uploading).
+
+**Files tab** (`datasets/features/DatasetExplorer`, `DatasetVersionFileSample`, `DatasetVersionFileColumns`)
+- Left: monospaced file list. Right: file name with a "Download" button (secondary, small), then Created at / Created by / Type / Size, then tabs Preview / Columns.
+- Preview: "Generating sample..." until ready; shows "Rows in dataset" and a sample table.
+- Columns: one block per column, its name as title, "Basic Statistics" (Distinct "n (x%)", Missing "n (x%)", Constant Yes/No), and for numbers "Numeric Statistics" (Mean, Median, Std Deviation, Minimum, Maximum, 25% Quantile, 75% Quantile).
+- A pencil button (`PencilIcon`, secondary small) shows at the top right of a column on hover, for users who can update the dataset.
+
+**Column annotations** (`datasets/features/ColumnMetadataDrawer`)
+- Drawer fields: Description (placeholder "Enter a description for this column"), "Attributes" with an "Attribute" add button, each row Label + Value ("Label and value are required").
+- Buttons Close / Save; toast "Metadata updated."; footer "Last updated on {datetime} by {user}".
+
+**Access management** (`.../[sourceWorkspaceSlug]/access.tsx`, `LinkDatasetDialog`, `DatasetLinksDataGrid`)
+- "Share with a workspace" button; toggle "Share with the whole Organization" (source workspace only).
+- Links table: Workspace / Created At / Created By / "Revoke".
+- Dialog "Create a new link to '{name}'": Workspace picker; Cancel / "Link".
+
+**Running a pipeline** (`workspaces/layouts/PipelineLayout/PipelineLayout.tsx`, `workspaces/features/RunPipelineDialog`, `pages/.../runs/[runId].tsx`)
+- Pipeline page header button "Run" (`PlayIcon`), for anyone with run permission.
+- Dialog "Run pipeline": the pipeline's parameters, then "Advanced settings" ("Pipeline version, notifications and logs": Version, Send notifications, Show debug messages); Cancel / Run.
+- Run page: once finished, an "Outputs" section (title not translated) listing files, datasets and tables, or "No outputs".
+
+**Templates** (`workspaces/features/TemplateCard`, `pipelines/features/PipelineCreateFromTemplateButton`)
+- Available Templates cards: name, a badge (the publishing organization's name for validated templates, else "Community"), description, a "Create pipeline" button.
+- Success toast: "Successfully created pipeline {name}".
+
+**Inviting** (`workspaces/features/InviteMemberDialog`, `workspaces/features/UserPicker/UserPicker.tsx`)
+- Typing an unknown email in User offers "Invite new user: {email}". Toast after Invite: "Member invited successfully".
+
+**Role permissions** (`docs/en/workspaces.md`): Viewers read and download files and datasets and launch pipelines; Editors also write files and datasets, create pipelines and use notebooks; only Admins manage and invite users.
