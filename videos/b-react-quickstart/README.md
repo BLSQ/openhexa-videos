@@ -1,11 +1,11 @@
 # OpenHEXA quick start for B-REACT users (EN)
 
-A 2:33 narrated walkthrough for B-REACT consortium members (INRB, INSP and partners), adapted
+A 2:34 narrated walkthrough for B-REACT consortium members (INRB, INSP and partners), adapted
 from the written guide "OpenHEXA quick-start for B-REACT users" (Nov 5, 2026). It covers what
 members do most: joining, files, datasets (the longest chapter, as in the guide), pipelines,
 inviting colleagues and AI. It shows no code.
 
-**Outputs** (`out/en/`, not committed): `b-react-quickstart-en.mp4` (1920×1080, 60 fps, -14 LUFS),
+**Outputs** (`out/en/`, not committed): `openhexa-b-react-quickstart-en.mp4` (1920×1080, 60 fps, -14 LUFS), in `out/en/deliver/`,
 a 720p copy and `.srt` captions.
 
 ## Story
