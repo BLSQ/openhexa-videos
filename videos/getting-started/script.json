@@ -1,0 +1,189 @@
+{
+  "_note": "Narration per language. `text` is what the viewer reads in subtitles; `say` (optional) is the TTS spelling when pronunciation needs help. Scene ids match src/scenes. FR spellings: SQL = 'esse-ku-elle' (letter names; 'S.Q.L.' was read 'esculé'), notebook = 'notbouk'.",
+  "en": {
+    "lines": [
+      {
+        "id": "s01",
+        "scene": "welcome",
+        "text": "Welcome to OpenHEXA! Here's a quick tour to get you started.",
+        "say": "Welcome to Open Hexa! Here's a quick tour to get you started."
+      },
+      {
+        "id": "s02",
+        "scene": "concept",
+        "text": "In OpenHEXA, everything lives in workspaces: secure, shared spaces where your team keeps its data, code and results together.",
+        "say": "In Open Hexa, everything lives in workspaces: secure, shared spaces where your team keeps its data, code and results together."
+      },
+      {
+        "id": "s03",
+        "scene": "create",
+        "text": "Let's create your first one. From your organization's page, click Create Workspace."
+      },
+      {
+        "id": "s04",
+        "scene": "create",
+        "text": "Give it a name, pick a country, and tick Add tutorial content to get sample data to explore."
+      },
+      {
+        "id": "s05",
+        "scene": "create",
+        "text": "OpenHEXA sets up a dedicated database and file storage for you, automatically.",
+        "say": "Open Hexa sets up a dedicated database and file storage for you, automatically."
+      },
+      {
+        "id": "s06",
+        "scene": "tour",
+        "text": "Here's your workspace. The sidebar takes you to each module."
+      },
+      {
+        "id": "s07",
+        "scene": "tour",
+        "text": "Files is your shared storage. Upload spreadsheets, shapefiles, anything your team needs."
+      },
+      {
+        "id": "s08",
+        "scene": "tour",
+        "text": "Every workspace has its own PostgreSQL database. Query it in Data Studio, or describe what you need and let AI write the SQL.",
+        "say": "Every workspace has its own Postgres database. Query it in Data Studio, or describe what you need, and let A.I. write the S.Q.L."
+      },
+      {
+        "id": "s09",
+        "scene": "tour",
+        "text": "Datasets are versioned, and you can share them with other workspaces."
+      },
+      {
+        "id": "s10",
+        "scene": "tour",
+        "text": "Connections keep your credentials safe, for DHIS2, IASO, PostgreSQL, S3 and more.",
+        "say": "Connections keep your credentials safe, for D.H.I.S. 2, Iaso, Postgres, S3, and more."
+      },
+      {
+        "id": "s11",
+        "scene": "tour",
+        "text": "Pipelines automate your data work in Python. Start from a template, a notebook or with AI, then run them on demand or on a schedule.",
+        "say": "Pipelines automate your data work in Python. Start from a template, a notebook, or with A.I., then run them on demand, or on a schedule."
+      },
+      {
+        "id": "s12",
+        "scene": "tour",
+        "text": "JupyterHub gives you notebooks to explore your data interactively.",
+        "say": "Jupyter Hub gives you notebooks to explore your data interactively."
+      },
+      {
+        "id": "s13",
+        "scene": "tour",
+        "text": "With Apps, publish dashboards and web apps, built by you or by the AI assistant.",
+        "say": "With Apps, publish dashboards and web apps, built by you, or by the A.I. assistant."
+      },
+      {
+        "id": "s14",
+        "scene": "tour",
+        "text": "And in Settings, invite your team as Admins, Editors or Viewers."
+      },
+      {
+        "id": "s15",
+        "scene": "docs",
+        "text": "Want to go deeper? Every module has a step-by-step guide at docs.openhexa.com, one click away from the help button.",
+        "say": "Want to go deeper? Every module has a step-by-step guide at docs dot open hexa dot com, one click away from the help button."
+      },
+      {
+        "id": "s16",
+        "scene": "outro",
+        "text": "Now it's your turn: create your first workspace. Happy building!"
+      }
+    ]
+  },
+  "fr": {
+    "lines": [
+      {
+        "id": "s01",
+        "scene": "welcome",
+        "text": "Bienvenue sur OpenHEXA ! Voici une visite rapide pour bien démarrer.",
+        "say": "Bienvenue sur Open Hexa ! Voici une visite rapide pour bien démarrer."
+      },
+      {
+        "id": "s02",
+        "scene": "concept",
+        "text": "Dans OpenHEXA, tout se passe dans des espaces de travail : des espaces sécurisés et partagés où votre équipe réunit ses données, son code et ses résultats.",
+        "say": "Dans Open Hexa, tout se passe dans des espaces de travail : des espaces sécurisés et partagés, où votre équipe réunit ses données, son code et ses résultats."
+      },
+      {
+        "id": "s03",
+        "scene": "create",
+        "text": "Créons le vôtre. Depuis la page de votre organisation, cliquez sur « Créer un espace de travail »."
+      },
+      {
+        "id": "s04",
+        "scene": "create",
+        "text": "Donnez-lui un nom, choisissez un pays, et cochez « Ajouter un tutoriel » pour obtenir des données d'exemple."
+      },
+      {
+        "id": "s05",
+        "scene": "create",
+        "text": "OpenHEXA crée automatiquement une base de données et un espace de stockage dédiés.",
+        "say": "Open Hexa crée automatiquement une base de données et un espace de stockage dédiés."
+      },
+      {
+        "id": "s06",
+        "scene": "tour",
+        "text": "Voici votre espace de travail. La barre latérale donne accès à chaque module."
+      },
+      {
+        "id": "s07",
+        "scene": "tour",
+        "text": "Fichiers, c'est votre stockage partagé : tableurs, shapefiles, tout ce dont votre équipe a besoin."
+      },
+      {
+        "id": "s08",
+        "scene": "tour",
+        "text": "Chaque espace de travail a sa propre base de données PostgreSQL. Interrogez-la dans Data Studio, ou décrivez votre besoin et laissez l'IA écrire le SQL.",
+        "say": "Chaque espace de travail a sa propre base de données Postgres. Interrogez-la dans Data Studio, ou décrivez votre besoin, et laissez l'I.A. écrire le esse-ku-elle."
+      },
+      {
+        "id": "s09",
+        "scene": "tour",
+        "text": "Les jeux de données sont versionnés, et vous pouvez les partager avec d'autres espaces de travail."
+      },
+      {
+        "id": "s10",
+        "scene": "tour",
+        "text": "Les connexions protègent vos identifiants pour DHIS2, IASO, PostgreSQL, S3 et bien plus.",
+        "say": "Les connexions protègent vos identifiants pour D.H.I.S. 2, Iaso, Postgres, S3, et bien plus."
+      },
+      {
+        "id": "s11",
+        "scene": "tour",
+        "text": "Les pipelines automatisent votre travail sur les données en Python. Partez d'un modèle, d'un notebook ou de l'IA, puis exécutez-les à la demande ou selon un calendrier.",
+        "say": "Les pipelines automatisent votre travail sur les données en Python. Partez d'un modèle, d'un notbouk, ou de l'I.A., puis exécutez-les à la demande, ou selon un calendrier."
+      },
+      {
+        "id": "s12",
+        "scene": "tour",
+        "text": "JupyterHub vous offre des notebooks pour explorer vos données de manière interactive.",
+        "say": "Jupyter Hub vous offre des notboukes pour explorer vos données de manière interactive."
+      },
+      {
+        "id": "s13",
+        "scene": "tour",
+        "text": "Avec Applications, publiez des tableaux de bord et des applications web, créés par vous ou par l'assistant IA.",
+        "say": "Avec Applications, publiez des tableaux de bord et des applications web, créés par vous, ou par l'assistant I.A."
+      },
+      {
+        "id": "s14",
+        "scene": "tour",
+        "text": "Enfin, dans Paramètres, invitez votre équipe avec le rôle Administrateur, Éditeur ou Lecture seule."
+      },
+      {
+        "id": "s15",
+        "scene": "docs",
+        "text": "Pour aller plus loin, chaque module a son guide pas à pas sur docs.openhexa.com, accessible depuis le bouton d'aide.",
+        "say": "Pour aller plus loin, chaque module a son guide pas à pas sur docs point open hexa point com, accessible depuis le bouton d'aide."
+      },
+      {
+        "id": "s16",
+        "scene": "outro",
+        "text": "À vous de jouer : créez votre premier espace de travail. Bonne découverte !"
+      }
+    ]
+  }
+}

@@ -1,0 +1,317 @@
+[
+ {
+  "lang": "en",
+  "id": "s01",
+  "chars": 61,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.009000000000000001,
+  "at": "2026-10-29T15:39:12.719Z"
+ },
+ {
+  "lang": "en",
+  "id": "s02",
+  "chars": 126,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.019260000000000003,
+  "at": "2026-10-29T15:39:19.326Z"
+ },
+ {
+  "lang": "en",
+  "id": "s03",
+  "chars": 83,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.012960000000000001,
+  "at": "2026-10-29T15:39:19.961Z"
+ },
+ {
+  "lang": "en",
+  "id": "s04",
+  "chars": 92,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.013500000000000002,
+  "at": "2026-10-29T15:39:20.598Z"
+ },
+ {
+  "lang": "en",
+  "id": "s05",
+  "chars": 79,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.012060000000000001,
+  "at": "2026-10-29T15:39:21.132Z"
+ },
+ {
+  "lang": "en",
+  "id": "s06",
+  "chars": 60,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.00918,
+  "at": "2026-10-29T15:39:21.651Z"
+ },
+ {
+  "lang": "en",
+  "id": "s07",
+  "chars": 88,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01386,
+  "at": "2026-10-29T15:39:22.223Z"
+ },
+ {
+  "lang": "en",
+  "id": "s08",
+  "chars": 128,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01908,
+  "at": "2026-10-29T15:39:22.869Z"
+ },
+ {
+  "lang": "en",
+  "id": "s09",
+  "chars": 69,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.010620000000000001,
+  "at": "2026-10-29T15:39:23.306Z"
+ },
+ {
+  "lang": "en",
+  "id": "s10",
+  "chars": 85,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01314,
+  "at": "2026-10-29T15:39:23.884Z"
+ },
+ {
+  "lang": "en",
+  "id": "s11",
+  "chars": 136,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.02016,
+  "at": "2026-10-29T15:39:24.617Z"
+ },
+ {
+  "lang": "en",
+  "id": "s12",
+  "chars": 67,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.010440000000000001,
+  "at": "2026-10-29T15:39:25.067Z"
+ },
+ {
+  "lang": "en",
+  "id": "s13",
+  "chars": 83,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01242,
+  "at": "2026-10-29T15:39:25.693Z"
+ },
+ {
+  "lang": "en",
+  "id": "s14",
+  "chars": 64,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.009720000000000001,
+  "at": "2026-10-29T15:39:26.209Z"
+ },
+ {
+  "lang": "en",
+  "id": "s15",
+  "chars": 124,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.01818,
+  "at": "2026-10-29T15:39:26.876Z"
+ },
+ {
+  "lang": "en",
+  "id": "s16",
+  "chars": 64,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "XrExE9yKIg1WjnnlVkGX",
+  "cost": 0.0099,
+  "at": "2026-10-29T15:39:27.404Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s01",
+  "chars": 69,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.010440000000000001,
+  "at": "2026-10-29T15:39:28.567Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s02",
+  "chars": 157,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.0234,
+  "at": "2026-10-29T15:39:29.601Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s03",
+  "chars": 98,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.014580000000000001,
+  "at": "2026-10-29T15:39:30.216Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s04",
+  "chars": 108,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.016380000000000002,
+  "at": "2026-10-29T15:39:30.925Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s05",
+  "chars": 83,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.0126,
+  "at": "2026-10-29T15:39:31.469Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s06",
+  "chars": 77,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.0117,
+  "at": "2026-10-29T15:39:32.116Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s07",
+  "chars": 98,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.015120000000000001,
+  "at": "2026-10-29T15:39:32.760Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s08",
+  "chars": 155,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.02358,
+  "at": "2026-10-29T15:39:33.749Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s09",
+  "chars": 98,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.01494,
+  "at": "2026-10-29T15:39:34.381Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s10",
+  "chars": 92,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.014220000000000002,
+  "at": "2026-10-29T15:39:35.087Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s11",
+  "chars": 172,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.02628,
+  "at": "2026-10-29T15:39:36.096Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s12",
+  "chars": 86,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.01332,
+  "at": "2026-10-29T15:39:36.733Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s13",
+  "chars": 112,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.0171,
+  "at": "2026-10-29T15:39:37.403Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s14",
+  "chars": 99,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.01548,
+  "at": "2026-10-29T15:39:38.066Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s15",
+  "chars": 129,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.01908,
+  "at": "2026-10-29T15:39:38.836Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s16",
+  "chars": 75,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.011160000000000002,
+  "at": "2026-10-29T15:39:39.497Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s08",
+  "chars": 162,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.02484,
+  "at": "2026-11-03T09:32:52.480Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s11",
+  "chars": 171,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.0261,
+  "at": "2026-11-03T09:32:54.479Z"
+ },
+ {
+  "lang": "fr",
+  "id": "s12",
+  "chars": 86,
+  "model": "elevenlabs/eleven_multilingual_v2",
+  "voice": "kwhMCf63M8O3rCfnQ3oQ",
+  "cost": 0.01332,
+  "at": "2026-11-03T09:32:55.002Z"
+ }
+]

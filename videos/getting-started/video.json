@@ -1,0 +1,50 @@
+{
+  "title": "OpenHEXA: getting started",
+  "langs": [
+    "en",
+    "fr"
+  ],
+  "voices": {
+    "en": {
+      "model": "elevenlabs/eleven_multilingual_v2",
+      "voice": "XrExE9yKIg1WjnnlVkGX",
+      "voiceName": "Matilda - Knowledgable, Professional (same voice as the marketing video)",
+      "placeholder": "Flo (English (US))",
+      "tempo": 1.0
+    },
+    "fr": {
+      "model": "elevenlabs/eleven_multilingual_v2",
+      "voice": "kwhMCf63M8O3rCfnQ3oQ",
+      "voiceName": "Caroline - Top France - Narrative, chaleureuse, douce (native French)",
+      "placeholder": "Flo (French (France))",
+      "tempo": 1.06
+    }
+  },
+  "words": "whisper",
+  "gen": [
+    "gen/script.js",
+    "gen/vo-{lang}.js"
+  ],
+  "timeline": [
+    "i18n.js",
+    "timeline.js"
+  ],
+  "coreCss": [
+    "app.css"
+  ],
+  "css": [
+    "video.css"
+  ],
+  "coreJs": [
+    "app-strings.js",
+    "app-ui.js"
+  ],
+  "scripts": [
+    "scenes/01-welcome.js",
+    "scenes/02-concept.js",
+    "scenes/03-app.js",
+    "scenes/05-docs.js",
+    "scenes/06-outro.js",
+    "stage.js"
+  ]
+}
