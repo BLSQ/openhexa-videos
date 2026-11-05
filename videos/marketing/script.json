@@ -1,0 +1,46 @@
+{
+  "en": {
+    "lines": [
+      {
+        "id": "v01",
+        "text": "Your data lives everywhere."
+      },
+      {
+        "id": "v02",
+        "text": "Health systems, surveys, spreadsheets, databases... and none of them talk to each other."
+      },
+      {
+        "id": "v03",
+        "text": "So your team spends weeks copying, cleaning and re-exporting, instead of making decisions."
+      },
+      {
+        "id": "v04",
+        "text": "Meet Open Hexa. The open-source data platform that brings it all together."
+      },
+      {
+        "id": "v05",
+        "text": "Connect your sources and automate pipelines, from ready-made templates, your own Python, or with the built-in AI assistant."
+      },
+      {
+        "id": "v06",
+        "text": "Every database, dataset and file lives in one secure workspace, shared on your terms."
+      },
+      {
+        "id": "v07",
+        "text": "Then turn it into dashboards, reports and web apps... with just a prompt."
+      },
+      {
+        "id": "v08",
+        "text": "Trusted by the World Health Organization, the World Bank, and health programs around the world."
+      },
+      {
+        "id": "v09",
+        "text": "Open Hexa. Turn your data into products your teams actually use."
+      },
+      {
+        "id": "v10",
+        "text": "Start your free trial today."
+      }
+    ]
+  }
+}

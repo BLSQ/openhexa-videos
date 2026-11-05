@@ -1,0 +1,10 @@
+{
+  "title": "OpenHEXA: turn your data into products your teams use",
+  "langs": ["en"],
+  "voices": {
+    "en": { "model": "elevenlabs/eleven_multilingual_v2", "voice": "XrExE9yKIg1WjnnlVkGX", "voiceName": "Matilda - Knowledgable, Professional" }
+  },
+  "words": "none",
+  "timeline": ["timeline.js"],
+  "scripts": ["scenes/01-chaos.js", "scenes/02-grind.js", "scenes/03-reveal.js", "scenes/04-product.js", "scenes/07-trust.js", "scenes/08-cta.js", "stage.js"]
+}
