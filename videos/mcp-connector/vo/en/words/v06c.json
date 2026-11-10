@@ -1,0 +1,72 @@
+{
+ "text": "every call is logged and every result is code you can read",
+ "usage": null,
+ "task": "transcribe",
+ "language": "en",
+ "duration": 3.043875,
+ "words": [
+  {
+   "word": "every",
+   "start": 0,
+   "end": 0.32
+  },
+  {
+   "word": "call",
+   "start": 0.32,
+   "end": 0.56
+  },
+  {
+   "word": "is",
+   "start": 0.56,
+   "end": 0.71999997
+  },
+  {
+   "word": "logged",
+   "start": 0.71999997,
+   "end": 1.28
+  },
+  {
+   "word": "and",
+   "start": 1.28,
+   "end": 1.36
+  },
+  {
+   "word": "every",
+   "start": 1.36,
+   "end": 1.5999999
+  },
+  {
+   "word": "result",
+   "start": 1.5999999,
+   "end": 1.92
+  },
+  {
+   "word": "is",
+   "start": 1.92,
+   "end": 2.1599998
+  },
+  {
+   "word": "code",
+   "start": 2.1599998,
+   "end": 2.3999999
+  },
+  {
+   "word": "you",
+   "start": 2.3999999,
+   "end": 2.6399999
+  },
+  {
+   "word": "can",
+   "start": 2.6399999,
+   "end": 2.72
+  },
+  {
+   "word": "read",
+   "start": 2.72,
+   "end": 2.96
+  }
+ ],
+ "provider_name": "deepgram",
+ "cost": 0.00021815452124999998,
+ "provider": "deepgram"
+}

@@ -1,0 +1,105 @@
+{
+ "text": "Vous changez d 'avis ? Restreignez ou révoquez l 'accès à tout moment. Cela s 'applique dès l 'appel suivant.",
+ "words": [
+  {
+   "word": "Vous",
+   "start": 0.0,
+   "end": 0.12
+  },
+  {
+   "word": "changez",
+   "start": 0.12,
+   "end": 0.48
+  },
+  {
+   "word": "d",
+   "start": 0.48,
+   "end": 0.52
+  },
+  {
+   "word": "'avis",
+   "start": 0.52,
+   "end": 0.78
+  },
+  {
+   "word": "?",
+   "start": 0.78,
+   "end": 1.24
+  },
+  {
+   "word": "Restreignez",
+   "start": 1.24,
+   "end": 1.94
+  },
+  {
+   "word": "ou",
+   "start": 1.94,
+   "end": 2.12
+  },
+  {
+   "word": "révoquez",
+   "start": 2.12,
+   "end": 2.62
+  },
+  {
+   "word": "l",
+   "start": 2.62,
+   "end": 2.74
+  },
+  {
+   "word": "'accès",
+   "start": 2.74,
+   "end": 3.08
+  },
+  {
+   "word": "à",
+   "start": 3.08,
+   "end": 3.24
+  },
+  {
+   "word": "tout",
+   "start": 3.24,
+   "end": 3.48
+  },
+  {
+   "word": "moment.",
+   "start": 3.48,
+   "end": 3.74
+  },
+  {
+   "word": "Cela",
+   "start": 4.18,
+   "end": 4.4
+  },
+  {
+   "word": "s",
+   "start": 4.4,
+   "end": 4.58
+  },
+  {
+   "word": "'applique",
+   "start": 4.58,
+   "end": 4.94
+  },
+  {
+   "word": "dès",
+   "start": 4.94,
+   "end": 5.18
+  },
+  {
+   "word": "l",
+   "start": 5.18,
+   "end": 5.32
+  },
+  {
+   "word": "'appel",
+   "start": 5.32,
+   "end": 5.54
+  },
+  {
+   "word": "suivant.",
+   "start": 5.54,
+   "end": 5.94
+  }
+ ]
+}

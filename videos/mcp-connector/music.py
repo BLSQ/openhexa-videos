@@ -1,4 +1,4 @@
-"""Score and mix for the OpenHEXA MCP connector video (60 s, 96 BPM).
+"""Score and mix for the OpenHEXA MCP connector video (96 BPM, EN and FR cuts).
 
 Arrangement and mix only; DSP, instruments, sound effects and mastering come from
 tools/audio/synth.py. Run through the CLI: npm run v -- <video> score --lang <code>
@@ -18,10 +18,19 @@ from synth import *  # noqa: E402,F401,F403
 # Harmony (beats are absolute beat indices on the 96 BPM grid)
 # ---------------------------------------------------------------------------
 # (start_beat, end_beat, bass_root_midi, pad_voicing)
+# Section boundaries in beats, from the timeline, so each language's cut gets its own arrangement:
+# the work scene, the vision scene, the CTA and its click.
+WORK = round(TL["scenes"]["work"] / BEAT)
+VISION = round(TL["scenes"]["vision"] / BEAT)
+CTA = round(TL["scenes"]["cta"] / BEAT)
+CLICK = round(TL["click"] / BEAT)
+GROOVE_END = 21 + 4 * ((VISION - 2 - 21) // 4)
+
+
 def _groove():
     """C G Am F, four beats each, from the groove drop until the build into the vision scene."""
     cycle = [(36, [55, 60, 64, 67]), (43, [55, 59, 62, 67, 69]), (45, [57, 60, 64, 67]), (41, [53, 57, 60, 67])]
-    return [(b, b + 4, *cycle[i % 4]) for i, b in enumerate(range(21, 77, 4))]
+    return [(b, b + 4, *cycle[i % 4]) for i, b in enumerate(range(21, GROOVE_END, 4))]
 
 
 CHORDS = [
@@ -36,16 +45,16 @@ CHORDS = [
     (17, 21, 43, [55, 60, 62, 67]),  # Gsus4
     # Groove
     *_groove(),
-    (77, 80, 43, [55, 60, 62, 67]),  # Gsus4, build
+    (GROOVE_END, VISION, 43, [55, 60, 62, 67]),  # Gsus4, build
     # Vision: airy lift
-    (80, 82, 41, [57, 60, 65, 69]),  # F
-    (82, 84, 43, [55, 59, 62, 67]),  # G
-    # CTA: cadence landing on the click at beat 92
-    (84, 88, 36, [55, 60, 64, 67, 71]),  # Cmaj7
-    (88, 89, 45, [57, 60, 64, 67]),  # Am7
-    (89, 90, 41, [57, 60, 65, 69]),  # F
-    (90, 92, 43, [55, 59, 62, 67]),  # G
-    (92, 104, 36, [48, 55, 60, 64, 67, 71, 76]),  # C (final, wide)
+    (VISION, VISION + 2, 41, [57, 60, 65, 69]),  # F
+    (VISION + 2, CTA, 43, [55, 59, 62, 67]),  # G
+    # CTA: cadence landing on the click
+    (CTA, CTA + 4, 36, [55, 60, 64, 67, 71]),  # Cmaj7
+    (CTA + 4, CTA + 5, 45, [57, 60, 64, 67]),  # Am7
+    (CTA + 5, CTA + 6, 41, [57, 60, 65, 69]),  # F
+    (CTA + 6, CLICK, 43, [55, 59, 62, 67]),  # G
+    (CLICK, CLICK + 12, 36, [48, 55, 60, 64, 67, 71, 76]),  # C (final, wide)
 ]
 
 
@@ -68,7 +77,7 @@ def render_pad():
     dark.x = lowpass(dark.x, 700, 2)
     bright.x = lowpass(bright.x, 3800, 2)
     # Filter opens at the reveal, breathes in the trust section, fully open at CTA.
-    mixc = automation([(0, 0.0), (5.6, 0.0), (b2s(13), 0.9), (b2s(21), 0.55), (b2s(80), 0.8), (b2s(84), 1.0), (DUR + 0.5, 1.0)])
+    mixc = automation([(0, 0.0), (5.6, 0.0), (b2s(13), 0.9), (b2s(21), 0.55), (b2s(VISION), 0.8), (b2s(CTA), 1.0), (DUR + 0.5, 1.0)])
     out = dark.x * (1 - mixc) + bright.x * mixc
     vol = automation(
         [
@@ -79,8 +88,8 @@ def render_pad():
             (b2s(13) - 0.35, 0.25),
             (b2s(13), 1.1),
             (b2s(21), 0.75),
-            (b2s(80), 0.95),
-            (b2s(84), 1.0),
+            (b2s(VISION), 0.95),
+            (b2s(CTA), 1.0),
             (DUR - 1.5, 1.0),
             (DUR + 0.3, 0.0),
             (DUR + 0.5, 0.0),
@@ -93,9 +102,9 @@ def render_arp():
     bus = Bus()
     # 16th-note arpeggio over the chord (upper register) in the groove + CTA sections.
     pattern = [0, 1, 2, 3, 2, 1, 2, 3]
-    for step in range(int(21 * 4), int(92 * 4)):
+    for step in range(int(21 * 4), int(CLICK * 4)):
         beat = step / 4
-        if 80 <= beat < 84 and step % 2:  # thinner in the vision section
+        if VISION <= beat < CTA and step % 2:  # thinner in the vision section
             continue
         _, _, _, voicing = chord_at(beat)
         tones = sorted(set(voicing))[-4:]
@@ -152,24 +161,24 @@ MELODY = [  # (beat offset in 16-beat phrase, midi, dur)
 
 def render_bells():
     bus = Bus()
-    for start, g in ((54, 0.05), (84, 0.075)):
+    for start, g in ((WORK, 0.05), (CTA, 0.075)):
         for o, m, d in MELODY:
             beat = start + o
-            if beat >= 92:
+            if beat >= CLICK:
                 break
             s = fm_bell(mtof(m + 12), int(1.6 * SR))
             bus.add(s, b2s(beat), pan=0.15, gain=g)
     # Final chord bell hits at the click
     for i, m in enumerate([72, 76, 79, 84]):
-        bus.add(fm_bell(mtof(m + 12), int(3.5 * SR), decay=1.2), b2s(92) + i * 0.035, pan=(i - 1.5) * 0.3, gain=0.06)
+        bus.add(fm_bell(mtof(m + 12), int(3.5 * SR), decay=1.2), b2s(CLICK) + i * 0.035, pan=(i - 1.5) * 0.3, gain=0.06)
     bus.x += pingpong(bus.x, BEAT * 0.75, fb=0.4, repeats=6)
     return highpass(bus.x, 400)
 
 
 DRUM_SECTIONS = [  # (start_beat, end_beat, style)
-    (21, 80, "full"),
-    (80, 84, "light"),
-    (84, 92, "full"),
+    (21, VISION, "full"),
+    (VISION, CTA, "light"),
+    (CTA, CLICK, "full"),
 ]
 
 
@@ -201,8 +210,8 @@ def render_drums():
         kb.add(lowpass(kick(), 180), t, 0, g)
         if beat >= 6:
             kb.add(lowpass(kick(), 180), t + BEAT / 2, 0, g * 0.5)
-    # Build into the drop: snare-ish roll over beats 19-21 and 82-84
-    for s0, s1 in ((19, 21), (82, 84)):
+    # Build into the drop and into the CTA: snare-ish rolls
+    for s0, s1 in ((19, 21), (CTA - 2, CTA)):
         steps = int((s1 - s0) * 4)
         for i in range(steps):
             cb.add(clap(), b2s(s0) + i * BEAT / 4, 0, 0.04 + 0.12 * i / steps)
@@ -214,9 +223,9 @@ def render_drums():
 def render_bass(kick_times):
     bus = Bus()
     for b0, b1, root, _ in CHORDS:
-        if b0 < 21 or b0 >= 92:
+        if b0 < 21 or b0 >= CLICK:
             continue
-        light = 80 <= b0 < 84
+        light = VISION <= b0 < CTA
         for i in range(int((b1 - b0) * 2)):
             beat = b0 + i * 0.5
             dur = BEAT * 0.45
@@ -230,7 +239,7 @@ def render_bass(kick_times):
     n = int(5 * SR)
     t = np.arange(n) / SR
     f = mtof(36 - 12)
-    bus.add(np.sin(2 * np.pi * f * t) * np.exp(-t / 2.2) * np.minimum(1, t / 0.01), b2s(92), 0, 0.3)
+    bus.add(np.sin(2 * np.pi * f * t) * np.exp(-t / 2.2) * np.minimum(1, t / 0.01), b2s(CLICK), 0, 0.3)
     # Problem section: sub drone following the chord roots
     for b0, b1, root, _ in CHORDS:
         if b0 >= 13:

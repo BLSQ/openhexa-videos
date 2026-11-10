@@ -28,14 +28,14 @@
       R.lock.append(R.markWrap, R.wordWrap);
       cam.appendChild(R.lock);
 
-      R.hl = E.headline([["Bring", "your", "agents."], [["Keep", 'pink'], ["control.", 'pink']]], 'headline');
+      R.hl = E.headline(L([["Bring", "your", "agents."], [["Keep", 'pink'], ["control.", 'pink']]], [['Amenez', 'vos', 'agents.'], [['Gardez', 'pink'], ['le', 'pink'], ['contrôle.', 'pink']]]), 'headline');
       Object.assign(R.hl.el.style, { position: 'absolute', width: '1920px', textAlign: 'center', fontSize: '112px' });
       cam.appendChild(R.hl.el);
 
       // CTA button
       R.btnWrap = h('div', { class: 'abs', style: { width: '1920px', display: 'flex', justifyContent: 'center' } });
       R.btn = h('div', { class: 'btn-primary', style: { height: '104px', padding: '0 58px 0 64px', fontSize: '40px', gap: '18px', boxShadow: '0 20px 60px -10px rgba(255,69,154,0.65)' } }, [
-        'Start your free trial',
+        L('Start your free trial', 'Commencez votre essai gratuit'),
         h('span', { style: { display: 'inline-flex' }, html: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#192041" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' }),
       ]);
       R.btnWrap.appendChild(R.btn);
@@ -43,7 +43,7 @@
       R.ring = h('div', { class: 'abs', style: { width: '560px', height: '104px', borderRadius: '999px', border: '3px solid #ff459a' } });
       cam.appendChild(R.ring);
 
-      R.small = h('div', { class: 'abs', style: { width: '1920px', textAlign: 'center', fontSize: '28px', color: '#c9cde6', fontWeight: 500 }, html: 'MCP connector included&nbsp;&nbsp;·&nbsp;&nbsp;Claude, ChatGPT, Gemini &amp; more&nbsp;&nbsp;·&nbsp;&nbsp;Open source' });
+      R.small = h('div', { class: 'abs', style: { width: '1920px', textAlign: 'center', fontSize: '28px', color: '#c9cde6', fontWeight: 500 }, html: L('MCP connector included&nbsp;&nbsp;·&nbsp;&nbsp;Claude, ChatGPT, Gemini &amp; more&nbsp;&nbsp;·&nbsp;&nbsp;Open source', 'Connecteur MCP inclus&nbsp;&nbsp;·&nbsp;&nbsp;Claude, ChatGPT, Gemini et plus&nbsp;&nbsp;·&nbsp;&nbsp;Open source') });
       R.url = h('div', { class: 'abs mono', style: { width: '1920px', textAlign: 'center', fontSize: '34px', color: '#fff', letterSpacing: '0.02em' }, html: '<span style="color:#ff8cc0">openhexa</span>.com' });
       cam.append(R.small, R.url);
 
@@ -78,7 +78,7 @@
       set(R.wordWrap, { x: lx + markW + gap, y: ly + (104 - 48) / 2 });
       set(R.glow, { x: 360, y: -60 + Math.sin(t * 0.6) * 20, o: 0.7 + 0.3 * Math.sin(t * 1.3), s: 0.8 + 0.2 * lp });
 
-      E.revealWords(R.hl.words, t, [at('v09', 'bring') - 0.1, at('v09', 'your') - 0.08, at('v09', 'agents') - 0.08, at('v09', 'keep') - 0.1, at('v09', 'control') - 0.1], 0.6);
+      E.revealWords(R.hl.words, t, L([at('v09', 'bring') - 0.1, at('v09', 'your') - 0.08, at('v09', 'agents') - 0.08, at('v09', 'keep') - 0.1, at('v09', 'control') - 0.1], [at('v09', 'amenez') - 0.1, at('v09', 'vos') - 0.08, at('v09', 'agents') - 0.08, at('v09', 'gardez') - 0.1, at('v09', 'le') - 0.08, at('v09', 'controle') - 0.1]), 0.6);
       set(R.hl.el, { x: 0, y: 360 });
 
       // button pops on "Start"

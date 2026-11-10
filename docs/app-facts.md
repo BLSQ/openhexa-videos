@@ -198,6 +198,10 @@ Facts about the OpenHEXA web app that videos rely on, checked against
 - **Refusal text:** "The OpenHEXA connection for Claude is not authorized to call run_pipeline."
 - **Revoking:** narrow or revoke from Account → MCP connections; it applies on the next call.
 - **Clients documented:** Claude, ChatGPT, Gemini CLI (`pages/mcp/wiki.tsx`).
+- **What an agent receives**, within its grant: full file contents (`read_file`, `grep_files`); dataset metadata plus the first rows of the stored sample (`preview_dataset_file`); pipeline, web app and saved-query code; database schema only, never rows; connection names, types and field names, never field values (`tools/connections.py`). So data does reach the agent's provider; credentials don't.
+- **Tool counts:** 37 tools, 36 grantable (`get_help_or_doc` is ungated). Pipelines read → read & write adds 5 tools, so a grant can go from "26 of 36 tools" to "21 of 36".
+- **Results land in the workspace:** `create_pipeline` uploads the files as version 1; web apps are visible to every workspace member (`webapps/models.py` `filter_for_user`).
+- **French labels** (`frontend/public/locales/fr/messages.json`): « Autoriser Claude », « Autoriser l'accès pour », « Lecture et écriture » / « Lecture » / « Aucun accès », « Toutes les ressources », « Sur mesure », « Lecture seule » (Viewer), « Connexions MCP », « Révoquer », « Sauvegarder », « Non enregistré », « Jamais utilisé », « Dernière utilisation … », « {{count}} outils sur {{total}} ». The refusal text stays in English: the server returns it untranslated.
 
 ## Docs site (docs.openhexa.com, mkdocs + i18n folders)
 

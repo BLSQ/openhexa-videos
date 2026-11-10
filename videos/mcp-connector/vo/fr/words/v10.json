@@ -1,0 +1,40 @@
+{
+ "text": "Commencez votre essai gratuit dès aujourd 'hui.",
+ "words": [
+  {
+   "word": "Commencez",
+   "start": 0.0,
+   "end": 0.42
+  },
+  {
+   "word": "votre",
+   "start": 0.42,
+   "end": 0.56
+  },
+  {
+   "word": "essai",
+   "start": 0.56,
+   "end": 0.9
+  },
+  {
+   "word": "gratuit",
+   "start": 0.9,
+   "end": 1.24
+  },
+  {
+   "word": "dès",
+   "start": 1.24,
+   "end": 1.56
+  },
+  {
+   "word": "aujourd",
+   "start": 1.56,
+   "end": 1.8
+  },
+  {
+   "word": "'hui.",
+   "start": 1.8,
+   "end": 2.12
+  }
+ ]
+}

@@ -1,9 +1,9 @@
 {
- "text": "with the open hexa mcp connector bring the agent you already use claude chatgpt gemini with governance built in",
+ "text": "with the open hexa mcp connector bring the agent you already use claude chatgpt gemini or any agent that speaks mcp with governance built in",
  "usage": null,
  "task": "transcribe",
  "language": "en",
- "duration": 8.515312,
+ "duration": 11.239187,
  "words": [
   {
    "word": "with",
@@ -13,26 +13,26 @@
   {
    "word": "the",
    "start": 0.16,
-   "end": 0.32
+   "end": 0.24
   },
   {
    "word": "open",
-   "start": 0.32,
+   "start": 0.24,
    "end": 0.56
   },
   {
    "word": "hexa",
    "start": 0.56,
-   "end": 1.04
+   "end": 0.96
   },
   {
    "word": "mcp",
-   "start": 1.04,
-   "end": 1.52
+   "start": 0.96,
+   "end": 1.4399999
   },
   {
    "word": "connector",
-   "start": 1.52,
+   "start": 1.4399999,
    "end": 2.24
   },
   {
@@ -73,35 +73,65 @@
   {
    "word": "chatgpt",
    "start": 5.2,
-   "end": 6.32
+   "end": 6.4
   },
   {
    "word": "gemini",
-   "start": 6.3999996,
-   "end": 7.2
+   "start": 6.48,
+   "end": 7.28
   },
   {
-   "word": "with",
-   "start": 7.2799997,
-   "end": 7.44
-  },
-  {
-   "word": "governance",
+   "word": "or",
    "start": 7.44,
+   "end": 7.68
+  },
+  {
+   "word": "any",
+   "start": 7.68,
    "end": 7.9199996
   },
   {
-   "word": "built",
+   "word": "agent",
    "start": 7.9199996,
-   "end": 8.24
+   "end": 8.16
+  },
+  {
+   "word": "that",
+   "start": 8.16,
+   "end": 8.4
+  },
+  {
+   "word": "speaks",
+   "start": 8.4,
+   "end": 8.72
+  },
+  {
+   "word": "mcp",
+   "start": 8.72,
+   "end": 9.599999
+  },
+  {
+   "word": "with",
+   "start": 9.679999,
+   "end": 10.16
+  },
+  {
+   "word": "governance",
+   "start": 10.16,
+   "end": 10.639999
+  },
+  {
+   "word": "built",
+   "start": 10.639999,
+   "end": 10.96
   },
   {
    "word": "in",
-   "start": 8.24,
-   "end": 8.48
+   "start": 10.96,
+   "end": 11.2
   }
  ],
  "provider_name": "deepgram",
- "cost": 0.0006102924110399999,
+ "cost": 0.0008055125322899999,
  "provider": "deepgram"
 }
