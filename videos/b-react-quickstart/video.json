@@ -1,0 +1,45 @@
+{
+  "title": "OpenHEXA quick start for B-REACT users",
+  "langs": [
+    "en"
+  ],
+  "voices": {
+    "en": {
+      "model": "elevenlabs/eleven_multilingual_v2",
+      "voice": "XrExE9yKIg1WjnnlVkGX",
+      "voiceName": "Matilda - Knowledgable, Professional",
+      "placeholder": "Flo (English (US))"
+    }
+  },
+  "words": "whisper",
+  "gen": [
+    "gen/script.js",
+    "gen/vo-{lang}.js"
+  ],
+  "timeline": [
+    "i18n.js",
+    "core/timeline-kit.js",
+    "timeline.js"
+  ],
+  "coreCss": [
+    "app.css"
+  ],
+  "coreJs": [
+    "app-strings.js",
+    "app-ui.js"
+  ],
+  "scripts": [
+    "pages.js",
+    "scenes/01-intro.js",
+    "scenes/02-concept.js",
+    "scenes/04-app.js",
+    "scenes/045-rstudio.js",
+    "scenes/05-rules.js",
+    "scenes/055-org.js",
+    "scenes/06-outro.js",
+    "stage.js"
+  ],
+  "css": [
+    "video.css"
+  ]
+}
