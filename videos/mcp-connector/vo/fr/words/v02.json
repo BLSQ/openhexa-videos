@@ -1,0 +1,135 @@
+{
+ "text": "Mais confieriez -vous à l 'un d 'eux les clés de vos données de santé ? Que peut -il voir ? Que peut -il modifier ?",
+ "words": [
+  {
+   "word": "Mais",
+   "start": 0.0,
+   "end": 0.22
+  },
+  {
+   "word": "confieriez",
+   "start": 0.22,
+   "end": 0.96
+  },
+  {
+   "word": "-vous",
+   "start": 0.96,
+   "end": 1.12
+  },
+  {
+   "word": "à",
+   "start": 1.12,
+   "end": 1.28
+  },
+  {
+   "word": "l",
+   "start": 1.28,
+   "end": 1.34
+  },
+  {
+   "word": "'un",
+   "start": 1.34,
+   "end": 1.4
+  },
+  {
+   "word": "d",
+   "start": 1.4,
+   "end": 1.6
+  },
+  {
+   "word": "'eux",
+   "start": 1.6,
+   "end": 1.68
+  },
+  {
+   "word": "les",
+   "start": 1.68,
+   "end": 1.8
+  },
+  {
+   "word": "clés",
+   "start": 1.8,
+   "end": 2.14
+  },
+  {
+   "word": "de",
+   "start": 2.14,
+   "end": 2.26
+  },
+  {
+   "word": "vos",
+   "start": 2.26,
+   "end": 2.38
+  },
+  {
+   "word": "données",
+   "start": 2.38,
+   "end": 2.6
+  },
+  {
+   "word": "de",
+   "start": 2.6,
+   "end": 2.72
+  },
+  {
+   "word": "santé",
+   "start": 2.72,
+   "end": 3.02
+  },
+  {
+   "word": "?",
+   "start": 3.02,
+   "end": 3.56
+  },
+  {
+   "word": "Que",
+   "start": 3.56,
+   "end": 3.72
+  },
+  {
+   "word": "peut",
+   "start": 3.72,
+   "end": 3.86
+  },
+  {
+   "word": "-il",
+   "start": 3.86,
+   "end": 4.04
+  },
+  {
+   "word": "voir",
+   "start": 4.04,
+   "end": 4.36
+  },
+  {
+   "word": "?",
+   "start": 4.36,
+   "end": 4.74
+  },
+  {
+   "word": "Que",
+   "start": 4.74,
+   "end": 4.98
+  },
+  {
+   "word": "peut",
+   "start": 4.98,
+   "end": 5.14
+  },
+  {
+   "word": "-il",
+   "start": 5.14,
+   "end": 5.32
+  },
+  {
+   "word": "modifier",
+   "start": 5.32,
+   "end": 5.56
+  },
+  {
+   "word": "?",
+   "start": 5.56,
+   "end": 5.9
+  }
+ ]
+}

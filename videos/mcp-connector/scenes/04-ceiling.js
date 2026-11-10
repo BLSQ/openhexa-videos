@@ -28,30 +28,30 @@
       const cam = (R.cam = h('div', { class: 'cam' }));
       root.appendChild(cam);
 
-      R.kicker = h('div', { class: 'kicker abs' }, [h('span', { class: 'dot' }), 'Access ceiling']);
-      R.hl = E.headline([['Your', 'permissions.'], [['Never', 'pink'], ['more.', 'pink']]], 'headline md');
+      R.kicker = h('div', { class: 'kicker abs' }, [h('span', { class: 'dot' }), L('Access ceiling', "Plafond d'accès")]);
+      R.hl = E.headline(L([['Your', 'permissions.'], [['Never', 'pink'], ['more.', 'pink']]], [['Vos', 'permissions.'], [['Jamais', 'pink'], ['au-delà.', 'pink']]]), 'headline md');
       R.hl.el.style.position = 'absolute';
-      R.sub = h('div', { class: 'sub abs', style: { width: '600px' }, text: 'Every call runs the same permission checks as the OpenHEXA web app.' });
+      R.sub = h('div', { class: 'sub abs', style: { width: '600px' }, text: L('Every call runs the same permission checks as the OpenHEXA web app.', "Chaque appel passe par les mêmes contrôles d'accès que l'application web OpenHEXA.") });
       cam.append(R.kicker, R.hl.el, R.sub);
 
       // outer hex: what the person can access
       R.outer = h('div', { class: 'abs', style: { width: OUT_W + 'px', height: OUT_H + 'px' }, html: hexSvg(OUT_W, OUT_H, 'rgba(62,230,193,0.06)', '#3ee6c1', 3) });
-      R.outerLbl = h('div', { class: 'badge abs', style: { fontSize: '19px', background: 'rgba(62,230,193,0.14)', color: '#7ff0d6', border: '1.5px solid rgba(62,230,193,0.45)' } }, [UI.svgIcon('user', 20, '#7ff0d6', 2.2), 'Your access · Editor']);
+      R.outerLbl = h('div', { class: 'badge abs', style: { fontSize: '19px', background: 'rgba(62,230,193,0.14)', color: '#7ff0d6', border: '1.5px solid rgba(62,230,193,0.45)' } }, [UI.svgIcon('user', 20, '#7ff0d6', 2.2), L('Your access · Editor', 'Votre accès · Éditeur')]);
       // inner hex: what the agent was granted
       R.inner = h('div', { class: 'abs', style: { width: IN_W + 'px', height: IN_H + 'px' }, html: hexSvg(IN_W, IN_H, 'rgba(255,69,154,0.16)', '#ff459a', 3) });
-      R.innerIn = h('div', { class: 'abs', style: { width: IN_W + 'px', height: IN_H + 'px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px' } }, [UI.svgIcon('spark', 48, '#ff8cc0'), h('div', { style: { fontSize: '24px', fontWeight: 700 }, text: 'Claude' }), h('div', { class: 'mono', style: { fontSize: '15px', color: '#ff8cc0' }, text: 'granted scope' })]);
+      R.innerIn = h('div', { class: 'abs', style: { width: IN_W + 'px', height: IN_H + 'px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px' } }, [UI.brand('claude', 48), h('div', { style: { fontSize: '24px', fontWeight: 700 }, text: 'Claude' }), h('div', { class: 'mono', style: { fontSize: '15px', color: '#ff8cc0' }, text: L('granted scope', 'périmètre accordé') })]);
       R.ripple = h('div', { class: 'abs', style: { width: OUT_W + 'px', height: OUT_H + 'px' }, html: hexSvg(OUT_W, OUT_H, 'none', '#f25767', 6) });
       cam.append(R.outer, R.ripple, R.inner, R.innerIn, R.outerLbl);
 
       // workspaces inside the person's access
-      R.inside = [['Malaria Burkina Faso', 'bf', -150, -240], ['Immunization Senegal', 'sn', -170, 180]].map(([n, f, dx, dy]) => {
+      R.inside = [[L('Malaria Burkina Faso', 'Paludisme Burkina Faso'), 'bf', -150, -240], [L('Immunization Senegal', 'Vaccination Sénégal'), 'sn', -170, 180]].map(([n, f, dx, dy]) => {
         const el = wsTile(n, f);
         cam.appendChild(el);
         return { el, dx, dy };
       });
       // a workspace outside it
-      R.locked = wsTile('Finance HQ', null, true);
-      R.lockedNo = h('div', { class: 'badge abs', style: { background: 'rgba(242,87,103,0.18)', color: '#ff8f9b', border: '1.5px solid rgba(242,87,103,0.5)', fontSize: '17px' } }, [UI.svgIcon('ban', 18, '#ff8f9b', 2.4), 'Not accessible']);
+      R.locked = wsTile(L('Finance HQ', 'Finances siège'), null, true);
+      R.lockedNo = h('div', { class: 'badge abs', style: { background: 'rgba(242,87,103,0.18)', color: '#ff8f9b', border: '1.5px solid rgba(242,87,103,0.5)', fontSize: '17px' } }, [UI.svgIcon('ban', 18, '#ff8f9b', 2.4), L('Not accessible', 'Inaccessible')]);
       cam.append(R.locked, R.lockedNo);
 
       // probe from the agent towards the locked workspace
@@ -70,7 +70,7 @@
       R.conn = h('div', { class: 'card abs', style: { width: '440px', padding: '22px 24px 10px' } }, [
         h('div', { style: { display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' } }, [
           h('div', { class: 'ico', style: { width: '44px', height: '44px', borderRadius: '10px', background: 'rgba(123,134,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' } }, [UI.svgIcon('link', 24, '#b3baff', 2)]),
-          h('div', {}, [h('div', { style: { fontSize: '22px', fontWeight: 700 }, text: 'DHIS2 Burkina Faso' }), h('div', { class: 'mono', style: { fontSize: '15px', color: '#8d93b8' }, text: 'connection · DHIS2' })]),
+          h('div', {}, [h('div', { style: { fontSize: '22px', fontWeight: 700 }, text: 'DHIS2 Burkina Faso' }), h('div', { class: 'mono', style: { fontSize: '15px', color: '#8d93b8' }, text: L('connection · as the agent sees it', "connexion · vue par l'agent") })]),
         ]),
         field('url', 'dhis2.example.org', true),
         R.user = field('username', 'hmis_reader', true),
@@ -78,8 +78,8 @@
       ]);
       R.secrets = [...R.conn.querySelectorAll('.secret')];
       R.secretsText = ['dhis2.example.org', 'hmis_reader', 's3cr3t-Pa55'];
-      R.connTag = h('div', { class: 'badge abs', style: { background: 'rgba(62,230,193,0.14)', color: '#7ff0d6', border: '1.5px solid rgba(62,230,193,0.45)', fontSize: '18px' } }, [UI.svgIcon('shield', 20, '#7ff0d6', 2.2), 'Field names only. Values never reach it.']);
-      R.sqlTag = h('div', { class: 'badge gray abs', style: { fontSize: '18px' } }, [UI.svgIcon('ban', 20, '#c9cde6', 2.2), 'No SQL execution']);
+      R.connTag = h('div', { class: 'badge abs', style: { background: 'rgba(62,230,193,0.14)', color: '#7ff0d6', border: '1.5px solid rgba(62,230,193,0.45)', fontSize: '18px' } }, [UI.svgIcon('shield', 20, '#7ff0d6', 2.2), L('Credentials never reach the agent', "Les identifiants n'atteignent jamais l'agent")]);
+      R.sqlTag = h('div', { class: 'badge gray abs', style: { fontSize: '18px' } }, [UI.svgIcon('ban', 20, '#c9cde6', 2.2), L('No SQL execution', "Pas d'exécution SQL")]);
       cam.append(R.conn, R.connTag, R.sqlTag);
     },
 

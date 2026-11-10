@@ -8,12 +8,13 @@
 
   const MARK_H = 200, MARK_W = MARK_H * (42.4 / 48), WORD_H = 70;
   const START = { cx: 960, cy: 440 };
-  const END = { cx: 1460, cy: 640, s: 0.62 };
-  const HUB = { x: 990, y: 640 };
+  const END = { cx: 1460, cy: 600, s: 0.62 };
+  const HUB = { x: 990, y: 600 };
   const CLIENTS = [
-    { name: 'Claude', sub: 'Custom connector', word: 'claude', y: 470, color: '#ff8a5c' },
-    { name: 'ChatGPT', sub: 'Developer mode', word: 'chatgpt', y: 610, color: '#3ee6c1' },
-    { name: 'Gemini CLI', sub: 'gemini mcp add', word: 'gemini', y: 750, color: '#7b86ff' },
+    { name: 'Claude', sub: L('Custom connector', 'Connecteur personnalisé'), word: 'claude', y: 400, logo: 'claude', tile: 'rgba(217,119,87,0.16)' },
+    { name: 'ChatGPT', sub: L('Developer mode', 'Mode développeur'), word: 'chatgpt', y: 520, logo: 'openai', tile: 'rgba(255,255,255,0.1)' },
+    { name: 'Gemini CLI', sub: 'gemini mcp add', word: 'gemini', y: 640, logo: 'gemini', tile: 'rgba(145,119,199,0.18)' },
+    { name: L('Any MCP agent', 'Tout agent MCP'), sub: L('open standard · your own too', 'standard ouvert · le vôtre aussi'), word: 'any', y: 760, any: true },
   ];
   const SHIELD = 300;
 
@@ -68,7 +69,7 @@
       R.shieldPath.setAttribute('pathLength', '1000');
       R.shieldPath.setAttribute('stroke-dasharray', '1000 1000');
       cam.appendChild(R.shield);
-      R.shieldTag = h('div', { class: 'badge pink abs', style: { fontSize: '20px', padding: '10px 18px', background: 'rgba(40,20,60,0.95)' } }, [UI.svgIcon('shield', 24, '#ff8cc0', 2), 'Governance built in']);
+      R.shieldTag = h('div', { class: 'badge pink abs', style: { fontSize: '20px', padding: '10px 18px', background: 'rgba(40,20,60,0.95)' } }, [UI.svgIcon('shield', 24, '#ff8cc0', 2), L('Governance built in', 'Gouvernance intégrée')]);
       cam.appendChild(R.shieldTag);
 
       // logo
@@ -94,19 +95,20 @@
 
       // client cards
       for (const c of CLIENTS) {
-        c.el = h('div', { class: 'chip abs', style: { width: '400px', padding: '18px 24px 18px 18px' } }, [
-          h('div', { class: 'ico', style: { width: '56px', height: '56px', borderRadius: '14px', background: c.color + '26', border: `1.5px solid ${c.color}66` } }, [UI.svgIcon('spark', 30, c.color)]),
+        const ico = c.any
+          ? h('div', { class: 'ico', style: { width: '56px', height: '56px', borderRadius: '14px', background: 'rgba(255,255,255,0.05)', border: '1.5px dashed rgba(255,255,255,0.35)' } }, [UI.svgIcon('plug', 28, '#c9cde6', 2)])
+          : h('div', { class: 'ico', style: { width: '56px', height: '56px', borderRadius: '14px', background: c.tile, border: '1.5px solid rgba(255,255,255,0.12)' } }, [UI.brand(c.logo, 32)]);
+        c.el = h('div', { class: 'chip abs', style: { width: '430px', padding: '18px 24px 18px 18px', ...(c.any ? { background: 'rgba(34,42,85,0.55)', border: '1.5px dashed rgba(255,255,255,0.3)' } : {}) } }, [
+          ico,
           h('div', {}, [h('span', { style: { fontSize: '27px', fontWeight: 700 }, text: c.name }), h('span', { class: 'meta mono', text: c.sub })]),
-          h('div', { style: { marginLeft: 'auto', width: '14px', height: '14px', borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 12px #22c55e' } }),
+          h('div', { style: { marginLeft: 'auto', width: '14px', height: '14px', borderRadius: '50%', background: c.any ? 'transparent' : '#22c55e', border: c.any ? '2px solid #8d93b8' : 'none', boxShadow: c.any ? 'none' : '0 0 12px #22c55e' } }),
         ]);
         cam.appendChild(c.el);
       }
-      R.more = h('div', { class: 'abs', style: { fontSize: '22px', fontWeight: 600, color: '#8d93b8', width: '400px', textAlign: 'center' }, text: '+ any MCP client' });
-      cam.appendChild(R.more);
 
       // headline
-      R.kicker = h('div', { class: 'kicker abs' }, [h('span', { class: 'dot' }), 'OpenHEXA MCP connector']);
-      R.hl = E.headline([['Bring', 'your', 'own', 'agent.'], [['Governance', 'pink'], ['built', 'pink'], ['in.', 'pink']]], 'headline md');
+      R.kicker = h('div', { class: 'kicker abs' }, [h('span', { class: 'dot' }), L('OpenHEXA MCP connector', 'Connecteur MCP OpenHEXA')]);
+      R.hl = E.headline(L([['Bring', 'your', 'own', 'agent.'], [['Governance', 'pink'], ['built', 'pink'], ['in.', 'pink']]], [['Utilisez', 'votre', 'propre', 'agent.'], [['Gouvernance', 'pink'], ['intégrée.', 'pink']]]), 'headline md');
       Object.assign(R.hl.el.style, { position: 'absolute', width: '1920px', textAlign: 'center' });
       R.kicker.style.width = '1920px';
       R.kicker.style.justifyContent = 'center';
@@ -181,7 +183,7 @@
         const tc = at('v03', c.word) - 0.25;
         const p = prog(t, tc, 0.7, ease.outQuart);
         const fy = E.noise1(t * 0.6, i + 2) * 4;
-        set(c.el, { x: 230 + (1 - p) * -80, y: c.y - 48 + fy, o: clamp(p * 2) * (1 - out), blur: (1 - p) * 6 + out * 6 });
+        set(c.el, { x: 200 + (1 - p) * -80, y: c.y - 48 + fy, o: clamp(p * 2) * (1 - out), blur: (1 - p) * 6 + out * 6 });
         const ax = 630, ay = c.y + fy, bx = HUB.x - 75, by = HUB.y;
         const d = `M${ax},${ay.toFixed(1)} C${ax + 140},${ay.toFixed(1)} ${bx - 140},${by} ${bx},${by}`;
         const lp = prog(t, tc + 0.3, 0.6, ease.inOutCubic);
@@ -192,8 +194,6 @@
         E.attr(c.dash, 'stroke-dashoffset', (-t * 140).toFixed(1));
         E.attr(c.dash, 'opacity', (lp >= 1 ? 0.55 : 0) * (1 - out));
       });
-      const mp2 = prog(t, at('v03', 'gemini') + 0.4, 0.6, ease.outCubic);
-      set(R.more, { x: 230, y: 840 + (1 - mp2) * 12, o: mp2 * (1 - out) });
 
       // ---- governance shield closes around OpenHEXA ----
       const sp = prog(t, at('v03', 'governance') - 0.15, 0.9, ease.inOutCubic);

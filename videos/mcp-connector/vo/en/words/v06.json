@@ -1,137 +1,107 @@
 {
- "text": "then it gets real work done exploring datasets building pipelines publishing web apps every call is logged and every result is code you can read",
+ "text": "then just ask in minutes your agent explores the data writes and runs a pipeline and publishes a dashboard",
  "usage": null,
  "task": "transcribe",
  "language": "en",
- "duration": 9.899563,
+ "duration": 7.235375,
  "words": [
   {
    "word": "then",
    "start": 0,
-   "end": 0.24
+   "end": 0.32
   },
   {
-   "word": "it",
-   "start": 0.24,
-   "end": 0.48
-  },
-  {
-   "word": "gets",
-   "start": 0.48,
+   "word": "just",
+   "start": 0.32,
    "end": 0.64
   },
   {
-   "word": "real",
+   "word": "ask",
    "start": 0.64,
-   "end": 0.96
+   "end": 1.3599999
   },
   {
-   "word": "work",
-   "start": 0.96,
-   "end": 1.1999999
+   "word": "in",
+   "start": 1.68,
+   "end": 1.92
   },
   {
-   "word": "done",
-   "start": 1.1999999,
-   "end": 1.8399999
+   "word": "minutes",
+   "start": 1.92,
+   "end": 2.3999999
   },
   {
-   "word": "exploring",
-   "start": 2.24,
-   "end": 2.56
+   "word": "your",
+   "start": 2.3999999,
+   "end": 2.6399999
   },
   {
-   "word": "datasets",
-   "start": 2.56,
-   "end": 3.5199997
+   "word": "agent",
+   "start": 2.6399999,
+   "end": 2.96
   },
   {
-   "word": "building",
-   "start": 3.52,
-   "end": 3.84
+   "word": "explores",
+   "start": 2.96,
+   "end": 3.36
   },
   {
-   "word": "pipelines",
-   "start": 3.84,
-   "end": 4.7200003
+   "word": "the",
+   "start": 3.36,
+   "end": 3.6
   },
   {
-   "word": "publishing",
-   "start": 4.7999997,
-   "end": 5.2799997
+   "word": "data",
+   "start": 3.6,
+   "end": 4.16
   },
   {
-   "word": "web",
-   "start": 5.2799997,
-   "end": 5.52
-  },
-  {
-   "word": "apps",
-   "start": 5.52,
-   "end": 6.16
-  },
-  {
-   "word": "every",
-   "start": 6.48,
-   "end": 6.7999997
-  },
-  {
-   "word": "call",
-   "start": 6.7999997,
-   "end": 7.12
-  },
-  {
-   "word": "is",
-   "start": 7.12,
-   "end": 7.3599997
-  },
-  {
-   "word": "logged",
-   "start": 7.3599997,
-   "end": 7.9199996
+   "word": "writes",
+   "start": 4.24,
+   "end": 4.56
   },
   {
    "word": "and",
-   "start": 7.9199996,
-   "end": 8.08
+   "start": 4.56,
+   "end": 4.7999997
   },
   {
-   "word": "every",
-   "start": 8.08,
-   "end": 8.32
+   "word": "runs",
+   "start": 4.7999997,
+   "end": 5.04
   },
   {
-   "word": "result",
-   "start": 8.32,
-   "end": 8.72
+   "word": "a",
+   "start": 5.04,
+   "end": 5.2
   },
   {
-   "word": "is",
-   "start": 8.72,
-   "end": 8.96
+   "word": "pipeline",
+   "start": 5.2,
+   "end": 5.92
   },
   {
-   "word": "code",
-   "start": 8.96,
-   "end": 9.2
+   "word": "and",
+   "start": 5.92,
+   "end": 6
   },
   {
-   "word": "you",
-   "start": 9.2,
-   "end": 9.44
+   "word": "publishes",
+   "start": 6,
+   "end": 6.56
   },
   {
-   "word": "can",
-   "start": 9.44,
-   "end": 9.599999
+   "word": "a",
+   "start": 6.56,
+   "end": 6.64
   },
   {
-   "word": "read",
-   "start": 9.599999,
-   "end": 9.84
+   "word": "dashboard",
+   "start": 6.64,
+   "end": 7.12
   }
  ],
  "provider_name": "deepgram",
- "cost": 0.0007095016802100001,
+ "cost": 0.00051855932625,
  "provider": "deepgram"
 }

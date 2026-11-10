@@ -5,10 +5,10 @@
   const S = TL.scenes;
   const R = {};
   const PILLARS = [
-    ['Least privilege', 'shield'],
-    ['Secrets never exposed', 'lock'],
-    ['Every call logged', 'log'],
-    ['Open standard: MCP', 'plug'],
+    [L('Least privilege', 'Moindre privilège'), 'shield'],
+    [L('Secrets never exposed', 'Secrets jamais exposés'), 'lock'],
+    [L('Every call logged', 'Chaque appel journalisé'), 'log'],
+    [L('Open standard: MCP', 'Standard ouvert\u00a0: MCP'), 'plug'],
   ];
 
   E.scene({
@@ -21,7 +21,7 @@
       R.glow = h('div', { class: 'abs', style: { width: '1400px', height: '1400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(123,134,255,0.3) 0%, rgba(123,134,255,0.08) 40%, rgba(123,134,255,0) 65%)' } });
       R.hex = h('div', { class: 'abs', html: `<svg width="900" height="1040" viewBox="0 0 900 1040" style="overflow:visible"><path d="${E.hexPath(900, 1040, 0.06)}" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="3"/></svg>` });
       cam.append(R.glow, R.hex);
-      R.hl = E.headline([['Responsible', 'AI,'], [['by', 'pink'], ['design.', 'pink']]], 'headline');
+      R.hl = E.headline(L([['Responsible', 'AI,'], [['by', 'pink'], ['design.', 'pink']]], [['Une', 'IA', 'responsable,'], [['dès', 'pink'], ['la', 'pink'], ['conception.', 'pink']]]), 'headline');
       Object.assign(R.hl.el.style, { position: 'absolute', width: '1920px', textAlign: 'center', fontSize: '128px' });
       cam.appendChild(R.hl.el);
       R.pillars = PILLARS.map(([txt, ic]) => {
@@ -41,7 +41,7 @@
       R.hex.style.transformOrigin = '450px 520px';
       set(R.hl.el, { x: 0, y: 300, s: 1 - out * 0.4, o: 1 - out, blur: out * 10 });
       R.hl.el.style.transformOrigin = '50% 50%';
-      E.revealWords(R.hl.words, t, [at('v08', 'responsible') - 0.15, at('v08', 'ai') - 0.1, at('v08', 'by') - 0.1, at('v08', 'design') - 0.1], 0.55);
+      E.revealWords(R.hl.words, t, L([at('v08', 'responsible') - 0.15, at('v08', 'ai') - 0.1, at('v08', 'by') - 0.1, at('v08', 'design') - 0.1], [at('v08', 'une') - 0.15, at('v08', 'ia') - 0.1, at('v08', 'responsable') - 0.1, at('v08', 'des') - 0.1, at('v08', 'la') - 0.08, at('v08', 'conception') - 0.1]), 0.55);
       // pillars sit in a centred row; widths are measured once laid out
       const widths = R.pillars.map((p) => p.offsetWidth || 300);
       const gap = 22, total = widths.reduce((a, b) => a + b, 0) + gap * (widths.length - 1);

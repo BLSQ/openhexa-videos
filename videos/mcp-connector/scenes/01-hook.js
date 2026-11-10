@@ -7,13 +7,13 @@
   const R = { chips: [] };
 
   const CARD = { x: 1090, y: 330, w: 640, h: 350 };
-  const PROMPT = 'Find districts where malaria cases rose this month, then publish a dashboard.';
+  const PROMPT = L('Find districts where malaria cases rose this month, then publish a dashboard.', 'Trouve les districts où le paludisme progresse et publie un tableau de bord.');
 
   const RESOURCES = [
-    { title: 'Patient-level records', meta: 'hmis_cases · 4.2M rows', icon: 'table', x: 990, y: 128 },
-    { title: 'DHIS2 credentials', meta: 'username · password', icon: 'key', x: 1480, y: 108 },
-    { title: 'Production pipelines', meta: 'weekly-surveillance', icon: 'flow', x: 960, y: 792 },
-    { title: 'Warehouse database', meta: 'PostgreSQL · 112 tables', icon: 'db', x: 1470, y: 812 },
+    { title: L('Patient-level records', 'Dossiers patients'), meta: L('hmis_cases · 4.2M rows', 'hmis_cases · 4,2 M lignes'), icon: 'table', x: 990, y: 128 },
+    { title: L('DHIS2 credentials', 'Identifiants DHIS2'), meta: L('username · password', 'utilisateur · mot de passe'), icon: 'key', x: 1480, y: 108 },
+    { title: L('Production pipelines', 'Pipelines de production'), meta: 'weekly-surveillance', icon: 'flow', x: 960, y: 792 },
+    { title: L('Warehouse database', 'Entrepôt de données'), meta: 'PostgreSQL · 112 tables', icon: 'db', x: 1470, y: 812 },
   ];
 
   E.scene({
@@ -33,13 +33,13 @@
       cam.appendChild(R.svg);
 
       // headline 1
-      R.hl1 = E.headline([['AI', 'agents', 'can', 'now'], ['do', ['real', 'pink'], ['data', 'pink'], ['work.', 'pink']]], 'headline');
+      R.hl1 = E.headline(L([['AI', 'agents', 'can', 'now'], ['do', ['real', 'pink'], ['data', 'pink'], ['work.', 'pink']]], [['Les', 'agents', 'IA'], ['peuvent', 'travailler'], [['sur', 'pink'], ['vos', 'pink'], ['données.', 'pink']]]), 'headline');
       // headline 2
-      R.hl2 = E.headline([['Would', 'you', 'hand', 'one'], ['the', 'keys', 'to', 'your'], [['health', 'pink'], ['data?', 'pink']]], 'headline md');
+      R.hl2 = E.headline(L([['Would', 'you', 'hand', 'one'], ['the', 'keys', 'to', 'your'], [['health', 'pink'], ['data?', 'pink']]], [['Lui', 'confieriez-vous'], ['les', 'clés', 'de', 'vos'], [['données', 'pink'], ['de', 'pink'], ['santé\u00a0?', 'pink']]]), 'headline md');
       // headline 3: "What can it [see|change]?"
-      R.hl3 = E.headline([['What', 'can', 'it']], 'headline');
-      R.see = h('div', { class: 'abs headline', style: { color: '#fbbf24' }, text: 'see?' });
-      R.change = h('div', { class: 'abs headline', style: { color: '#f25767' }, text: 'change?' });
+      R.hl3 = E.headline(L([['What', 'can', 'it']], [['Que', 'peut-il']]), 'headline');
+      R.see = h('div', { class: 'abs headline', style: { color: '#fbbf24' }, text: L('see?', 'voir\u00a0?') });
+      R.change = h('div', { class: 'abs headline', style: { color: '#f25767' }, text: L('change?', 'modifier\u00a0?') });
       R.swap = h('div', { class: 'abs', style: { width: '560px', height: '130px', overflow: 'hidden' } }, [R.see, R.change]);
       for (const el of [R.hl1.el, R.hl2.el, R.hl3.el]) { el.style.position = 'absolute'; cam.appendChild(el); }
       cam.appendChild(R.swap);
@@ -47,8 +47,8 @@
       // agent chat card
       R.card = h('div', { class: 'card abs', style: { width: CARD.w + 'px', height: CARD.h + 'px' } }, [
         h('div', { class: 'chrome' }, [
-          h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', fontWeight: 700, fontSize: '20px', color: '#fff' } }, [UI.svgIcon('spark', 24, '#ff8cc0'), 'AI agent']),
-          h('div', { class: 'badge gray', style: { marginLeft: 'auto', fontSize: '15px' } }, ['connected']),
+          h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', fontWeight: 700, fontSize: '20px', color: '#fff' } }, [UI.svgIcon('spark', 24, '#ff8cc0'), L('AI agent', 'Agent IA')]),
+          h('div', { class: 'badge gray', style: { marginLeft: 'auto', fontSize: '15px' } }, [L('connected', 'connecté')]),
         ]),
       ]);
       const body = h('div', { class: 'abs', style: { left: '28px', top: '82px', width: CARD.w - 56 + 'px' } });
@@ -82,11 +82,11 @@
       const tOut = S.connect - 0.3;
 
       // headlines
-      set(R.hl1.el, { x: 110, y: 360 });
+      set(R.hl1.el, { x: 110, y: L(360, 300) });
       const w1 = at('v01', 'ai');
-      E.revealWords(R.hl1.words, t, [w1 - 0.15, at('v01', 'agents') - 0.1, at('v01', 'can') - 0.1, at('v01', 'now') - 0.1, at('v01', 'do') - 0.1, at('v01', 'real') - 0.1, at('v01', 'data') - 0.1, at('v01', 'work') - 0.1], 0.55, at('v02', 'but') - 0.4, 0.3);
+      E.revealWords(R.hl1.words, t, L([w1 - 0.15, at('v01', 'agents') - 0.1, at('v01', 'can') - 0.1, at('v01', 'now') - 0.1, at('v01', 'do') - 0.1, at('v01', 'real') - 0.1, at('v01', 'data') - 0.1, at('v01', 'work') - 0.1], ['les', 'agents', 'ia', 'peuvent', 'travailler', 'sur', 'vos', 'donnees'].map((w) => at('v01', w) - 0.1)), 0.55, at('v02', 'but') - 0.4, 0.3);
       set(R.hl2.el, { x: 110, y: 330 });
-      E.revealWords(R.hl2.words, t, [at('v02', 'would') - 0.1, at('v02', 'you') - 0.1, at('v02', 'hand') - 0.1, at('v02', 'one') - 0.1, at('v02', 'the') - 0.1, at('v02', 'keys') - 0.1, at('v02', 'to'), at('v02', 'your'), at('v02', 'health') - 0.1, at('v02', 'data') - 0.1], 0.5, at('v02', 'what') - 0.55, 0.3);
+      E.revealWords(R.hl2.words, t, L([at('v02', 'would') - 0.1, at('v02', 'you') - 0.1, at('v02', 'hand') - 0.1, at('v02', 'one') - 0.1, at('v02', 'the') - 0.1, at('v02', 'keys') - 0.1, at('v02', 'to'), at('v02', 'your'), at('v02', 'health') - 0.1, at('v02', 'data') - 0.1], ['mais', 'confieriez', 'les', 'cles', 'de', 'vos', 'donnees', 'de2', 'sante'].map((w) => at('v02', w) - 0.1)), 0.5, at('v02', 'what') - 0.55, 0.3);
       set(R.hl3.el, { x: 110, y: 400 });
       E.revealWords(R.hl3.words, t, [at('v02', 'what') - 0.05, at('v02', 'can') - 0.08, at('v02', 'it') - 0.08], 0.5, tOut, 0.35);
       // "see?" then "change?" swap

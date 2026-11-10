@@ -13,26 +13,26 @@
   const PAD = 44, INNER = WIN.w - PAD * 2;
   const WS_BOX = { y: 172, h: 156 };
   const TABLE_Y = 396, HEAD_H = 62, ROW_H = 66;
-  const SEG_W = 384, SEG_X = INNER - 20 - SEG_W;
+  const SEG_W = L(384, 450), SEG_X = INNER - 20 - SEG_W;
   const BTN_Y = TABLE_Y + HEAD_H + ROW_H * 9 + 34;
 
   const WORKSPACES = [
-    { name: 'Malaria Burkina Faso', slug: 'malaria-burkina-faso', flag: 'bf', col: 0, row: 0 },
-    { name: "HIV Côte d'Ivoire", slug: 'hiv-cote-divoire', flag: 'ci', col: 1, row: 0, off: 'untick2' },
-    { name: 'Immunization Senegal', slug: 'immunization-senegal', flag: 'sn', col: 0, row: 1 },
+    { name: L('Malaria Burkina Faso', 'Paludisme Burkina Faso'), slug: L('malaria-burkina-faso', 'paludisme-burkina-faso'), flag: 'bf', col: 0, row: 0 },
+    { name: L("HIV Côte d'Ivoire", "VIH Côte d'Ivoire"), slug: L('hiv-cote-divoire', 'vih-cote-divoire'), flag: 'ci', col: 1, row: 0, off: 'untick2' },
+    { name: L('Immunization Senegal', 'Vaccination Sénégal'), slug: L('immunization-senegal', 'vaccination-senegal'), flag: 'sn', col: 0, row: 1 },
     { name: 'Nutrition Mali', slug: 'nutrition-mali', flag: 'ml', col: 1, row: 1, off: 'untick', viewer: true },
   ];
   // Labels and descriptions as in MCPPermissionMatrix.tsx. Level index: 0 write, 1 read, 2 none.
   const RESOURCES = [
-    { label: 'Workspaces', desc: 'Let the assistant see your workspaces and change their settings.' },
-    { label: 'Files', desc: 'Let the assistant browse and read files in workspace buckets, and add new ones.', to: [['filesOff', 2]] },
-    { label: 'Datasets', desc: 'Let the assistant list datasets, preview their contents, and publish new versions.' },
-    { label: 'Pipelines', desc: 'Let the assistant inspect pipelines and their runs, and create, edit or run them.', to: [['writePipes', 0]] },
-    { label: 'Pipeline templates', desc: 'Let the assistant browse pipeline templates and read their source code.', readOnly: true },
-    { label: 'Web apps', desc: 'Let the assistant read web apps and edit the files they are built from.', to: [['writeApps', 0]] },
-    { label: 'Databases', desc: 'Let the assistant read the structure of your workspace databases.', readOnly: true },
-    { label: 'Saved queries', desc: 'Let the assistant read the saved SQL queries of the Data Studio, and save or edit them.' },
-    { label: 'Connections', desc: 'Let the assistant list the external connections a workspace holds.', readOnly: true },
+    { label: L('Workspaces', 'Espaces de travail'), desc: L('Let the assistant see your workspaces and change their settings.', "Permet à l'assistant de voir vos espaces de travail et de modifier leurs paramètres.") },
+    { label: L('Files', 'Fichiers'), desc: L('Let the assistant browse and read files in workspace buckets, and add new ones.', "Permet à l'assistant de parcourir et lire les fichiers des espaces de travail, et d'en ajouter de nouveaux."), to: [['filesOff', 2]] },
+    { label: L('Datasets', 'Jeux de données'), desc: L('Let the assistant list datasets, preview their contents, and publish new versions.', "Permet à l'assistant de lister les jeux de données, d'en prévisualiser le contenu et de publier de nouvelles versions.") },
+    { label: 'Pipelines', desc: L('Let the assistant inspect pipelines and their runs, and create, edit or run them.', "Permet à l'assistant d'inspecter les pipelines et leurs exécutions, et de les créer, modifier ou exécuter."), to: [['writePipes', 0]] },
+    { label: L('Pipeline templates', 'Modèles de pipeline'), desc: L('Let the assistant browse pipeline templates and read their source code.', "Permet à l'assistant de parcourir les modèles de pipeline et de lire leur code source."), readOnly: true },
+    { label: L('Web apps', 'Applications web'), desc: L('Let the assistant read web apps and edit the files they are built from.', "Permet à l'assistant de lire les applications web et de modifier les fichiers qui les composent."), to: [['writeApps', 0]] },
+    { label: L('Databases', 'Bases de données'), desc: L('Let the assistant read the structure of your workspace databases.', "Permet à l'assistant de lire la structure des bases de données de vos espaces de travail."), readOnly: true },
+    { label: L('Saved queries', 'Requêtes sauvegardées'), desc: L('Let the assistant read the saved SQL queries of the Data Studio, and save or edit them.', "Permet à l'assistant de lire les requêtes SQL sauvegardées du Data Studio, et d'en sauvegarder ou modifier.") },
+    { label: L('Connections', 'Connexions'), desc: L('Let the assistant list the external connections a workspace holds.', "Permet à l'assistant de lister les connexions externes d'un espace de travail."), readOnly: true },
   ];
 
   const CHECK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
@@ -42,7 +42,7 @@
     const colW = (SEG_W - 6 - 6) / 3;
     const sel = h('div', { class: 'sel', style: { width: colW + 'px' } });
     el.appendChild(sel);
-    const lbls = ['Read & Write', 'Read', 'No access'].map((txt, i) => {
+    const lbls = L(['Read & Write', 'Read', 'No access'], ['Lecture et écriture', 'Lecture', 'Aucun accès']).map((txt, i) => {
       const s = h('span', { class: 'lbl' + (readOnly && i === 0 ? ' off' : ''), text: txt });
       el.appendChild(s);
       return s;
@@ -78,16 +78,16 @@
       root.appendChild(cam);
 
       // ---- left column ----
-      R.kicker = h('div', { class: 'kicker abs' }, [h('span', { class: 'dot' }), 'You set the scope']);
-      R.hl = E.headline([['You', 'choose'], ['exactly', 'what'], ['it', 'can', ['touch.', 'pink']]], 'headline md');
+      R.kicker = h('div', { class: 'kicker abs' }, [h('span', { class: 'dot' }), L('You set the scope', 'Vous fixez le périmètre')]);
+      R.hl = E.headline(L([['You', 'choose'], ['exactly', 'what'], ['it', 'can', ['touch.', 'pink']]], [['Vous', 'choisissez'], ['précisément', 'à', 'quoi'], ['il', ['accède.', 'pink']]]), 'headline md');
       R.hl.el.style.position = 'absolute';
       cam.append(R.kicker, R.hl.el);
-      R.bullets = [['Which workspaces', 'globe'], ['Which resources', 'list'], ['Read, or read &amp; write', 'pencil']].map(([txt, ic]) => {
+      R.bullets = [[L('Which workspaces', 'Quels espaces de travail'), 'globe'], [L('Which resources', 'Quelles ressources'), 'list'], [L('Read, or read &amp; write', 'Lecture, ou lecture et écriture'), 'pencil']].map(([txt, ic]) => {
         const b = bullet(txt, ic);
         cam.appendChild(b);
         return b;
       });
-      R.note = h('div', { class: 'badge violet abs', style: { fontSize: '19px', padding: '10px 16px' } }, [UI.svgIcon('shield', 22, '#b3baff', 2), 'New connections start read-only']);
+      R.note = h('div', { class: 'badge violet abs', style: { fontSize: '19px', padding: '10px 16px' } }, [UI.svgIcon('shield', 22, '#b3baff', 2), L('New connections start read-only', 'Nouvelles connexions en lecture seule')]);
       cam.appendChild(R.note);
 
       // ---- consent screen ----
@@ -101,12 +101,12 @@
 
       const mark = UI.logoMark(54, 'sc');
       app.appendChild(h('div', { class: 'abs', style: { left: '0px', top: '34px' } }, [mark.el]));
-      app.appendChild(h('div', { class: 'abs', style: { left: '72px', top: '30px', fontSize: '32px', fontWeight: 700, letterSpacing: '-0.01em' }, text: 'Authorize Claude' }));
-      app.appendChild(h('div', { class: 'abs muted', style: { left: '72px', top: '74px', fontSize: '19px' }, text: 'Choose what it may do on your behalf. You can change this at any time.' }));
+      app.appendChild(h('div', { class: 'abs', style: { left: '72px', top: '30px', fontSize: '32px', fontWeight: 700, letterSpacing: '-0.01em' }, text: L('Authorize Claude', 'Autoriser Claude') }));
+      app.appendChild(h('div', { class: 'abs muted', style: { left: '72px', top: '74px', fontSize: L('19px', '17px') }, text: L('Choose what it may do on your behalf. You can change this at any time.', "Choisissez ce qu'il peut faire en votre nom. Vous pouvez modifier ces autorisations à tout moment.") }));
 
-      app.appendChild(h('div', { class: 'abs', style: { left: '0px', top: '134px', fontSize: '21px', fontWeight: 600 }, text: 'Authorize access for' }));
+      app.appendChild(h('div', { class: 'abs', style: { left: '0px', top: '134px', fontSize: '21px', fontWeight: 600 }, text: L('Authorize access for', "Autoriser l'accès pour") }));
       R.count = h('span', { class: 'muted', style: { fontSize: '18px' } });
-      app.appendChild(h('div', { class: 'abs', style: { left: 'auto', right: '0px', top: '137px', display: 'flex', gap: '20px', alignItems: 'baseline' } }, [R.count, h('span', { class: 'link', style: { fontSize: '18px' }, text: 'Select all' })]));
+      app.appendChild(h('div', { class: 'abs', style: { left: 'auto', right: '0px', top: '137px', display: 'flex', gap: '20px', alignItems: 'baseline' } }, [R.count, h('span', { class: 'link', style: { fontSize: '18px' }, text: L('Select all', 'Tout sélectionner') })]));
       const wsBox = h('div', { class: 'box', style: { left: '0px', top: WS_BOX.y + 'px', width: INNER + 'px', height: WS_BOX.h + 'px' } });
       app.appendChild(wsBox);
       R.ws = WORKSPACES.map((w) => {
@@ -119,7 +119,7 @@
           h('div', { class: 'mono faint', style: { fontSize: '14px', marginTop: '2px' }, text: w.slug }),
         ]);
         wsBox.append(cb, fl, txt);
-        if (w.viewer) wsBox.appendChild(h('div', { class: 'amber abs', style: { left: x + 350 + 'px', top: y + 16 + 'px' }, text: 'Viewer' }));
+        if (w.viewer) wsBox.appendChild(h('div', { class: 'amber abs', style: { left: x + 350 + 'px', top: y + 16 + 'px' }, text: L('Viewer', 'Lecture seule') }));
         return { ...w, cb, txt, cx: x + 12, cy: WS_BOX.y + y + 26 };
       });
 
@@ -127,8 +127,8 @@
       const table = h('div', { class: 'box', style: { left: '0px', top: TABLE_Y + 'px', width: INNER + 'px', height: HEAD_H + ROW_H * RESOURCES.length + 'px', overflow: 'hidden' } });
       app.appendChild(table);
       const head = h('div', { class: 'abs', style: { left: 0, top: 0, width: INNER + 'px', height: HEAD_H + 'px', background: '#f9fafb' } });
-      R.custom = h('span', { class: 'faint', style: { fontSize: '15px', fontWeight: 400, marginLeft: '10px' }, text: 'Custom' });
-      head.appendChild(h('div', { class: 'abs', style: { left: '20px', top: '19px', fontSize: '19px', fontWeight: 600 } }, ['All resources', R.custom]));
+      R.custom = h('span', { class: 'faint', style: { fontSize: '15px', fontWeight: 400, marginLeft: '10px' }, text: L('Custom', 'Sur mesure') });
+      head.appendChild(h('div', { class: 'abs', style: { left: '20px', top: '19px', fontSize: '19px', fontWeight: 600 } }, [L('All resources', 'Toutes les ressources'), R.custom]));
       table.appendChild(head);
       R.allSeg = seg(SEG_X, (HEAD_H - 44) / 2, false);
       head.appendChild(R.allSeg.el);
@@ -146,8 +146,8 @@
         return { ...r, row, sg, y: TABLE_Y + y };
       });
 
-      R.cancel = h('div', { class: 'btn white', style: { left: INNER - 300 + 'px', top: BTN_Y + 'px', width: '120px' }, text: 'Cancel' });
-      R.auth = h('div', { class: 'btn blue', style: { left: INNER - 164 + 'px', top: BTN_Y + 'px', width: '164px' }, text: 'Authorize' });
+      R.cancel = h('div', { class: 'btn white', style: { left: INNER - 300 + 'px', top: BTN_Y + 'px', width: '120px' }, text: L('Cancel', 'Annuler') });
+      R.auth = h('div', { class: 'btn blue', style: { left: INNER - 164 + 'px', top: BTN_Y + 'px', width: '164px' }, text: L('Authorize', 'Autoriser') });
       app.append(R.cancel, R.auth);
 
       R.cursor = UI.cursor();
@@ -189,7 +189,7 @@
         w.cb.innerHTML = off ? '' : CHECK;
         E.css(w.txt, 'opacity', off ? '0.55' : '1');
       });
-      E.text(R.count, `${selected} of 4 workspaces selected`);
+      E.text(R.count, L(`${selected} of 4 workspaces selected`, `${selected} espaces de travail sur 4 sélectionnés`));
 
       // permission levels
       const levelAt = (r) => {

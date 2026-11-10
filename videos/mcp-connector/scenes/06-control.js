@@ -10,7 +10,9 @@
 
   const WIN = { x: 96, y: 150, w: 1060, h: 800 };
   const PAD = 40, INNER = WIN.w - PAD * 2;
-  const SEG_W = 384;
+  const SEG_W = L(384, 450);
+  // Cursor targets: distance from the panel's right edge to the Revoke / Save button centres.
+  const CUR = L({ revoke: 206, save: 72 }, { revoke: 277, save: 109 });
   const SAVE_T = C.save;
 
   function seg(readOnly) {
@@ -18,7 +20,7 @@
     const colW = (SEG_W - 12) / 3;
     const sel = h('div', { class: 'sel', style: { width: colW + 'px' } });
     el.appendChild(sel);
-    const lbls = ['Read & Write', 'Read', 'No access'].map((txt, i) => {
+    const lbls = L(['Read & Write', 'Read', 'No access'], ['Lecture et écriture', 'Lecture', 'Aucun accès']).map((txt, i) => {
       const s = h('span', { class: 'lbl' + (readOnly && i === 0 ? ' off' : ''), text: txt });
       el.appendChild(s);
       return s;
@@ -30,12 +32,13 @@
     sg.lbls.forEach((l, i) => l.classList.toggle('on', i === Math.round(pos)));
   }
 
-  function connRow(name, summary, used, expanded) {
+  function connRow(name, logo, summary, used, expanded) {
     const chev = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(${expanded ? 0 : -90}deg)"><path d="M6 9l6 6 6-6"/></svg>`;
     const sum = h('div', { class: 'muted', style: { fontSize: '18px', marginTop: '3px' }, text: summary });
-    const unsaved = h('span', { class: 'amber', style: { fontSize: '13px', marginLeft: '10px' }, text: 'Unsaved' });
+    const unsaved = h('span', { class: 'amber', style: { fontSize: '13px', marginLeft: '10px' }, text: L('Unsaved', 'Non enregistré') });
     const head = h('div', { style: { display: 'flex', alignItems: 'center', gap: '16px', padding: '20px 22px' } }, [
       h('span', { html: chev, style: { display: 'inline-flex' } }),
+      h('span', { style: { width: '44px', height: '44px', borderRadius: '10px', background: '#111827', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: 'none' } }, [UI.brand(logo, 26)]),
       h('div', { style: { flex: 1 } }, [h('div', { style: { display: 'flex', alignItems: 'baseline' } }, [h('span', { style: { fontSize: '21px', fontWeight: 600 }, text: name }), unsaved]), sum]),
       h('span', { class: 'faint', style: { fontSize: '17px' }, text: used }),
     ]);
@@ -57,34 +60,34 @@
       cam.appendChild(win.el);
       const app = h('div', { class: 'app', style: { left: PAD + 'px', top: '30px', width: INNER + 'px' } });
       win.body.appendChild(app);
-      app.appendChild(h('div', { style: { fontSize: '26px', fontWeight: 700 }, text: 'MCP connections' }));
+      app.appendChild(h('div', { style: { fontSize: '26px', fontWeight: 700 }, text: L('MCP connections', 'Connexions MCP') }));
 
-      R.claude = connRow('Claude', '26 of 36 tools · 2 workspaces', 'Last used 2 minutes ago', true);
+      R.claude = connRow('Claude', 'claude', L('26 of 36 tools · 2 workspaces', '26 outils sur 36 · 2 espaces de travail'), L('Last used 2 minutes ago', 'Dernière utilisation il y a 2 minutes'), true);
       const body = h('div', { style: { borderTop: '1.5px solid #f3f4f6', padding: '8px 22px 20px' } });
-      R.rows = [['Datasets', 1, false], ['Pipelines', 0, false], ['Web apps', 0, false], ['Connections', 1, true]].map(([label, lvl, ro]) => {
+      R.rows = [[L('Datasets', 'Jeux de données'), 1, false], ['Pipelines', 0, false], [L('Web apps', 'Applications web'), 0, false], [L('Connections', 'Connexions'), 1, true]].map(([label, lvl, ro]) => {
         const sg = seg(ro);
         setSeg(sg, lvl);
         const row = h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px', borderBottom: '1.5px solid #f3f4f6' } }, [h('span', { style: { fontSize: '19px', fontWeight: 600 }, text: label }), sg.el]);
         body.appendChild(row);
         return { sg, lvl, row };
       });
-      R.revoke = h('div', { style: { height: '50px', padding: '0 26px', borderRadius: '10px', background: '#dc2626', color: '#fff', display: 'flex', alignItems: 'center', fontSize: '19px', fontWeight: 600 }, text: 'Revoke' });
-      R.save = h('div', { style: { height: '50px', padding: '0 30px', borderRadius: '10px', background: '#2563eb', color: '#fff', display: 'flex', alignItems: 'center', fontSize: '19px', fontWeight: 600 }, text: 'Save' });
+      R.revoke = h('div', { style: { height: '50px', padding: '0 26px', borderRadius: '10px', background: '#dc2626', color: '#fff', display: 'flex', alignItems: 'center', fontSize: '19px', fontWeight: 600 }, text: L('Revoke', 'Révoquer') });
+      R.save = h('div', { style: { height: '50px', padding: '0 30px', borderRadius: '10px', background: '#2563eb', color: '#fff', display: 'flex', alignItems: 'center', fontSize: '19px', fontWeight: 600 }, text: L('Save', 'Sauvegarder') });
       body.appendChild(h('div', { style: { display: 'flex', justifyContent: 'flex-end', gap: '12px', paddingTop: '20px' } }, [R.revoke, R.save]));
       R.claude.el.appendChild(body);
       app.appendChild(R.claude.el);
-      R.gpt = connRow('ChatGPT', '12 of 36 tools · 1 workspace', 'Last used yesterday', false);
-      R.gem = connRow('Gemini CLI', '15 of 36 tools · 3 workspaces', 'Never used', false);
+      R.gpt = connRow('ChatGPT', 'openai', L('12 of 36 tools · 1 workspace', '12 outils sur 36 · 1 espace de travail'), L('Last used yesterday', 'Dernière utilisation hier'), false);
+      R.gem = connRow('Gemini CLI', 'gemini', L('15 of 36 tools · 3 workspaces', '15 outils sur 36 · 3 espaces de travail'), L('Never used', 'Jamais utilisé'), false);
       app.append(R.gpt.el, R.gem.el);
       R.gpt.unsaved.style.display = 'none';
       R.gem.unsaved.style.display = 'none';
 
-      R.saved = h('div', { class: 'abs', style: { display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 20px', borderRadius: '12px', background: '#111827', color: '#fff', fontSize: '19px', fontWeight: 600, boxShadow: '0 20px 40px -10px rgba(0,0,0,0.5)' } }, [UI.svgIcon('check', 22, '#4ade80', 3), 'Permissions saved']);
+      R.saved = h('div', { class: 'abs', style: { display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 20px', borderRadius: '12px', background: '#111827', color: '#fff', fontSize: '19px', fontWeight: 600, boxShadow: '0 20px 40px -10px rgba(0,0,0,0.5)' } }, [UI.svgIcon('check', 22, '#4ade80', 3), L('Permissions saved', 'Permissions sauvegardées')]);
       cam.appendChild(R.saved);
 
       // right column: headline + the agent's next call
-      R.kicker = h('div', { class: 'kicker abs' }, [h('span', { class: 'dot' }), 'Always in your hands']);
-      R.hl = E.headline([['Narrow', 'it.'], ['Revoke', 'it.'], [['Any', 'pink'], ['time.', 'pink']]], 'headline md');
+      R.kicker = h('div', { class: 'kicker abs' }, [h('span', { class: 'dot' }), L('Always in your hands', 'Toujours entre vos mains')]);
+      R.hl = E.headline(L([['Narrow', 'it.'], ['Revoke', 'it.'], [['Any', 'pink'], ['time.', 'pink']]], [['Restreignez.'], ['Révoquez.'], [['À', 'pink'], ['tout', 'pink'], ['moment.', 'pink']]]), 'headline md');
       R.hl.el.style.position = 'absolute';
       cam.append(R.kicker, R.hl.el);
 
@@ -94,10 +97,10 @@
       R.spin = spin;
       R.no = no;
       R.call = h('div', { class: 'card abs', style: { width: '640px', padding: '20px 24px' } }, [
-        h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', fontSize: '19px', fontWeight: 700, color: '#c9cde6' } }, [UI.svgIcon('spark', 22, '#ff8a5c'), 'Claude', h('span', { class: 'mono', style: { marginLeft: 'auto', fontSize: '15px', color: '#8d93b8' }, text: 'next call' })]),
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', fontSize: '19px', fontWeight: 700, color: '#c9cde6' } }, [UI.brand('claude', 22), 'Claude', h('span', { class: 'mono', style: { marginLeft: 'auto', fontSize: '15px', color: '#8d93b8' }, text: L('next call', 'appel suivant') })]),
         R.callRow = h('div', { style: { display: 'flex', alignItems: 'center', gap: '16px', marginTop: '14px', padding: '14px 18px', borderRadius: '14px', background: 'rgba(0,0,0,0.2)', border: '1.5px solid rgba(255,255,255,0.08)' } }, [
           h('div', { style: { position: 'relative', width: '26px', height: '26px', flex: 'none' } }, [spin, no]),
-          h('div', {}, [h('div', { class: 'mono', style: { fontSize: '20px' }, text: 'run_pipeline' }), h('div', { class: 'mono', style: { fontSize: '15px', color: '#8d93b8' }, text: 'weekly-malaria-indicators' })]),
+          h('div', {}, [h('div', { class: 'mono', style: { fontSize: '20px' }, text: 'run_pipeline' }), h('div', { class: 'mono', style: { fontSize: '15px', color: '#8d93b8' }, text: L('weekly-malaria-indicators', 'indicateurs-paludisme-hebdo') })]),
         ]),
         R.msg = h('div', { style: { marginTop: '14px', fontSize: '18px', lineHeight: 1.45, color: '#ff8f9b' }, text: 'The OpenHEXA connection for Claude is not authorized to call run_pipeline.' }),
       ]);
@@ -121,7 +124,7 @@
       const dirty = t >= C.narrow && t < SAVE_T;
       E.css(R.claude.unsaved, 'display', dirty ? 'inline-flex' : 'none');
       E.css(R.save, 'opacity', dirty || Math.abs(t - SAVE_T) < 0.15 ? '1' : '0.45');
-      E.text(R.claude.sum, t >= SAVE_T ? '21 of 36 tools · 2 workspaces' : '26 of 36 tools · 2 workspaces');
+      E.text(R.claude.sum, t >= SAVE_T ? L('21 of 36 tools · 2 workspaces', '21 outils sur 36 · 2 espaces de travail') : L('26 of 36 tools · 2 workspaces', '26 outils sur 36 · 2 espaces de travail'));
       const hov = Math.max(0, 1 - Math.abs(t - (C.revoke + 0.2)) / 0.55);
       E.css(R.revoke, 'box-shadow', `0 0 0 ${(6 * hov).toFixed(1)}px rgba(220,38,38,${(0.3 * hov).toFixed(2)})`);
       const sp = prog(t, SAVE_T + 0.1, 0.4, ease.outBack);
@@ -132,7 +135,7 @@
       const kp = prog(t, t0 - 0.1, 0.6, ease.outCubic);
       set(R.kicker, { x: 1230, y: 196 + (1 - kp) * 14, o: kp * (1 - out) });
       set(R.hl.el, { x: 1230, y: 242 });
-      E.revealWords(R.hl.words, t, [at('v07', 'narrow') - 0.15, at('v07', 'narrow') + 0.1, at('v07', 'revoke') - 0.1, at('v07', 'revoke') + 0.15, at('v07', 'any') - 0.12, at('v07', 'time') - 0.1], 0.5, tOut - 0.4, 0.35);
+      E.revealWords(R.hl.words, t, L([at('v07', 'narrow') - 0.15, at('v07', 'narrow') + 0.1, at('v07', 'revoke') - 0.1, at('v07', 'revoke') + 0.15, at('v07', 'any') - 0.12, at('v07', 'time') - 0.1], [at('v07', 'narrow') - 0.15, at('v07', 'revoke') - 0.1, at('v07', 'any') - 0.25, at('v07', 'any') - 0.05, at('v07', 'time') - 0.1]), 0.5, tOut - 0.4, 0.35);
 
       const cp = prog(t, C.call - 0.15, 0.55, ease.outQuart);
       set(R.call, { x: 1190 + (1 - cp) * 60, y: 560, o: cp * (1 - out), blur: (1 - cp) * 6 });
@@ -152,8 +155,8 @@
       const pts = [
         [t0 - 0.2, { x: 1300, y: 1060 }],
         [C.narrow - 0.05, toScreen(PAD + 22 + INNER - 44 - SEG_W + 3 + (SEG_W - 12) / 3 * 1.5 + 3, rowsTop + 64 + 32)],
-        [C.revoke + 0.15, toScreen(PAD + INNER - 22 - 112 - 12 - 60, rowsTop + 64 * 4 + 45)],
-        [SAVE_T, toScreen(PAD + INNER - 22 - 50, rowsTop + 64 * 4 + 45)],
+        [C.revoke + 0.15, toScreen(PAD + INNER - CUR.revoke, rowsTop + 64 * 4 + 45)],
+        [SAVE_T, toScreen(PAD + INNER - CUR.save, rowsTop + 64 * 4 + 45)],
         [C.call, toScreen(PAD + INNER - 10, rowsTop + 64 * 4 + 160)],
       ];
       let p = pts[0][1];

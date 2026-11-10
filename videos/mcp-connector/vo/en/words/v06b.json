@@ -1,0 +1,102 @@
+{
+ "text": "and the result stays in your workspace a versioned pipeline and a web app your team can open",
+ "usage": null,
+ "task": "transcribe",
+ "language": "en",
+ "duration": 5.70575,
+ "words": [
+  {
+   "word": "and",
+   "start": 0,
+   "end": 0.16
+  },
+  {
+   "word": "the",
+   "start": 0.16,
+   "end": 0.32
+  },
+  {
+   "word": "result",
+   "start": 0.32,
+   "end": 0.56
+  },
+  {
+   "word": "stays",
+   "start": 0.56,
+   "end": 0.96
+  },
+  {
+   "word": "in",
+   "start": 0.96,
+   "end": 1.12
+  },
+  {
+   "word": "your",
+   "start": 1.12,
+   "end": 1.28
+  },
+  {
+   "word": "workspace",
+   "start": 1.28,
+   "end": 2.1599998
+  },
+  {
+   "word": "a",
+   "start": 2.32,
+   "end": 2.56
+  },
+  {
+   "word": "versioned",
+   "start": 2.56,
+   "end": 3.04
+  },
+  {
+   "word": "pipeline",
+   "start": 3.04,
+   "end": 3.7599998
+  },
+  {
+   "word": "and",
+   "start": 3.84,
+   "end": 4
+  },
+  {
+   "word": "a",
+   "start": 4,
+   "end": 4.16
+  },
+  {
+   "word": "web",
+   "start": 4.16,
+   "end": 4.3199997
+  },
+  {
+   "word": "app",
+   "start": 4.3199997,
+   "end": 4.56
+  },
+  {
+   "word": "your",
+   "start": 4.56,
+   "end": 4.88
+  },
+  {
+   "word": "team",
+   "start": 4.88,
+   "end": 5.12
+  },
+  {
+   "word": "can",
+   "start": 5.12,
+   "end": 5.3599997
+  },
+  {
+   "word": "open",
+   "start": 5.3599997,
+   "end": 5.68
+  }
+ ],
+ "provider_name": "deepgram",
+ "cost": 0.0004089311025,
+ "provider": "deepgram"
+}

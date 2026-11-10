@@ -1,0 +1,45 @@
+{
+ "text": "Open Hexa. Amenez vos agents. Gardez le contrôle.",
+ "words": [
+  {
+   "word": "Open",
+   "start": 0.0,
+   "end": 0.24
+  },
+  {
+   "word": "Hexa.",
+   "start": 0.24,
+   "end": 0.62
+  },
+  {
+   "word": "Amenez",
+   "start": 1.0,
+   "end": 1.38
+  },
+  {
+   "word": "vos",
+   "start": 1.38,
+   "end": 1.52
+  },
+  {
+   "word": "agents.",
+   "start": 1.52,
+   "end": 1.8
+  },
+  {
+   "word": "Gardez",
+   "start": 2.22,
+   "end": 2.66
+  },
+  {
+   "word": "le",
+   "start": 2.66,
+   "end": 2.72
+  },
+  {
+   "word": "contrôle.",
+   "start": 2.72,
+   "end": 3.02
+  }
+ ]
+}

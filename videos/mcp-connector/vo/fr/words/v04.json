@@ -1,0 +1,135 @@
+{
+ "text": "Vous choisissez précisément les espaces de travail qu 'il peut atteindre, les ressources qu 'il peut utiliser, et s 'il peut seulement lire, ou aussi écrire.",
+ "words": [
+  {
+   "word": "Vous",
+   "start": 0.0,
+   "end": 0.12
+  },
+  {
+   "word": "choisissez",
+   "start": 0.12,
+   "end": 0.62
+  },
+  {
+   "word": "précisément",
+   "start": 0.62,
+   "end": 1.38
+  },
+  {
+   "word": "les",
+   "start": 1.38,
+   "end": 1.54
+  },
+  {
+   "word": "espaces",
+   "start": 1.54,
+   "end": 1.98
+  },
+  {
+   "word": "de",
+   "start": 1.98,
+   "end": 2.1
+  },
+  {
+   "word": "travail",
+   "start": 2.1,
+   "end": 2.46
+  },
+  {
+   "word": "qu",
+   "start": 2.46,
+   "end": 2.62
+  },
+  {
+   "word": "'il",
+   "start": 2.62,
+   "end": 2.68
+  },
+  {
+   "word": "peut",
+   "start": 2.68,
+   "end": 2.82
+  },
+  {
+   "word": "atteindre,",
+   "start": 2.82,
+   "end": 3.36
+  },
+  {
+   "word": "les",
+   "start": 3.76,
+   "end": 3.88
+  },
+  {
+   "word": "ressources",
+   "start": 3.88,
+   "end": 4.34
+  },
+  {
+   "word": "qu",
+   "start": 4.34,
+   "end": 4.46
+  },
+  {
+   "word": "'il",
+   "start": 4.46,
+   "end": 4.52
+  },
+  {
+   "word": "peut",
+   "start": 4.52,
+   "end": 4.66
+  },
+  {
+   "word": "utiliser,",
+   "start": 4.66,
+   "end": 5.2
+  },
+  {
+   "word": "et",
+   "start": 5.88,
+   "end": 5.9
+  },
+  {
+   "word": "s",
+   "start": 5.9,
+   "end": 6.2
+  },
+  {
+   "word": "'il",
+   "start": 6.2,
+   "end": 6.28
+  },
+  {
+   "word": "peut",
+   "start": 6.28,
+   "end": 6.46
+  },
+  {
+   "word": "seulement",
+   "start": 6.46,
+   "end": 6.74
+  },
+  {
+   "word": "lire,",
+   "start": 6.74,
+   "end": 7.22
+  },
+  {
+   "word": "ou",
+   "start": 7.58,
+   "end": 7.62
+  },
+  {
+   "word": "aussi",
+   "start": 7.62,
+   "end": 7.86
+  },
+  {
+   "word": "écrire.",
+   "start": 7.86,
+   "end": 8.18
+  }
+ ]
+}

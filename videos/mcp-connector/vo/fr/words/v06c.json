@@ -1,0 +1,60 @@
+{
+ "text": "Chaque appel est journalisé, et chaque résultat est du code lisible.",
+ "words": [
+  {
+   "word": "Chaque",
+   "start": 0.0,
+   "end": 0.3
+  },
+  {
+   "word": "appel",
+   "start": 0.3,
+   "end": 0.56
+  },
+  {
+   "word": "est",
+   "start": 0.56,
+   "end": 0.72
+  },
+  {
+   "word": "journalisé,",
+   "start": 0.72,
+   "end": 1.42
+  },
+  {
+   "word": "et",
+   "start": 1.84,
+   "end": 1.88
+  },
+  {
+   "word": "chaque",
+   "start": 1.88,
+   "end": 2.16
+  },
+  {
+   "word": "résultat",
+   "start": 2.16,
+   "end": 2.88
+  },
+  {
+   "word": "est",
+   "start": 2.88,
+   "end": 3.04
+  },
+  {
+   "word": "du",
+   "start": 3.04,
+   "end": 3.16
+  },
+  {
+   "word": "code",
+   "start": 3.16,
+   "end": 3.4
+  },
+  {
+   "word": "lisible.",
+   "start": 3.4,
+   "end": 3.9
+  }
+ ]
+}

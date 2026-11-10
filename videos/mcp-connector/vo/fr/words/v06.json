@@ -1,0 +1,125 @@
+{
+ "text": "Ensuite, il suffit de demander. En quelques minutes, votre agent explore les données, écrit et exécute un pipeline, et publie un tableau de bord.",
+ "words": [
+  {
+   "word": "Ensuite,",
+   "start": 0.0,
+   "end": 0.52
+  },
+  {
+   "word": "il",
+   "start": 0.98,
+   "end": 0.98
+  },
+  {
+   "word": "suffit",
+   "start": 0.98,
+   "end": 1.28
+  },
+  {
+   "word": "de",
+   "start": 1.28,
+   "end": 1.46
+  },
+  {
+   "word": "demander.",
+   "start": 1.46,
+   "end": 1.8
+  },
+  {
+   "word": "En",
+   "start": 2.4,
+   "end": 2.58
+  },
+  {
+   "word": "quelques",
+   "start": 2.58,
+   "end": 2.88
+  },
+  {
+   "word": "minutes,",
+   "start": 2.88,
+   "end": 3.3
+  },
+  {
+   "word": "votre",
+   "start": 3.62,
+   "end": 3.72
+  },
+  {
+   "word": "agent",
+   "start": 3.72,
+   "end": 3.96
+  },
+  {
+   "word": "explore",
+   "start": 3.96,
+   "end": 4.46
+  },
+  {
+   "word": "les",
+   "start": 4.46,
+   "end": 4.68
+  },
+  {
+   "word": "données,",
+   "start": 4.68,
+   "end": 4.96
+  },
+  {
+   "word": "écrit",
+   "start": 5.48,
+   "end": 5.72
+  },
+  {
+   "word": "et",
+   "start": 5.72,
+   "end": 6.14
+  },
+  {
+   "word": "exécute",
+   "start": 6.14,
+   "end": 6.5
+  },
+  {
+   "word": "un",
+   "start": 6.5,
+   "end": 6.7
+  },
+  {
+   "word": "pipeline,",
+   "start": 6.7,
+   "end": 7.12
+  },
+  {
+   "word": "et",
+   "start": 7.64,
+   "end": 7.76
+  },
+  {
+   "word": "publie",
+   "start": 7.76,
+   "end": 8.04
+  },
+  {
+   "word": "un",
+   "start": 8.04,
+   "end": 8.2
+  },
+  {
+   "word": "tableau",
+   "start": 8.2,
+   "end": 8.48
+  },
+  {
+   "word": "de",
+   "start": 8.48,
+   "end": 8.6
+  },
+  {
+   "word": "bord.",
+   "start": 8.6,
+   "end": 8.68
+  }
+ ]
+}

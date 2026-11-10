@@ -1,0 +1,110 @@
+{
+ "text": "Et le résultat reste dans votre espace de travail, un pipeline versionné, et une application web que votre équipe peut ouvrir.",
+ "words": [
+  {
+   "word": "Et",
+   "start": 0.0,
+   "end": 0.1
+  },
+  {
+   "word": "le",
+   "start": 0.1,
+   "end": 0.18
+  },
+  {
+   "word": "résultat",
+   "start": 0.18,
+   "end": 0.74
+  },
+  {
+   "word": "reste",
+   "start": 0.74,
+   "end": 1.0
+  },
+  {
+   "word": "dans",
+   "start": 1.0,
+   "end": 1.24
+  },
+  {
+   "word": "votre",
+   "start": 1.24,
+   "end": 1.44
+  },
+  {
+   "word": "espace",
+   "start": 1.44,
+   "end": 1.8
+  },
+  {
+   "word": "de",
+   "start": 1.8,
+   "end": 1.92
+  },
+  {
+   "word": "travail,",
+   "start": 1.92,
+   "end": 2.3
+  },
+  {
+   "word": "un",
+   "start": 2.66,
+   "end": 2.94
+  },
+  {
+   "word": "pipeline",
+   "start": 2.94,
+   "end": 3.32
+  },
+  {
+   "word": "versionné,",
+   "start": 3.32,
+   "end": 4.12
+  },
+  {
+   "word": "et",
+   "start": 4.26,
+   "end": 4.62
+  },
+  {
+   "word": "une",
+   "start": 4.62,
+   "end": 4.74
+  },
+  {
+   "word": "application",
+   "start": 4.74,
+   "end": 5.12
+  },
+  {
+   "word": "web",
+   "start": 5.12,
+   "end": 5.5
+  },
+  {
+   "word": "que",
+   "start": 5.5,
+   "end": 5.72
+  },
+  {
+   "word": "votre",
+   "start": 5.72,
+   "end": 5.94
+  },
+  {
+   "word": "équipe",
+   "start": 5.94,
+   "end": 6.26
+  },
+  {
+   "word": "peut",
+   "start": 6.26,
+   "end": 6.38
+  },
+  {
+   "word": "ouvrir.",
+   "start": 6.38,
+   "end": 6.78
+  }
+ ]
+}

@@ -11,7 +11,7 @@
       },
       {
         "id": "v03",
-        "text": "With the Open Hexa MCP connector, bring the agent you already use. Claude, ChatGPT, Gemini... with governance built in."
+        "text": "With the Open Hexa MCP connector, bring the agent you already use. Claude, ChatGPT, Gemini, or any agent that speaks MCP... with governance built in."
       },
       {
         "id": "v04",
@@ -23,7 +23,15 @@
       },
       {
         "id": "v06",
-        "text": "Then it gets real work done. Exploring datasets, building pipelines, publishing web apps. Every call is logged, and every result is code you can read."
+        "text": "Then just ask. In minutes, your agent explores the data, writes and runs a pipeline, and publishes a dashboard."
+      },
+      {
+        "id": "v06b",
+        "text": "And the result stays in your workspace: a versioned pipeline, and a web app your team can open."
+      },
+      {
+        "id": "v06c",
+        "text": "Every call is logged, and every result is code you can read."
       },
       {
         "id": "v07",
@@ -40,6 +48,58 @@
       {
         "id": "v10",
         "text": "Start your free trial today."
+      }
+    ]
+  },
+  "fr": {
+    "lines": [
+      {
+        "id": "v01",
+        "text": "Les agents IA peuvent désormais travailler sur vos données."
+      },
+      {
+        "id": "v02",
+        "text": "Mais confieriez-vous à l'un d'eux les clés de vos données de santé ? Que peut-il voir ? Que peut-il modifier ?"
+      },
+      {
+        "id": "v03",
+        "text": "Avec le connecteur MCP d'Open Hexa, utilisez l'agent que vous connaissez déjà. Claude, ChatGPT, Gemini, ou tout agent compatible MCP... avec une gouvernance intégrée."
+      },
+      {
+        "id": "v04",
+        "text": "Vous choisissez précisément les espaces de travail qu'il peut atteindre, les ressources qu'il peut utiliser, et s'il peut seulement lire, ou aussi écrire."
+      },
+      {
+        "id": "v05",
+        "text": "Il agit avec vos permissions, jamais au-delà. Si vous ne pouvez pas ouvrir un espace de travail, votre agent non plus. Et les secrets de connexion restent hors de portée."
+      },
+      {
+        "id": "v06",
+        "text": "Ensuite, il suffit de demander. En quelques minutes, votre agent explore les données, écrit et exécute un pipeline, et publie un tableau de bord."
+      },
+      {
+        "id": "v06b",
+        "text": "Et le résultat reste dans votre espace de travail : un pipeline versionné, et une application web que votre équipe peut ouvrir."
+      },
+      {
+        "id": "v06c",
+        "text": "Chaque appel est journalisé, et chaque résultat est du code lisible."
+      },
+      {
+        "id": "v07",
+        "text": "Vous changez d'avis ? Restreignez ou révoquez l'accès à tout moment. Cela s'applique dès l'appel suivant."
+      },
+      {
+        "id": "v08",
+        "text": "Une IA responsable, dès la conception."
+      },
+      {
+        "id": "v09",
+        "text": "Open Hexa. Amenez vos agents. Gardez le contrôle."
+      },
+      {
+        "id": "v10",
+        "text": "Commencez votre essai gratuit dès aujourd'hui."
       }
     ]
   }

@@ -22,3 +22,6 @@
 .card.light .chrome i { background: #d1d5db; }
 .card.light .chrome .url { color: #6b7280; border-color: #e5e7eb; background: #fff; }
 .card.light .chrome .url b { color: #111827; }
+.app .amber { white-space: nowrap; }
+/* French selector labels ("Lecture et écriture") need a smaller size to fit their column. */
+:lang(fr) .app .seg span { font-size: 14.5px; }

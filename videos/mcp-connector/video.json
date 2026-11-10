@@ -1,11 +1,41 @@
 {
   "title": "OpenHEXA MCP connector: bring your agents, keep control",
-  "langs": ["en"],
+  "langs": [
+    "en",
+    "fr"
+  ],
   "voices": {
-    "en": { "model": "elevenlabs/eleven_multilingual_v2", "voice": "XrExE9yKIg1WjnnlVkGX", "voiceName": "Matilda - Knowledgable, Professional" }
+    "en": {
+      "model": "elevenlabs/eleven_multilingual_v2",
+      "voice": "XrExE9yKIg1WjnnlVkGX",
+      "voiceName": "Matilda - Knowledgable, Professional"
+    },
+    "fr": {
+      "model": "elevenlabs/eleven_v4",
+      "voice": "kwhMCf63M8O3rCfnQ3oQ",
+      "voiceName": "Caroline - Top France - Narrative, chaleureuse, douce (native French; eleven_v4 chosen after native-speaker review)"
+    }
   },
   "words": "none",
-  "timeline": ["words.js", "timeline.js"],
-  "css": ["video.css"],
-  "scripts": ["scenes/01-hook.js", "scenes/02-connect.js", "scenes/03-scope.js", "scenes/04-ceiling.js", "scenes/05-work.js", "scenes/06-control.js", "scenes/07-vision.js", "scenes/08-cta.js", "stage.js"]
+  "timeline": [
+    "lang.js",
+    "words.js",
+    "words.fr.js",
+    "timeline.js"
+  ],
+  "css": [
+    "video.css"
+  ],
+  "scripts": [
+    "brand.js",
+    "scenes/01-hook.js",
+    "scenes/02-connect.js",
+    "scenes/03-scope.js",
+    "scenes/04-ceiling.js",
+    "scenes/05-work.js",
+    "scenes/06-control.js",
+    "scenes/07-vision.js",
+    "scenes/08-cta.js",
+    "stage.js"
+  ]
 }
