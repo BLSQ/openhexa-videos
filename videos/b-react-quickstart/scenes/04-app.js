@@ -5,7 +5,7 @@ AppUI.beats = {
 };
 
 // Scenes join → ai: the invitation email, then one continuous app window. It steps aside while the
-// RStudio chapter plays (scenes/045-rstudio.js) and comes back for pipelines. Each page is a builder
+// B-REACT chapter (scenes/035-breact.js) and the RStudio chapter (scenes/045-rstudio.js) play. Each page is a builder
 // from pages.js (or core/app-ui.js); `segments()` says which page shows when, `dsState()` drives the
 // dataset page, and a callout on the right tracks each chapter.
 E.scene({
@@ -142,7 +142,7 @@ E.scene({
     // ---------- window (steps aside during the RStudio chapter) ----------
     const enter = prog(t, tWin + 0.1, 0.9, ease.outQuart);
     const exit = prog(t, tExit - 0.2, 0.9, ease.inCubic);
-    const away = ease.inOutCubic(E.window(t, T.rstudio - 0.3, T.pipelines + 0.15, 0.7, 0.7));
+    const away = ease.inOutCubic(Math.max(E.window(t, T.breact - 0.3, T.notebooks + 0.15, 0.7, 0.7), E.window(t, T.rstudio - 0.3, T.pipelines + 0.15, 0.7, 0.7)));
     const gone = Math.max(exit, away);
     set(this.winWrap, { x: 70 - gone * 160, y: 150 + (1 - enter) * 90, s: lerp(0.94, 1, enter) * lerp(1, 0.92, gone), o: Math.min(1, enter * 1.6) * (1 - gone), blur: gone * 6 });
     E.show(this.winWrap, enter > 0 && gone < 1);
@@ -256,6 +256,8 @@ E.scene({
     add(A.linkOpen + 0.4, ds.wsInput, { click: true, dx: 0.6 });
     add(A.linkOpen + 0.85, ds.wsOpt, { click: true, dx: 0.4 });
     add(A.linkDone - 0.3, ds.linkBtn, { click: true });
+    add(T.breact - 0.3, null, { xy: [700, 900] });
+    add(T.notebooks + 0.2, null, { xy: [700, 900] });
     add(c('jupyter') - 0.1, this.side.items.jupyter.el, { click: true, dx: 0.35 });
     add(c('python') + 0.1, P.notebooks.tiles[0], { dx: 0.5 });
     add(c('signedIn') - 0.5, P.notebooks.tiles[0], { click: true, dx: 0.5 });

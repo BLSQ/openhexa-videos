@@ -32,6 +32,7 @@
     "pages.js",
     "scenes/01-intro.js",
     "scenes/02-concept.js",
+    "scenes/035-breact.js",
     "scenes/04-app.js",
     "scenes/045-rstudio.js",
     "scenes/05-rules.js",

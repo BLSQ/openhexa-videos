@@ -650,5 +650,75 @@
     return { el: m.el, m, opts, cli };
   };
 
+
+  // ---------- B-REACT access & sharing (scenes/035-breact.js) ----------
+  // A partner's Datasets list: links to the controllers' datasets, the Workspace column naming the
+  // source workspace (pages/workspaces/[workspaceSlug]/datasets/index.tsx; dates are relative there).
+  B.brDatasets = () => {
+    const rows = [
+      ['Aggregated alerts', '2 days ago', 'Patrick Kabongo', 'DSE'],
+      ['Aggregated contacts', '2 days ago', 'Patrick Kabongo', 'DSE'],
+      ['Line lists · No ID', 'yesterday', 'Sarah Mukendi', 'COUSP'],
+      ['Contacts · No ID', 'yesterday', 'Sarah Mukendi', 'COUSP'],
+      ['Lab data', '3 days ago', 'Joseph Ilunga', 'INRB'],
+      ['ETC line lists', '4 days ago', 'Esther Lunda', 'MSF'],
+    ];
+    const wsCells = [];
+    const trs = rows.map(([n, u, by, ws]) => {
+      const cell = h('td', {}, [h('span', { class: 'br-ws' }, [h('span', { class: 'flag-sm', html: FLAGS.cd }), h('span', { text: ws })])]);
+      wsCells.push(cell);
+      return h('tr', {}, [h('td', { class: 'strong' }, [h('span', { class: 'ox-ico-cell' }, [star(false), h('span', { text: n })])]), h('td', { text: u }), h('td', { text: by }), cell]);
+    });
+    const heads = ['Name', 'Last updated', 'Created by', 'Workspace'].map((c) => h('th', { text: c }));
+    const sh = shell(['Datasets'], [btn('Create', 'primary', 'Plus')], [
+      h('div', { class: 'ox-card', style: { overflow: 'hidden' } }, [h('table', { class: 'ox-table' }, [h('thead', {}, [h('tr', {}, heads)]), h('tbody', {}, trs)])]),
+    ]);
+    return { el: sh.el, wsHead: heads[3], wsCells, update() {} };
+  };
+
+  // Oxford's pipeline page: "Publish as Template" sits first in the header actions
+  // (workspaces/layouts/PipelineLayout/PipelineLayout.tsx).
+  B.brPipeline = () => {
+    const publish = secondary('Publish as Template');
+    const tabs = ['General', 'Runs', 'Scheduling and Notifications', 'Code'].map((x, i) => h('div', { class: 'ox-tab' + (i ? '' : ' on'), text: x }));
+    const dl = (k, v) => h('div', { class: 'br-dl' }, [h('dt', { text: k }), h('dd', { html: v })]);
+    const sh = shell(['Pipelines', 'Contact cleaning'], [publish, secondary('Download code'), btn('Run', 'primary', 'Play')], [
+      h('div', { class: 'ox-h1', text: 'Contact cleaning' }),
+      h('div', { class: 'ox-tabs', style: { marginTop: '10px' } }, tabs),
+      h('div', { class: 'ox-card br-pad', style: { marginTop: '16px' } }, [dl('Description', 'Cleans and deduplicates contact tracing lists.'), dl('Version', 'v3')]),
+    ]);
+    return { el: sh.el, publish, update() {} };
+  };
+
+  // Available Templates: every template on the instance ("All templates"), as TemplateCards with a
+  // publisher badge ("Community" until validated) and "Create pipeline"
+  // (pipelines/features/PipelineTemplates, workspaces/features/TemplateCard).
+  B.brTemplates = () => {
+    const tabs = ['Pipelines', 'Available Templates'].map((x, i) => h('div', { class: 'ox-tab' + (i ? ' on' : ''), text: x }));
+    const select = (label) => h('div', { class: 'ox-input', style: { width: '170px', height: '34px', fontSize: '13px' } }, [h('span', { text: label }), h('span', { style: { marginLeft: 'auto', display: 'flex' } }, [icon('ChevronDown', 14, '#9ca3af', 2)])]);
+    const card = (name, desc, n, initials) => {
+      const create = btn('Create pipeline', 'primary');
+      const el = h('div', { class: 'ox-card br-tpl' }, [
+        h('div', { class: 'br-tpl-top' }, [h('b', { text: name }), AppUI.pill('Community', 'gray')]),
+        h('div', { class: 'br-tpl-desc', text: desc }),
+        h('div', { class: 'br-tpl-foot' }, [h('span', { html: `<b>${n}</b> ${n === 1 ? 'pipeline' : 'pipelines'}` }), h('span', { class: 'br-tpl-av', text: initials })]),
+        h('div', { class: 'br-tpl-btns' }, [btn('Details', 'white'), create]),
+      ]);
+      return { el, create };
+    };
+    const c1 = card('Contact cleaning', 'Cleans and deduplicates contact tracing lists.', 1, 'OX');
+    const c2 = card('DHIS2 extraction', 'Extracts weekly alerts and cases from DHIS2 into the workspace.', 6, 'BS');
+    const t = toast('Successfully created pipeline Contact cleaning');
+    const sh = shell(['Pipelines'], [btn('Create', 'primary', 'Plus')], [
+      h('div', { class: 'ox-tabs', style: { marginTop: 0 } }, tabs),
+      h('div', { style: { display: 'flex', gap: '10px', marginTop: '16px' } }, [select('All templates'), select('All publishers')]),
+      h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '16px' } }, [c1.el, c2.el]),
+    ]);
+    sh.el.append(t);
+    return {
+      el: sh.el, tab: tabs[1], create: c1.create, update(tt) { showToast(t, tt, TL.at.tplCreate + 0.25, 2.6); },
+    };
+  };
+
   window.BR = B;
 })();

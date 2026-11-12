@@ -4,11 +4,12 @@
   const TL = root.TLKit.build({
     gaps: {
       default: 0.9, s01: 1.5, s02: 1.3, s04: 2.0, s05: 1.4, s06: 1.6, s07: 1.3, s09: 1.4, s11: 1.3,
-      s13: 1.5, s14: 1.2, s15: 1.6, s16: 1.0, s17: 1.2, s18: 1.6, s19: 1.4, s20: 1.6, s21: 2.0,
+      b01: 1.8, b02: 1.0, b03: 1.0, b04: 1.4, b05: 1.3, b06: 1.3, b07: 1.3, b08: 1.5, b09: 1.4,
+      s13: 1.8, s14: 1.2, s15: 1.6, s16: 1.0, s17: 1.2, s18: 1.6, s19: 1.4, s20: 1.6, s21: 2.0,
       s22: 1.4, s23: 1.4, s24: 1.6, s25: 1.4, s26: 1.4, s27: 2.6,
     },
     tail: 3.6,
-    lead: { default: 0.7, join: 0.9, rstudio: 0.9 },
+    lead: { default: 0.7, join: 0.9, breact: 1.0, rstudio: 0.9 },
     hitScene: 'outro',
   });
   const { cue, end, scenes: SC } = TL;
@@ -29,6 +30,9 @@
     pick: cue('selector') + 0.55,
     linkOpen: cue('share') + 0.3,
     linkDone: Math.max(cue('partners') - 0.2, cue('share') + 1.6),
+    // B-REACT chapter: Oxford's pipeline page, then Imperial's Available Templates.
+    tplSwitch: Math.max(cue('createTpl') - 0.35, cue('publishTpl') + 1.0),
+    tplCreate: Math.max(cue('availTpl') + 0.55, cue('createTpl') + 1.4),
     nbOpen: cue('python') - 0.1,
     tokenEye: cue('eye') + 0.15,
     tokenCopy: cue('copy') + 0.2,
@@ -50,7 +54,7 @@
 
   TL.fx(0.9, 'shimmer', 0.5);
   TL.fx(1.15, 'impact', 0.4);
-  ['concept', 'join', 'rstudio', 'pipelines', 'rules', 'org', 'outro'].forEach((s) => TL.fx(SC[s], 'whoosh', 0.45));
+  ['concept', 'join', 'breact', 'notebooks', 'rstudio', 'pipelines', 'rules', 'org', 'outro'].forEach((s) => TL.fx(SC[s], 'whoosh', 0.45));
   [cue('viewers'), cue('editors'), cue('admins')].forEach((x, i) => TL.blip(x - 0.05, [76, 79, 84][i], 0.5, (i - 1) * 0.4));
   TL.fx(cue('datasetMove') + 0.2, 'riser', 0.3, { dur: 0.8 });
   const A = TL.at;
@@ -65,6 +69,11 @@
   TL.fx(A.appSend + 0.3, 'shimmer', 0.25);
   [cue('claude'), cue('connect') + 0.7, cue('gemini')].forEach((x, i) => TL.blip(x, [76, 79, 83][i], 0.4, (i - 1) * 0.4));
   TL.blip(cue('review'), 84, 0.4);
+  // B-REACT chapter.
+  TL.fx(cue('restrictedWs'), 'riser', 0.25, { dur: 0.6 });
+  [cue('wsColumn'), cue('cleaned'), cue('sharesIt') + 1.2, A.tplCreate + 0.3].forEach((x, i) => TL.blip(x, [79, 81, 84, 86][i], 0.4, ((i % 3) - 1) * 0.3));
+  TL.fx(A.tplCreate, 'click', 0.55);
+  [cue('dpa') - 0.4, cue('dsa') - 0.2].forEach((x, i) => TL.blip(x, [76, 83][i], 0.45, (i - 0.5) * 0.6));
   TL.fx(cue('console') - 0.1, 'swell', 0.35);
   TL.fx(TL.outroHit, 'swell', 0.5);
   TL.fx(TL.outroHit, 'impact', 0.5);

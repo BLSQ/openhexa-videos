@@ -65,6 +65,57 @@
         "text": "To share it, open Access management and click Share with a workspace. Partners get every new version, read-only."
       },
       {
+        "id": "b01",
+        "scene": "breact",
+        "text": "In B-REACT, datasets are how data moves. It starts with the data controllers: DSE, COUSP with DHIS2, INRB, Flowminder and MSF each have a workspace on OpenHEXA, hosted by Bluesquare.",
+        "say": "In B React, datasets are how data moves. It starts with the data controllers: D.S.E., C.O.U.S.P. with D.H.I.S. 2, I.N.R.B., Flowminder and M.S.F. each have a workspace on Open Hexa, hosted by Bluesquare."
+      },
+      {
+        "id": "b02",
+        "scene": "breact",
+        "text": "Each data controller shares its raw data with each partner. Oxford, Imperial, Pasteur, INRB and WHO read it directly, so everyone works from the same source.",
+        "say": "Each data controller shares its raw data with each partner. Oxford, Imperial, Pasteur, I.N.R.B. and W.H.O. read it directly, so everyone works from the same source."
+      },
+      {
+        "id": "b03",
+        "scene": "breact",
+        "text": "Two exceptions: COUSP's identifiable data only goes to separate restricted workspaces, one for Oxford and one for INRB, and Flowminder's telco data only reaches Oxford.",
+        "say": "Two exceptions: C.O.U.S.P.'s identifiable data only goes to separate restricted workspaces, one for Oxford and one for I.N.R.B., and Flowminder's telco data only reaches Oxford."
+      },
+      {
+        "id": "b04",
+        "scene": "breact",
+        "text": "In your workspace, Datasets lists everything shared with you, and the Workspace column tells you where it comes from."
+      },
+      {
+        "id": "b05",
+        "scene": "breact",
+        "text": "Need more data? Ask the data controller that holds it. Access follows your data sharing agreement with them, and they share the dataset with your workspace."
+      },
+      {
+        "id": "b06",
+        "scene": "breact",
+        "text": "Partners share their own work the same way. In its restricted workspace, Oxford turns COUSP's identifiable data into a cleaned contact dataset, and shares it with Imperial, Pasteur, INRB and WHO.",
+        "say": "Partners share their own work the same way. In its restricted workspace, Oxford turns C.O.U.S.P.'s identifiable data into a cleaned contact dataset, and shares it with Imperial, Pasteur, I.N.R.B. and W.H.O."
+      },
+      {
+        "id": "b07",
+        "scene": "breact",
+        "text": "Code can travel too. Oxford publishes its contact cleaning pipeline as a template, and Imperial and Pasteur create their own pipeline from it, under Available Templates."
+      },
+      {
+        "id": "b08",
+        "scene": "breact",
+        "text": "Templates are visible to every OpenHEXA workspace, so they carry code, never data.",
+        "say": "Templates are visible to every Open Hexa workspace, so they carry code, never data."
+      },
+      {
+        "id": "b09",
+        "scene": "breact",
+        "text": "Two layers of agreements make this possible: Bluesquare's data processing agreement with the Ministry of Health and the INSP covers every workspace, and each partner's bilateral data sharing agreement with the relevant data controllers gives it access.",
+        "say": "Two layers of agreements make this possible: Bluesquare's data processing agreement with the Ministry of Health and the I.N.S.P. covers every workspace, and each partner's bilateral data sharing agreement with the relevant data controllers gives it access."
+      },
+      {
         "id": "s13",
         "scene": "notebooks",
         "text": "For analysis, open JupyterHub: notebooks in Python or R, with the OpenHEXA SDK installed and already signed in to the workspace.",

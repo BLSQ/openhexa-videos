@@ -10,4 +10,4 @@ import synth  # noqa: E402
 synth.init()
 import song  # noqa: E402
 
-song.render(energy={"intro": 0, "concept": 1, "join": 2, "files": 2, "datasets": 3, "notebooks": 2, "rstudio": 2, "pipelines": 3, "members": 2, "webapps": 3, "ai": 3, "rules": 1, "org": 2, "outro": 1})
+song.render(energy={"intro": 0, "concept": 1, "join": 2, "files": 2, "datasets": 3, "breact": 2, "notebooks": 2, "rstudio": 2, "pipelines": 3, "members": 2, "webapps": 3, "ai": 3, "rules": 1, "org": 2, "outro": 1})
