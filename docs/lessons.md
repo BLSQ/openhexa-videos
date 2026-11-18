@@ -53,6 +53,10 @@ Pitfalls already paid for once. Check here before debugging.
 - In cloud sandboxes without Chrome, the tools fall back to Playwright Chromium (`require('playwright')`).
 - The rendered MP4 is about 380 MB for 2 minutes at CRF 14. For chat or phone review, use the
   `preview` 720p copy (under 10 MB).
+- A 4K render (`--scale 2`) is about 1.1 GB for 2 minutes, mostly because of the film grain.
+- Puppeteer's `deviceScaleFactor` does not carry over to a separate CDP session. `render.mjs`
+  captures through its own session, so it sets `Emulation.setDeviceMetricsOverride` there too.
+  Without it, a `--scale 2` render silently comes out at 1080p while `snap` gives 4K.
 
 ## Accuracy
 

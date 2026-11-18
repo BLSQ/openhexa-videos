@@ -28,6 +28,7 @@ npm run v -- <id> check                   # text-only sanity check: run before a
 npm run v -- <id> snap 3 12 30            # frames + contact sheet in out/<lang>/snaps/
 npm run v -- <id> preview                 # 30 fps render + 720p copy
 npm run v -- <id> render | srt            # final 1080p60 MP4, YouTube captions
+npm run v -- <id> render --scale 2        # 2160p60 (4K) for the YouTube upload
 npm run serve                             # live player: /index.html?video=<id>&lang=<xx>
 ```
 

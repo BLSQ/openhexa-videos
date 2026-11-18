@@ -1,7 +1,8 @@
 // Frame-accurate render of a video to MP4, muxed with its mastered mix.
-//   node tools/render.mjs <video> --lang en [--fps 60] [--workers N] [--crf 14] [--from 0] [--to <dur>] [--sub 1] [--preview] [--out file]
+//   node tools/render.mjs <video> --lang en [--fps 60] [--workers N] [--crf 14] [--from 0] [--to <dur>] [--sub 1] [--scale 2] [--preview] [--out file]
 // Each worker drives its own headless Chrome over a slice of frames and encodes a segment; the
 // segments are concatenated. --preview renders 30 fps and adds a small 720p copy for review.
+// --scale 2 renders 3840x2160 (the YouTube upload; see docs/playbook.md) to a separate -2160p file.
 // --sub N averages N sub-frames per frame (motion blur). Keep workers <= 6 on a laptop: more
 // starves Chrome and some segments come out empty.
 import fs from 'node:fs';
@@ -19,10 +20,11 @@ const FPS = Number(opts.fps || (opts.preview ? 30 : 60));
 const WORKERS = Number(opts.workers || Math.max(1, Math.min(6, os.cpus().length - 1)));
 const CRF = String(opts.crf || 14);
 const SUB = Number(opts.sub || 1);
+const SCALE = Number(opts.scale || 1);
 const FROM = Number(opts.from || 0);
 const TO = Number(opts.to || TL.duration);
 const OD = outDir(video, lang);
-const OUT = path.resolve(opts.out || path.join(OD, `openhexa-${video.id}-${lang}${opts.preview ? '-preview' : ''}.mp4`));
+const OUT = path.resolve(opts.out || path.join(OD, `openhexa-${video.id}-${lang}${SCALE !== 1 ? `-${1080 * SCALE}p` : ''}${opts.preview ? '-preview' : ''}.mp4`));
 const TMP = path.join(OD, 'segments');
 fs.rmSync(TMP, { recursive: true, force: true });
 fs.mkdirSync(TMP, { recursive: true });
@@ -35,12 +37,14 @@ let done = 0;
 async function worker(w) {
   const a = Math.floor((total * w) / WORKERS), b = Math.floor((total * (w + 1)) / WORKERS);
   const seg = path.join(TMP, `seg_${String(w).padStart(2, '0')}.mp4`);
-  const browser = await launchBrowser();
+  const browser = await launchBrowser({ scale: SCALE });
   const page = await browser.newPage();
   page.on('pageerror', (e) => console.log(`[w${w} pageerror]`, e.message));
   await page.goto(playerUrl(url, video, lang, '&render=1'));
   await page.evaluate(() => window.stageReady);
   const cdp = await page.cdp();
+  // Device metrics are per CDP session: the capture session doesn't inherit the page's scale.
+  if (SCALE !== 1) await cdp.send('Emulation.setDeviceMetricsOverride', { width: 1920, height: 1080, deviceScaleFactor: SCALE, mobile: false });
 
   const vf = SUB > 1 ? ['-vf', `tmix=frames=${SUB}:weights=${Array(SUB).fill(1).join(' ')},select='not(mod(n\\,${SUB}))',setpts=N/${FPS}/TB`] : [];
   const ff = spawn(FFMPEG, ['-v', 'error', '-y', '-f', 'image2pipe', '-framerate', String(FPS * SUB), '-c:v', 'png', '-i', '-', ...vf,

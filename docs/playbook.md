@@ -78,8 +78,16 @@ npm run v -- <id> prep && npm run v -- <id> score && npm run v -- <id> check
 ```sh
 npm run v -- <id> preview        # 30 fps + 720p copy, ~1 min of render per minute of video
 npm run v -- <id> render         # 1080p60 final, ~3 min per language
+npm run v -- <id> render --scale 2   # 2160p60 (4K) for YouTube, ~12 min per language, ~1 GB
 npm run v -- <id> srt            # captions for YouTube
 ```
+
+Upload the 4K render (`openhexa-<id>-<lang>-2160p.mp4`) to YouTube, and use the 1080p one
+everywhere else (in-app pop-ups, slides, `deliver`). YouTube encodes 4K uploads with a better
+codec and a higher bitrate, so even people who watch at 1080p see sharper UI text than from a
+1080p upload. `--scale 2` keeps the 1920x1080 stage and draws it at twice the pixel density;
+scenes are vector (DOM, SVG, web fonts), so the extra detail is real. A raster image in a scene
+would only be upscaled, so use SVG or a 2x image.
 
 Outputs land in `videos/<id>/out/<lang>/`, which is gitignored. Before shipping:
 - Scan a contact sheet of the final file for blank frames, glitches at segment joins, and
