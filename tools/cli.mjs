@@ -7,7 +7,7 @@
 //   npm run v -- <video> check             timeline sanity: missing cues, tight beats, spend
 //   npm run v -- <video> snap t1 t2 ...    frames + contact sheet (cheap visual review)
 //   npm run v -- <video> preview           30 fps render + 720p copy
-//   npm run v -- <video> render            final 1080p60 render
+//   npm run v -- <video> render            final 1080p60 render (--scale 2: 2160p60 for YouTube)
 //   npm run v -- <video> srt               YouTube captions
 //   npm run v -- <video> deliver [--to d]  shareable 1080p (CRF 20) + 720p + .srt from the render
 //   npm run v -- <video> build             prep, score, render, srt (every language unless --lang)

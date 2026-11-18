@@ -1,5 +1,5 @@
 // Renders chosen frames to PNG, plus a labelled contact sheet when there are several.
-//   node tools/snap.mjs <video> [--lang en] [--out dir] [--sheet-width 640] t1 t2 ...
+//   node tools/snap.mjs <video> [--lang en] [--out dir] [--sheet-width 640] [--scale 2] t1 t2 ...
 // Cheap way to review a video: look at the sheet, not the full-size frames.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -14,7 +14,7 @@ const outDir = path.resolve(opts.out || path.join(video.dir, 'out', lang, 'snaps
 fs.mkdirSync(outDir, { recursive: true });
 
 const { srv, url } = await serve();
-const browser = await launchBrowser();
+const browser = await launchBrowser({ scale: Number(opts.scale || 1) });
 const page = await browser.newPage();
 page.on('pageerror', (e) => console.log('[pageerror]', e.message));
 await page.goto(playerUrl(url, video, lang, '&render=1'));

@@ -97,7 +97,9 @@ export function findChrome() {
   return null;
 }
 
-export async function launchBrowser() {
+// scale > 1 keeps the 1920x1080 CSS stage and rasterises it at scale x the pixels (2 = 3840x2160).
+// Scenes are vector (DOM, SVG, web fonts), so this is real detail, not an upscale.
+export async function launchBrowser({ scale = 1 } = {}) {
   const args = ['--hide-scrollbars', '--disable-gpu-vsync', '--force-color-profile=srgb'];
   // Containers usually run as root without user namespaces; Chrome's sandbox can't start there.
   if (process.platform === 'linux') args.push('--no-sandbox', '--disable-dev-shm-usage');
@@ -108,7 +110,7 @@ export async function launchBrowser() {
     return {
       async newPage() {
         const p = await b.newPage();
-        await p.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
+        await p.setViewport({ width: 1920, height: 1080, deviceScaleFactor: scale });
         return { raw: p, goto: (u) => p.goto(u, { waitUntil: 'networkidle0' }), evaluate: (fn, arg) => p.evaluate(fn, arg), cdp: () => p.createCDPSession(), screenshot: (o) => p.screenshot(o), on: (e, f) => p.on(e, f) };
       },
       close: () => b.close(),
@@ -121,7 +123,7 @@ export async function launchBrowser() {
   const b = await chromium.launch({ args });
   return {
     async newPage() {
-      const p = await b.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+      const p = await b.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: scale });
       return { raw: p, goto: (u) => p.goto(u, { waitUntil: 'networkidle' }), evaluate: (fn, arg) => p.evaluate(fn, arg), cdp: () => p.context().newCDPSession(p), screenshot: (o) => p.screenshot(o), on: (e, f) => p.on(e, f) };
     },
     close: () => b.close(),
