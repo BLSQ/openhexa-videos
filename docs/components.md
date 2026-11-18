@@ -118,11 +118,15 @@ Copy a scene into your video and adapt it, rather than importing it.
 
 ## Assets (`assets/`)
 
-| Folder | Contents |
-| --- | --- |
-| `fonts/` | Inter variable, JetBrains Mono |
-| `img/` | white logo, website tab screenshots, dengue dashboard |
-| `icons/` | data sources: DHIS2, IASO, Kobo, ODK, OpenLMIS, Postgres, GCS, CSV, Excel, Parquet, FHIR, ERA5, WorldPop |
-| `logos/` | partners |
-| `app/` | the app's own connection icons and logo |
-| `docs/` | docs.openhexa.com captures, EN/FR |
+The catalog, with sources and usage notes, is `assets/README.md`:
+
+- brand marks and hexagons
+- Bluesquare products
+- partner logos
+- AI assistant logos
+- personas
+- deck illustrations
+- backgrounds
+- photos
+- app docs screenshots for reference
+- fonts and icons

@@ -11,6 +11,7 @@ video in `videos/`, everything shared in `core/`, `assets/` and `tools/`.
 | making a new video | `docs/playbook.md`, then `videos/_template/` (it already runs) |
 | showing the OpenHEXA app | `docs/app-facts.md` (verified labels EN/FR, sidebar, sample data, doc URLs): do **not** re-explore the openhexa-app code unless the video covers something it doesn't list |
 | looking for a visual building block | `docs/components.md` (catalog of core APIs and of reusable scenes in existing videos) |
+| looking for a logo, image or illustration | `assets/README.md` |
 | fixing audio, TTS or render issues | `docs/lessons.md` (known pitfalls and their fixes) |
 
 Don't read the other videos' scenes wholesale; open the one file `docs/components.md` points to.
