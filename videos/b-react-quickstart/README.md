@@ -27,7 +27,7 @@ access, how to get more data, how partners share their work); inviting colleague
 | Chapter | What the viewer sees | Narration |
 | --- | --- | --- |
 | Intro | Logo, "OpenHEXA for B-REACT partners" | s01 |
-| Concept | "One OpenHEXA organization" with the seven real B-REACT workspaces (DRC DSE, DRC COUSP, INRB UMIE, DRC INRB on top; BDBV University of Oxford, BDBV Imperial College London, BDBV Institut Pasteur below). Files, Database, Pipelines, Notebooks and Web apps appear as named, then lock; "Datasets" travels from DRC COUSP to the three BDBV workspaces. Then Viewer / Editor / Admin cards | s02–s04 |
+| Concept | "One OpenHEXA organization" with the seven real B-REACT workspaces (DRC DSE, DRC COUSP, INRB UMIE, DRC SGI MVE-17 on top; BDBV University of Oxford, BDBV Imperial College London, BDBV Institut Pasteur below). Files, Database, Pipelines, Notebooks and Web apps appear as named, then lock; "Datasets" travels from DRC COUSP to the three BDBV workspaces. Then Viewer / Editor / Admin cards | s02–s04 |
 | 1 · Join | The invitation email → **Join Now** → **Create your account** → the workspace home | s05 |
 | 2 · Data | A "Data" checklist (Files, Extracts, Datasets) on the right. Files → **Upload files** → dialog → new row, download button. Database → the tables written by extraction pipelines (`dhis2_alerts`…). Datasets list → open "Weekly cases by zone" → Files tab Preview → Columns (Missing/Distinct highlighted) → older version in the selector → **Download** | s06, x01, s07, s09, s11 |
 | 3 · Code: notebooks | JupyterHub → JupyterLab launcher (Python 3, R) → a Python notebook: `from openhexa.sdk import workspace`, read a dataset by identifier into pandas, `create_dataset`, `create_version`, `add_file` | s13–s14 |
@@ -57,7 +57,7 @@ to 13 of the B-REACT deck and their speaker notes, reviewed by the B-REACT team.
 | Viewers download and run pipelines; Editors upload, publish datasets, use notebooks and create pipelines; only Admins manage members | permission table in `docs/en/workspaces.md` |
 | Invitation email, "Join Now"; "Create your account"; registering accepts the invitation and opens the workspace | `invite_new_user.mjml`, `workspaces/utils.py`; `pages/register.tsx`; `resolve_register` |
 | Workspace sidebar items, order and icons; help button | `WorkspaceLayout/Sidebar.tsx` (via `core/app-ui.js`) |
-| The seven B-REACT workspaces and their names | the OpenHEXA MCP on app.openhexa.org, checked by Mariano (Nov 2026) |
+| The seven B-REACT workspaces and their names | the OpenHEXA MCP on app.openhexa.org (Nov 2026); DRC SGI MVE-17 replaces DRC INRB at Gaspard's request (26 Nov 2026) |
 | Files upload dialog and download buttons | `UploadObjectDialog.tsx`, `BucketExplorer.tsx` |
 | Database page: "Tables", Name / # Rows, "1284 rows", the two connection sections | `docs/app-facts.md` (Database) |
 | Extraction pipelines write tables into the workspace database (DRC COUSP's "DHIS2 Tracker MVE Extract Events" does) | `docs/en/pipelines.md` ("Database: access data written to your workspace database"); the real pipeline's description, read through the OpenHEXA MCP |
@@ -113,7 +113,8 @@ on app.openhexa.org.
 Real: the seven workspace names at 0:21 and in the B-REACT chapter's sidebar and Workspace column
 (from app.openhexa.org). From the B-REACT deck: the partner and data controller names, their data
 labels (Aggregated alerts, Line lists · ID, Telco data…), "Cleaned contacts", the contact cleaning
-pipeline, the DPA and DSA. Which INRB workspace holds the lab data ("DRC INRB" in the list) is a guess.
+pipeline, the DPA and DSA. The workspace at 0:21 follows Gaspard's review of v4 (DRC SGI MVE-17 instead of
+DRC INRB). Showing INRB's lab data as coming from "INRB UMIE" in Imperial's list is a guess.
 
 Not from a real workspace:
 - the organization name "B-REACT" in the app sidebar;

@@ -662,7 +662,7 @@
       ['Aggregated contacts', '2 days ago', 'Bartholomew Quibblesnout', 'DRC DSE'],
       ['Line lists · No ID', 'yesterday', 'Ignatius Pumpernickel', 'DRC COUSP'],
       ['Contacts · No ID', 'yesterday', 'Ignatius Pumpernickel', 'DRC COUSP'],
-      ['Lab data', '3 days ago', 'Ottoline Fizzlewick', 'DRC INRB'],
+      ['Lab data', '3 days ago', 'Ottoline Fizzlewick', 'INRB UMIE'],
     ];
     const wsCells = [];
     const trs = rows.map(([n, u, by, ws]) => {

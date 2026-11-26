@@ -16,7 +16,7 @@
         title: ['Workspaces keep their work.', 'Datasets travel.'],
         org: 'One OpenHEXA organization',
         // The real B-REACT workspaces on app.openhexa.org (names as they appear in the app).
-        workspaces: [['DRC DSE'], ['DRC COUSP'], ['INRB UMIE'], ['DRC INRB'], ['BDBV University of Oxford'], ['BDBV Imperial College London'], ['BDBV Institut Pasteur']],
+        workspaces: [['DRC DSE'], ['DRC COUSP'], ['INRB UMIE'], ['DRC SGI MVE-17'], ['BDBV University of Oxford'], ['BDBV Imperial College London'], ['BDBV Institut Pasteur']],
         stays: [['FolderOpen', 'Files'], ['CircleStack', 'Database'], ['Bolt', 'Pipelines'], ['BookOpen', 'Notebooks'], ['GlobeAlt', 'Web apps']],
         dataset: 'Datasets',
         rolesTitle: ['Your role sets', 'what you can do'],
