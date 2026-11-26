@@ -2,7 +2,7 @@
 E.scene({
   name: 'rules',
   from: () => TL.scenes.rules,
-  to: () => TL.scenes.org + 0.8,
+  to: () => TL.scenes.outro + 0.8,
   build(root) {
     const R = I18N[LANG].rules;
     const { h } = E;
@@ -19,7 +19,7 @@ E.scene({
   update(t) {
     const { set, prog, ease, lerp } = E;
     const t0 = TL.scenes.rules;
-    const out = prog(t, TL.scenes.org - 0.3, 0.8, ease.inCubic);
+    const out = prog(t, TL.scenes.outro - 0.3, 0.8, ease.inCubic);
     const inn = prog(t, t0, 0.6, ease.outCubic);
     set(this.cam, { o: inn * (1 - out), s: 1 + out * 0.12, blur: out * 8 });
     set(this.hlEl, { y: 170 });

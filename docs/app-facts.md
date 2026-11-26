@@ -277,6 +277,7 @@ Checked at `4c2a83b4f`. FR strings were not checked for this section.
 - Pipeline page header button "Run" (`PlayIcon`), for anyone with run permission.
 - Dialog "Run pipeline": the pipeline's parameters, then "Advanced settings" ("Pipeline version, notifications and logs": Version, Send notifications, Show debug messages); Cancel / Run.
 - Run page: once finished, an "Outputs" section (title not translated) listing files, datasets and tables, or "No outputs".
+  - `RunOutputsTable.tsx`: columns Name / Type / actions. Files show their path and a download button; tables show `tableName` and **View**; dataset versions show the version name, then the dataset name in gray, and **View**, which opens the dataset at that version. Types: "File", "Database table", "Dataset version" (`renderOutputType`).
 
 **Templates** (`workspaces/features/TemplateCard`, `pipelines/features/PipelineCreateFromTemplateButton`)
 - Available Templates cards: name, a badge (the publishing organization's name for validated templates, else "Community"), description, a "Create pipeline" button.
@@ -321,3 +322,25 @@ Checked at openhexa-app `4c2a83b4f` and BLSQ/openhexa-sdk-r v0.1.2 (4 Nov 2026).
 **Create a web app** (`webapps/features/CreateWebappDialog`)
 - Cards: "Create with AI" ("Describe what you want, AI writes the code"; only when AI is on, "Monthly AI budget reached" when out), "From code" ("Write or upload your own HTML, CSS and JavaScript"), Superset ("Embed a Superset dashboard", only when a Superset instance exists), iFrame ("Embed an existing website by its URL").
 - Create with AI: "← Back", "Describe your web app and the AI will generate the code to get you started.", a prompt, "Create". Steps: "Generating web app code", "Creating web app", "Opening web app editor".
+
+## Shared datasets and pipeline templates across workspaces (b-react-quickstart v3, EN only)
+
+Checked at openhexa-app `4c2a83b4f` (12 Nov 2026).
+
+**Datasets shared with a workspace** (`pages/workspaces/[workspaceSlug]/datasets/index.tsx`)
+- `workspace.datasets` lists dataset *links*: the workspace's own datasets and those shared with it, in one table.
+- The Workspace column is `dataset.workspace.name`, so a shared dataset shows its **source** workspace. "Last updated" is a relative `DateColumn` ("2 days ago").
+- Rows open `/workspaces/{slug}/datasets/{datasetSlug}/from/{sourceWorkspaceSlug}`.
+
+**Publishing a pipeline as a template** (`workspaces/layouts/PipelineLayout/PipelineLayout.tsx`, `pipelines/features/PublishPipelineDialog`)
+- Pipeline page header actions, in order: "Publish as Template" (secondary; "Publish a new Template Version" once a template exists; disabled with a tooltip without `createTemplateVersion`), "Download code", "Run", "Delete".
+- The dialog asks for "Template name" and "Template description", then "Confirm publishing". Errors include "A template with the same name already exists."
+
+**Who sees a template** (`backend/hexa/pipeline_templates/schema/queries.py`)
+- `pipelineTemplates` has no per-user or per-organization filter: every template on the instance is listed to every signed-in user ("All templates"). `workspaceSlug` only narrows to one workspace ("From this workspace").
+- `createPipelineFromTemplateVersion` only checks `pipelines.create_pipeline` on the target workspace. So a template cannot be shared with selected workspaces; it is visible across the instance.
+- Re-checked on `main` at `c2403b3dd` (18 Nov 2026, b-react-quickstart v4): `pipelineTemplates` is `@loginRequired` and still unfiltered, so templates reach users of other organizations on the same instance, not only your own organization.
+
+**Available Templates** (`pipelines/features/PipelineTemplates`, `workspaces/features/TemplateCard`)
+- Filters: "All templates" / "From this workspace"; "All publishers" / "Validated" / "Community"; "All types"; tags.
+- Card: name with a publisher badge (the organization's name once validated, else "Community"), description, "{n} pipeline(s)", the last uploader's avatar, "Details" and "Create pipeline". Toast: "Successfully created pipeline {name}".

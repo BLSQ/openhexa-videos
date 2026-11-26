@@ -42,7 +42,7 @@ E.scene({
       done: cl('out', '* DONE (openhexa)'),
       lib: cl('cmd', '&gt; library(openhexa)'),
       login: cl('cmd', '&gt; login()'),
-      auth: cl('ok', '✔ Authenticated as <b>Grace Mbuyi</b> on https://api.openhexa.org.'),
+      auth: cl('ok', '✔ Authenticated as <b>Zephyrine Wobblebottom</b> on https://api.openhexa.org.'),
       ws: cl('ok', '✔ Using workspace <b>B-REACT Surveillance</b> ("b-react-surveillance").'),
       pub: cl('cmd', '&gt; publish_webapp(<span class="rs-str">"Weekly cases"</span>, chart)'),
     };
