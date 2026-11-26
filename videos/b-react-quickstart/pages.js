@@ -167,35 +167,39 @@
     };
   };
 
+  // ---------- database: tables written by extraction pipelines (illustrative names and counts) ----------
+  B.databasePage = () => {
+    const tables = [['dhis2_alerts', '1284 rows'], ['dhis2_cases', '9731 rows'], ['dhis2_contacts', '15402 rows'], ['dhis2_lab_results', '2216 rows']];
+    const rows = tables.map(([n, r]) => h('tr', {}, [h('td', { class: 'strong' }, [h('span', { class: 'ox-ico-cell' }, [icon('TableCells', 18, '#6b7280'), h('span', { class: 'ox-mono', text: n })])]), h('td', { text: r }), h('td', { style: { textAlign: 'right' } }, [icon('ChevronRight', 16, '#9ca3af', 2)])]));
+    const section = (title, open) => h('div', { class: 'ox-card', style: { marginTop: '14px', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: 500, fontSize: '15px' } }, [icon(open ? 'ChevronDown' : 'ChevronRight', 16, '#6b7280', 2), h('span', { text: title })]);
+    const tableCard = h('div', { class: 'ox-card', style: { overflow: 'hidden' } }, [
+      h('div', { style: { padding: '14px 16px', fontWeight: 600, fontSize: '16px' }, text: 'Tables' }),
+      h('table', { class: 'ox-table' }, [h('thead', {}, [h('tr', {}, ['Name', '# Rows', ''].map((c) => h('th', { text: c })))]), h('tbody', {}, rows)]),
+    ]);
+    const sh = shell(['Database'], [], [tableCard, section('Read-Only Connection', false), section('Read/Write Connection (Full Access)', false)]);
+    return { el: sh.el, tableCard, update() {} };
+  };
+
   // ---------- datasets list + create dialog ----------
   const DS = [
-    ['Weekly cases by zone', 'Nov 3, 2026', 'Grace Mbuyi', 'B-REACT Surveillance', true],
-    ['Lab confirmations', 'Nov 2, 2026', 'Joseph Ilunga', 'B-REACT Laboratory', true],
-    ['Genomic sequences', 'Oct 30, 2026', 'Joseph Ilunga', 'B-REACT Laboratory', false],
-    ['Population movements', 'Oct 24, 2026', 'Sarah Mukendi', 'B-REACT Analysis', false],
+    ['Weekly cases by zone', 'Nov 3, 2026', 'Zephyrine Wobblebottom', 'B-REACT Surveillance', true],
+    ['Lab confirmations', 'Nov 2, 2026', 'Ottoline Fizzlewick', 'B-REACT Laboratory', true],
+    ['Genomic sequences', 'Oct 30, 2026', 'Ottoline Fizzlewick', 'B-REACT Laboratory', false],
+    ['Population movements', 'Oct 24, 2026', 'Ignatius Pumpernickel', 'B-REACT Analysis', false],
   ];
   const star = (on) => icon('Star', 16, on ? '#f59e0b' : '#9ca3af', 1.8);
   B.datasetsList = (C) => {
     const cards = DS.filter((d) => d[4]).map(([n, u, , ws]) => h('div', { class: 'ox-card br-dscard' }, [h('div', { class: 'br-dscard-top' }, [icon('Square2Stack', 18, '#6b7280'), h('b', { text: n }), h('span', { class: 'br-star-on' }, [star(true)])]), h('div', { class: 'br-dscard-meta', text: ws + ' · ' + u })]));
-    const rows = DS.map(([n, u, by, ws, pin]) => h('tr', {}, [h('td', { class: 'strong' }, [h('span', { class: 'ox-ico-cell' }, [h('span', { class: pin ? 'br-star-on' : '' }, [star(pin)]), h('span', { text: n })])]), h('td', { text: u }), h('td', { text: by }), h('td', {}, [h('span', { class: 'br-ws' }, [h('span', { class: 'flag-sm', html: FLAGS.cd }), h('span', { text: ws })])])]));
+    const rows = DS.map(([n, u, by, ws, pin]) => h('tr', { class: 'br-dsrow' }, [h('td', { class: 'strong' }, [h('span', { class: 'ox-ico-cell' }, [h('span', { class: pin ? 'br-star-on' : '' }, [star(pin)]), h('span', { text: n })])]), h('td', { text: u }), h('td', { text: by }), h('td', {}, [h('span', { class: 'br-ws' }, [h('span', { class: 'flag-sm', html: FLAGS.cd }), h('span', { text: ws })])])]));
     const create = btn('Create', 'primary', 'Plus');
     const sh = shell(['Datasets'], [create], [
       h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '18px' } }, cards),
       h('div', { style: { fontWeight: 600, fontSize: '15px', marginBottom: '10px' }, text: 'All datasets' }),
       h('div', { class: 'ox-card', style: { overflow: 'hidden' } }, [h('table', { class: 'ox-table' }, [h('thead', {}, [h('tr', {}, ['Name', 'Last updated', 'Created by', 'Workspace'].map((c) => h('th', { text: c })))]), h('tbody', {}, rows)])]),
     ]);
-    const name = typedInput('Name'), desc = typedInput('Description', { height: '76px', alignItems: 'flex-start', paddingTop: '9px', lineHeight: '1.45' });
-    const ok = btn('Create', 'primary');
-    const m = modal('Create a dataset', [field('Name', name.el, true), field('Description', desc.el, true)], [btn('Cancel', 'white'), ok], { top: -170 });
-    sh.el.append(m.el);
     return {
-      el: sh.el, create, ok, name, update(t) {
-        const A = TL.at;
-        this.dim = showModal(m, t, A.dsOpen, A.dsClose);
-        // The narration moves on fast here, so the fields fill in quickly.
-        const span = Math.max(0.6, A.dsClose - A.dsOpen - 0.45);
-        type(name, C.dsName, t, A.dsOpen + 0.2, span * 0.3);
-        type(desc, C.dsDesc, t, A.dsOpen + 0.25 + span * 0.35, span * 0.6);
+      el: sh.el, create, row0: rows[0], update(t) {
+        rows[0].classList.toggle('hot', t >= TL.at.dsRow - 0.6 && t < TL.at.dsRow + 0.4);
       },
     };
   };
@@ -213,7 +217,7 @@
 
     // General tab
     const dl = (k, v) => h('div', { class: 'br-dl' }, [h('dt', { text: k }), h('dd', { html: v })]);
-    const verBlock = h('div', { class: 'ox-card br-pad', style: { marginTop: '12px' } }, [h('div', { class: 'br-sec', text: 'Current version' }), dl('Version', D.versions[0][1]), dl('Created at', D.versions[0][2]), dl('Created by', 'Grace Mbuyi'), dl('Changelog', D.changelog)]);
+    const verBlock = h('div', { class: 'ox-card br-pad', style: { marginTop: '12px' } }, [h('div', { class: 'br-sec', text: 'Current version' }), dl('Version', D.versions[0][1]), dl('Created at', D.versions[0][2]), dl('Created by', 'Zephyrine Wobblebottom'), dl('Changelog', D.changelog)]);
     const general = h('div', { class: 'abs br-tabbody' }, [
       h('div', { class: 'ox-card br-pad' }, [dl('Description', D.desc), dl('Identifier', `<code class="ox-mono">${D.ident}</code>`), dl('Source workspace', 'B-REACT Surveillance')]),
       verBlock,
@@ -254,7 +258,7 @@
     const filesTab = h('div', { class: 'abs br-tabbody', style: { top: '0', height: '420px' } }, [
       h('div', { class: 'ox-card br-explorer' }, [fileList, h('div', { class: 'br-fmain' }, [
         h('div', { class: 'br-fhead' }, [h('b', { class: 'ox-mono', text: D.files[0] }), download]),
-        h('div', { class: 'br-meta' }, [h('span', { html: 'Created at <b>Nov 3, 2026</b>' }), h('span', { html: 'Created by <b>Grace Mbuyi</b>' }), h('span', { html: 'Type <code>text/csv</code>' }), h('span', { html: 'Size <code>86.3 kB</code>' })]),
+        h('div', { class: 'br-meta' }, [h('span', { html: 'Created at <b>Nov 3, 2026</b>' }), h('span', { html: 'Created by <b>Zephyrine Wobblebottom</b>' }), h('span', { html: 'Type <code>text/csv</code>' }), h('span', { html: 'Size <code>86.3 kB</code>' })]),
         h('div', { class: 'ox-tabs', style: { marginTop: '8px' } }, ftabs),
         h('div', { style: { position: 'relative', height: '250px' } }, [preview, columns]),
       ])]),
@@ -280,13 +284,13 @@
     const savedToast = toast('Metadata updated.');
 
     // Access management tab
-    const linkRow = h('tr', {}, [h('td', { class: 'strong' }, [h('span', { class: 'br-ws' }, [h('span', { class: 'flag-sm', html: FLAGS.cd }), h('span', { text: 'B-REACT Analysis' })])]), h('td', { text: 'Nov 5, 2026' }), h('td', { text: 'Grace Mbuyi' }), h('td', {}, [h('span', { class: 'br-revoke', text: 'Revoke' })])]);
+    const linkRow = h('tr', {}, [h('td', { class: 'strong' }, [h('span', { class: 'br-ws' }, [h('span', { class: 'flag-sm', html: FLAGS.cd }), h('span', { text: 'B-REACT Analysis' })])]), h('td', { text: 'Nov 5, 2026' }), h('td', { text: 'Zephyrine Wobblebottom' }), h('td', {}, [h('span', { class: 'br-revoke', text: 'Revoke' })])]);
     const shareBtn = btn('Share with a workspace', 'primary', 'Share');
     const access = h('div', { class: 'abs br-tabbody' }, [
       h('div', { class: 'ox-card br-pad', style: { display: 'flex', alignItems: 'center', gap: '12px' } }, [h('span', { class: 'br-toggle' }), h('div', {}, [h('div', { style: { fontWeight: 500, fontSize: '14px' }, text: 'Share with the whole Organization' }), h('div', { class: 'ox-help', style: { marginTop: '2px' }, text: 'Only accessible by the owner workspace and explicitly shared workspaces' })])]),
       h('div', { style: { display: 'flex', justifyContent: 'flex-end', margin: '14px 0 10px' } }, [shareBtn]),
       h('div', { class: 'ox-card', style: { overflow: 'hidden' } }, [h('table', { class: 'ox-table' }, [h('thead', {}, [h('tr', {}, ['Workspace', 'Created At', 'Created By', ''].map((c) => h('th', { text: c })))]), h('tbody', {}, [
-        h('tr', {}, [h('td', { class: 'strong' }, [h('span', { class: 'br-ws' }, [h('span', { class: 'flag-sm', html: FLAGS.cd }), h('span', { text: 'B-REACT Laboratory' })])]), h('td', { text: 'Oct 21, 2026' }), h('td', { text: 'Grace Mbuyi' }), h('td', {}, [h('span', { class: 'br-revoke', text: 'Revoke' })])]),
+        h('tr', {}, [h('td', { class: 'strong' }, [h('span', { class: 'br-ws' }, [h('span', { class: 'flag-sm', html: FLAGS.cd }), h('span', { text: 'B-REACT Laboratory' })])]), h('td', { text: 'Oct 21, 2026' }), h('td', { text: 'Zephyrine Wobblebottom' }), h('td', {}, [h('span', { class: 'br-revoke', text: 'Revoke' })])]),
         linkRow,
       ])])]),
     ]);
@@ -442,18 +446,25 @@
 
   B.runPage = () => {
     const status = h('span', { class: 'ox-pill' });
-    const row = (ic, name, kind) => h('div', { class: 'br-out' }, [icon(ic, 18, '#6b7280'), h('span', { class: 'ox-mono', text: name }), h('span', { class: 'br-out-kind', text: kind }), h('span', { style: { marginLeft: 'auto', display: 'flex' } }, [iconBtn(ic === 'TableCells' ? 'ArrowTopRightOnSquare' : 'ArrowDownTray')])]);
-    const outputs = h('div', { class: 'ox-card br-pad', style: { marginTop: '14px' } }, [h('div', { class: 'br-sec', text: 'Outputs' }), row('DocumentText', 'exports/dhis2_alerts_2026-W44.csv', 'File'), row('TableCells', 'dhis2_alerts', 'Database table')]);
+    const view = () => h('div', { class: 'ox-btn br-view', text: 'View' });
+    const row = (ic, name, kind, sub) => {
+      const act = ic === 'DocumentText' ? iconBtn('ArrowDownTray') : view();
+      const el = h('div', { class: 'br-out' }, [icon(ic, 18, '#6b7280'), h('span', { class: 'ox-mono', text: name }), sub ? h('span', { class: 'br-out-sub', text: sub }) : null, h('span', { class: 'br-out-kind', text: kind }), h('span', { style: { marginLeft: 'auto', display: 'flex' } }, [act])]);
+      return { el, act };
+    };
+    const outRows = [row('DocumentText', 'exports/dhis2_alerts_2026-W44.csv', 'File'), row('CircleStack', 'dhis2_alerts', 'Database table'), row('Square2Stack', '2026-W44', 'Dataset version', 'Weekly cases by zone')];
+    const outputs = h('div', { class: 'ox-card br-pad', style: { marginTop: '14px' } }, [h('div', { class: 'br-sec', text: 'Outputs' }), ...outRows.map((r) => r.el)]);
     const dl = (k, v) => h('div', { class: 'br-dl' }, [h('dt', { text: k }), h('dd', { html: v })]);
     const statusDl = h('div', { class: 'br-dl' }, [h('dt', { text: 'Status' }), h('dd', {}, [status])]);
     const sh = shell(['Pipelines', 'DHIS2 extraction', 'Run'], [], [
       h('div', { class: 'ox-h1', text: 'DHIS2 extraction' }),
-      h('div', { class: 'ox-card br-pad', style: { marginTop: '16px' } }, [statusDl, dl('Executed by', 'Grace Mbuyi'), dl('Parameters', '<code class="ox-mono">2026-10-26 → 2026-11-01 · All</code>')]),
+      h('div', { class: 'ox-card br-pad', style: { marginTop: '16px' } }, [statusDl, dl('Executed by', 'Zephyrine Wobblebottom'), dl('Parameters', '<code class="ox-mono">2026-10-26 → 2026-11-01 · All</code>')]),
       outputs,
     ]);
     return {
-      el: sh.el, outputs, update(t) {
+      el: sh.el, outputs, dsRow: outRows[2].el, dsView: outRows[2].act, update(t) {
         const done = t >= TL.at.runGo + 1.6;
+        outRows[2].el.classList.toggle('hot', t >= TL.cue('runOutputs') - 0.2 && t < TL.at.viewClick + 0.3);
         E.text(status, done ? 'Succeeded' : 'Running');
         status.style.background = done ? '#ecfdf5' : '#f0f9ff';
         status.style.color = done ? '#10b981' : '#0ea5e9';
@@ -465,7 +476,7 @@
 
   // ---------- settings / members + invite dialog ----------
   B.settingsPage = () => {
-    const members = [['Grace Mbuyi', 'grace@example.org', 'Admin'], ['Patrick Kabongo', 'patrick@example.org', 'Admin'], ['Joseph Ilunga', 'joseph@example.org', 'Editor'], ['Sarah Mukendi', 'sarah@example.org', 'Viewer']];
+    const members = [['Zephyrine Wobblebottom', 'zephyrine@example.org', 'Admin'], ['Bartholomew Quibblesnout', 'bartholomew@example.org', 'Admin'], ['Ottoline Fizzlewick', 'ottoline@example.org', 'Editor'], ['Ignatius Pumpernickel', 'ignatius@example.org', 'Viewer']];
     const rows = members.map(([n, e, r]) => h('tr', {}, [h('td', { class: 'strong', text: n }), h('td', { text: e }), h('td', {}, [h('span', { class: 'ox-role', text: r })]), h('td', { text: 'Oct 12, 2026' })]));
     const invite = btn('Add/Invite member', 'primary', 'UserPlus');
     const tabs = ['General', 'Members', 'Database'].map((x, i) => h('div', { class: 'ox-tab' + (i === 1 ? ' on' : ''), text: x }));
@@ -475,7 +486,7 @@
       h('div', { class: 'ox-card', style: { overflow: 'hidden' } }, [h('table', { class: 'ox-table' }, [h('thead', {}, [h('tr', {}, ['Name', 'Email', 'Role', 'Joined'].map((c) => h('th', { text: c })))]), h('tbody', {}, rows)])]),
     ]);
     const user = typedInput('Search users');
-    const opt = h('div', { class: 'ox-option' }, [h('span', { text: 'Invite new user: paul@partner.org' })]);
+    const opt = h('div', { class: 'ox-option' }, [h('span', { text: 'Invite new user: cornelius@example.org' })]);
     const menu = h('div', { class: 'ox-menu', style: { top: '66px' } }, [opt]);
     const roleText = h('span', { text: 'Viewer' });
     const role = h('div', { class: 'ox-input' }, [roleText, h('span', { style: { marginLeft: 'auto', display: 'flex' } }, [icon('ChevronDown', 16, '#9ca3af', 2)])]);
@@ -490,7 +501,7 @@
         this.dim = showModal(m, t, A.inviteOpen, A.inviteDone);
         const t0 = A.inviteOpen + 0.35;
         const tl = TL.cue('lowest');
-        const n = type(user, 'paul@partner.org', t, t0, Math.max(0.5, Math.min(0.9, tl - t0 - 0.6)));
+        const n = type(user, 'cornelius@example.org', t, t0, Math.max(0.5, Math.min(0.9, tl - t0 - 0.6)));
         const mo = n > 4 && t < tl - 0.05 ? 1 : 0;
         E.set(menu, { o: mo });
         E.show(menu, mo > 0);
@@ -501,15 +512,6 @@
       },
     };
   };
-
-  // ---------- sidebar card for users with no organization of their own (ExternalCollaboratorNotice) ----------
-  B.orgNotice = (O) => h('div', { class: 'br-notice' }, [
-    h('div', { class: 'br-notice-row' }, [icon('Sparkles', 16, '#fff', 2), h('div', {}, [
-      h('div', { class: 'br-notice-t', text: O.card[0] }),
-      h('div', { class: 'br-notice-d', text: O.card[1] }),
-      h('div', { class: 'br-notice-a' }, [h('span', { text: O.card[2] }), icon('ArrowTopRightOnSquare', 11, '#fff', 2)]),
-    ])]),
-  ]);
 
   // ---------- JupyterHub: JupyterLab with a Python notebook using the SDK (illustrative content) ----------
   const py = (src) => src
@@ -656,12 +658,11 @@
   // source workspace (pages/workspaces/[workspaceSlug]/datasets/index.tsx; dates are relative there).
   B.brDatasets = () => {
     const rows = [
-      ['Aggregated alerts', '2 days ago', 'Patrick Kabongo', 'DSE'],
-      ['Aggregated contacts', '2 days ago', 'Patrick Kabongo', 'DSE'],
-      ['Line lists · No ID', 'yesterday', 'Sarah Mukendi', 'COUSP'],
-      ['Contacts · No ID', 'yesterday', 'Sarah Mukendi', 'COUSP'],
-      ['Lab data', '3 days ago', 'Joseph Ilunga', 'INRB'],
-      ['ETC line lists', '4 days ago', 'Esther Lunda', 'MSF'],
+      ['Aggregated alerts', '2 days ago', 'Bartholomew Quibblesnout', 'DRC DSE'],
+      ['Aggregated contacts', '2 days ago', 'Bartholomew Quibblesnout', 'DRC DSE'],
+      ['Line lists · No ID', 'yesterday', 'Ignatius Pumpernickel', 'DRC COUSP'],
+      ['Contacts · No ID', 'yesterday', 'Ignatius Pumpernickel', 'DRC COUSP'],
+      ['Lab data', '3 days ago', 'Ottoline Fizzlewick', 'DRC INRB'],
     ];
     const wsCells = [];
     const trs = rows.map(([n, u, by, ws]) => {

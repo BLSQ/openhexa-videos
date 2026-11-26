@@ -8,7 +8,8 @@
       "model": "elevenlabs/eleven_multilingual_v2",
       "voice": "XrExE9yKIg1WjnnlVkGX",
       "voiceName": "Matilda - Knowledgable, Professional",
-      "placeholder": "Flo (English (US))"
+      "placeholder": "Flo (English (US))",
+      "tempo": 0.94
     }
   },
   "words": "whisper",
@@ -36,7 +37,6 @@
     "scenes/04-app.js",
     "scenes/045-rstudio.js",
     "scenes/05-rules.js",
-    "scenes/055-org.js",
     "scenes/06-outro.js",
     "stage.js"
   ],

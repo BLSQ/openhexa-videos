@@ -1,11 +1,11 @@
-// B-REACT access & sharing, right after the Datasets chapter: slides 11 to 13 of the B-REACT deck
+// B-REACT access & sharing, right after the Datasets chapter and before Team: slides 11 to 13 of the B-REACT deck
 // redrawn (data controllers, partner workspaces with their restricted twins, the agreements), a
 // request diagram, and two app cuts (a partner's Datasets list; Publish as Template → Available
 // Templates). The app scene steps aside meanwhile (scenes/04-app.js).
 E.scene({
   name: 'breact',
   from: () => TL.scenes.breact,
-  to: () => TL.scenes.notebooks + 0.8,
+  to: () => TL.scenes.members + 0.8,
   build(root) {
     const S = I18N[LANG], B = S.br, { h } = E;
     this.B = B;
@@ -15,9 +15,8 @@ E.scene({
 
     // ---------- architecture (slides 11 to 13) ----------
     this.arch = h('div', { class: 'abs' });
-    this.ctlLabel = h('div', { class: 'abs brx-label' }, [h('span', { text: B.ctlLabel }), h('span', { class: 'brx-hosted', text: B.hosted })]);
-    this.hostedEl = this.ctlLabel.lastChild;
-    const widths = [250, 420, 230, 250, 230];
+    this.ctlLabel = h('div', { class: 'abs brx-label', text: B.ctlLabel });
+    const widths = [290, 510, 290, 314];
     let x = X0;
     this.ctl = B.controllers.map(([name, chips], i) => {
       const chipEls = chips.map(([c, k]) => h('span', { class: 'brx-chip' + (k ? ' id' : ''), text: c }));
@@ -95,7 +94,6 @@ E.scene({
     this.win = AppUI.window();
     this.side = AppUI.wsSidebar();
     this.side.el.classList.add('br-side');
-    this.side.el.insertBefore(BR.orgNotice(S.org), this.side.el.querySelector('.ox-user'));
     this.wsName = this.side.el.querySelector('.ox-ws .name');
     this.main = h('div', { class: 'ox-main' });
     this.pages = { ds: BR.brDatasets(), pipe: BR.brPipeline(), tpl: BR.brTemplates() };
@@ -120,7 +118,7 @@ E.scene({
   update(t) {
     const { set, prog, ease, lerp, clamp } = E;
     const c = TL.cue, A = TL.at, vo = TL.vo, T = TL.scenes;
-    const t0 = T.breact, tEnd = T.notebooks;
+    const t0 = T.breact, tEnd = T.members;
     const out = prog(t, tEnd - 0.35, 0.7, ease.inCubic);
     set(this.cam, { o: prog(t, t0, 0.5) * (1 - out), blur: out * 6 });
 
@@ -146,9 +144,8 @@ E.scene({
     // b07's word timings miss its opening ("Code can travel, too."), so the pipeline chip keys off the line start.
     // Controllers drop in as they are named.
     set(this.ctlLabel, { x: X0, y: 146, o: prog(t, TL.scenes.breact + 0.2, 0.5) });
-    set(this.hostedEl, { o: prog(t, c('hosted') - 0.1, 0.5) });
     this.ctl.forEach((k, i) => {
-      const p = prog(t, c('controllers') + 0.1 + i * 0.32, 0.55, ease.outBackSoft);
+      const p = prog(t, c('ctl' + i) - 0.15, 0.55, ease.outBackSoft);
       set(k.el, { x: k.x, y: 186 + (1 - p) * 30, o: Math.min(1, p * 1.5) });
     });
     // COUSP's ID chips and Flowminder's telco data light up for the two exceptions.
@@ -181,9 +178,9 @@ E.scene({
         set(r.el, { x: X0 + 40, y, o: k });
         r.ids.forEach((el, i) => set(el, { o: prog(t, c('restrictedWs') + 0.25 + i * 0.15, 0.4) }));
       } else {
-        const p = prog(t, c('partnersRow') - 0.25 + gi * 0.28, 0.5, ease.outCubic);
+        const p = prog(t, c(gi ? 'p' + gi : 'partnersRow') - 0.2, 0.5, ease.outCubic);
         set(r.el, { x: X0 + (1 - p) * 30, y, o: p });
-        set(r.general, { o: prog(t, c('sameSource') - 0.6 + gi * 0.08, 0.4) });
+        set(r.general, { o: prog(t, c('sameSource') - 0.4 + gi * 0.08, 0.4) });
         gi++;
       }
       y += (hgt + 10) * k;
@@ -256,9 +253,9 @@ E.scene({
       E.show(p.el, on && appO > 0.001);
       if (on) { set(p.el, { o: seg === 'tpl' ? prog(t, A.tplSwitch, 0.3) : 1 }); p.update(t); }
     }
-    E.text(this.wsName, seg === 'pipe' ? 'Oxford' : 'Imperial');
+    E.text(this.wsName, seg === 'pipe' ? 'BDBV University of Oxford' : 'BDBV Imperial College London');
     this.side.setActive(seg === 'ds' ? 'datasets' : 'pipelines', 1);
-    this.win.setUrl(seg === 'ds' ? '/workspaces/imperial/datasets' : seg === 'pipe' ? '/workspaces/oxford/pipelines/contact-cleaning' : '/workspaces/imperial/pipelines?tab=templates');
+    this.win.setUrl(seg === 'ds' ? '/workspaces/bdbv-imperial-college-london/datasets' : seg === 'pipe' ? '/workspaces/bdbv-university-of-oxford/pipelines/contact-cleaning' : '/workspaces/bdbv-imperial-college-london/pipelines?tab=templates');
     set(this.tplCap, { x: 960, y: 1000, o: E.window(t, c('tplVisible') - 0.2, vo.b09 - 0.4, 0.4, 0.4) });
     E.css(this.tplCap, 'translate', '-50% 0');
 

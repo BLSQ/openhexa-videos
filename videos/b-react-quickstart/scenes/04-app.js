@@ -5,7 +5,7 @@ AppUI.beats = {
 };
 
 // Scenes join → ai: the invitation email, then one continuous app window. It steps aside while the
-// B-REACT chapter (scenes/035-breact.js) and the RStudio chapter (scenes/045-rstudio.js) play. Each page is a builder
+// RStudio chapter (scenes/045-rstudio.js) and the B-REACT chapter (scenes/035-breact.js) play. Each page is a builder
 // from pages.js (or core/app-ui.js); `segments()` says which page shows when, `dsState()` drives the
 // dataset page, and a callout on the right tracks each chapter.
 E.scene({
@@ -18,22 +18,18 @@ E.scene({
     this.S = S;
     this.win = AppUI.window();
     this.side = AppUI.wsSidebar();
-    // B-REACT partners belong to workspaces, not to the Bluesquare organization, so the app shows them
-    // the "Create your own organization" card at the bottom of the sidebar.
     this.side.el.classList.add('br-side');
-    this.side.el.insertBefore(BR.orgNotice(S.org), this.side.el.querySelector('.ox-user'));
     this.main = h('div', { class: 'ox-main' });
     this.sideDim = h('div', { class: 'ox-scrim', style: { right: 'auto', width: '256px' } });
     this.reg = BR.registerPage(S.email);
     this.win.body.append(this.side.el, this.main, this.sideDim, this.reg.el);
 
-    const dsNewDef = { name: 'Weekly indicators', desc: 'Weekly indicators by health zone, from DHIS2.', ident: 'weekly-indicators-7c1e2a', versions: [['v1 - Nov 5, 2026', 'v1', 'Nov 5, 2026']], changelog: 'First release: weeks 18 to 44.', files: ['indicators_by_zone.csv'], newFile: 'indicators_by_zone.csv', pinned: false };
     const dsMainDef = { name: 'Weekly cases by zone', desc: 'Suspected and confirmed cases by health zone and week, from DHIS2 Tracker.', ident: 'weekly-cases-by-zone-a1b2c3', versions: [['2026-W44 - Nov 3, 2026', '2026-W44', 'Nov 3, 2026'], ['2026-W43 - Oct 27, 2026', '2026-W43', 'Oct 27, 2026'], ['2026-W42 - Oct 20, 2026', '2026-W42', 'Oct 20, 2026']], changelog: 'Adds week 44.', files: ['cases_by_zone.csv', 'cases_by_zone.parquet'], newFile: 'cases_by_zone.csv', pinned: true };
     this.pages = {
       home: BR.homePage(S),
       files: BR.filesPage(),
-      dsList: BR.datasetsList({ dsName: dsNewDef.name, dsDesc: dsNewDef.desc }),
-      dsNew: BR.datasetPage(S, dsNewDef),
+      db: BR.databasePage(),
+      dsList: BR.datasetsList(),
       dsMain: BR.datasetPage(S, dsMainDef),
       notebooks: BR.notebooksPage(),
       pipes: BR.pipelinesList(),
@@ -67,9 +63,8 @@ E.scene({
     };
     this.co = {
       join: list('Envelope', C.join.title, C.join.items),
-      files: { el: panel('FolderOpen', ...C.files) },
-      datasets: { el: panel('Square2Stack', ...C.datasets) },
-      dsSteps: list('Square2Stack', C.dsSteps.title, C.dsSteps.items, 'datasets/'),
+      data: list('CircleStack', C.data.title, C.data.items, C.data.doc),
+      publish: list('Square2Stack', C.publish.title, C.publish.items, C.publish.doc),
       notebooks: { el: panel('BookOpen', ...C.notebooks) },
       sdk: list('CodeBracket', C.sdk.title, C.sdk.items, C.sdk.doc),
       pipelines: { el: panel('Bolt', ...C.pipelines) },
@@ -97,30 +92,33 @@ E.scene({
     return [b.x + b.w * dx, b.y + b.h * dy];
   },
 
+  // In time order: Data (files, database extracts, datasets), Code, Pipelines, then the Datasets chapter
+  // returns to the run page to open the version the pipeline published.
   segments() {
     const c = TL.cue, A = TL.at;
     return [
-      ['home', A.regDone + 0.45], ['files', c('files') - 0.15], ['dsList', c('dataset') - 0.15], ['dsNew', A.dsClose + 0.05],
-      ['dsMain', c('filesTab') - 0.35], ['notebooks', c('jupyter') - 0.15], ['pipes', c('pipelines') - 0.15], ['pipe', c('extracting') + 0.35],
-      ['run', A.runGo + 0.4], ['pipes', c('editorsCreate') - 0.3], ['settings', c('settings') - 0.15], ['webapps', c('webapps') - 0.15],
-      ['studio', c('studio') - 0.45],
+      ['home', A.regDone + 0.45], ['files', c('files') - 0.15], ['db', c('dbNav') - 0.15], ['dsList', c('dataset') - 0.15],
+      ['dsMain', A.dsRow + 0.25], ['notebooks', c('jupyter') - 0.15], ['pipes', c('pipelines') - 0.15], ['pipe', c('extracting') + 0.35],
+      ['run', A.runGo + 0.4], ['pipes', c('editorsCreate') - 0.3], ['run', TL.vo.d01 - 0.25], ['dsMain', A.viewClick + 0.25],
+      ['settings', c('settings') - 0.15], ['webapps', c('webapps') - 0.15], ['studio', c('studio') - 0.45],
     ];
   },
 
   // Dataset page state over time (tab, version menu, drawer, link...).
   dsState(t, key) {
     const c = TL.cue, A = TL.at;
-    if (key === 'dsNew') return { tab: 0, versionMade: t >= A.verSend + 0.95, upload: [A.verOpen, A.verSend] };
     const st = { tab: 0, ftab: 0 };
     if (t >= c('filesTab') + 0.15) st.tab = 1;
+    // Opened again from the run's outputs: General first, then the Files tab.
+    if (t >= A.viewClick) st.tab = t >= A.dsFilesTab + 0.1 ? 1 : 0;
     if (t >= c('statistics') + 0.1 && t < c('selector')) st.ftab = 1;
     st.statHot = t >= c('missing') - 0.15 && t < TL.end('s09') + 0.8;
     st.hoverCol = t >= c('hover') - 0.05 && t < A.drawerSave + 0.4;
     st.drawer = [A.drawerOpen, A.drawerSave];
     st.tagsShown = t >= A.drawerSave + 0.35;
     st.verMenu = E.window(t, c('selector') + 0.2, A.pick + 0.1, 0.15, 0.15);
-    st.hoverIdx = t >= A.pick - 0.35 ? 1 : 0;
-    st.pickIdx = t >= A.pick + 0.05 ? 1 : 0;
+    st.hoverIdx = t >= A.pick - 0.35 && t < A.viewClick ? 1 : 0;
+    st.pickIdx = t >= A.pick + 0.05 && t < A.viewClick ? 1 : 0;
     if (t >= c('access') + 0.15) st.tab = 2;
     st.link = [A.linkOpen, A.linkDone];
     st.linked = A.linkDone + 0.15;
@@ -142,7 +140,7 @@ E.scene({
     // ---------- window (steps aside during the RStudio chapter) ----------
     const enter = prog(t, tWin + 0.1, 0.9, ease.outQuart);
     const exit = prog(t, tExit - 0.2, 0.9, ease.inCubic);
-    const away = ease.inOutCubic(Math.max(E.window(t, T.breact - 0.3, T.notebooks + 0.15, 0.7, 0.7), E.window(t, T.rstudio - 0.3, T.pipelines + 0.15, 0.7, 0.7)));
+    const away = ease.inOutCubic(Math.max(E.window(t, T.rstudio - 0.3, T.pipelines + 0.15, 0.7, 0.7), E.window(t, T.breact - 0.3, T.members + 0.15, 0.7, 0.7)));
     const gone = Math.max(exit, away);
     set(this.winWrap, { x: 70 - gone * 160, y: 150 + (1 - enter) * 90, s: lerp(0.94, 1, enter) * lerp(1, 0.92, gone), o: Math.min(1, enter * 1.6) * (1 - gone), blur: gone * 6 });
     E.show(this.winWrap, enter > 0 && gone < 1);
@@ -158,8 +156,8 @@ E.scene({
     const segs = this.segments();
     let cur = -1;
     segs.forEach(([, st], i) => { if (t >= st) cur = i; });
-    const navOf = { home: 'home', files: 'files', dsList: 'datasets', dsNew: 'datasets', dsMain: 'datasets', notebooks: 'jupyter', pipes: 'pipelines', pipe: 'pipelines', run: 'pipelines', settings: 'settings', webapps: 'apps', studio: 'dataStudio' };
-    const paths = { home: '', files: '/files', dsList: '/datasets', dsNew: '/datasets/weekly-indicators-7c1e2a/from/b-react-surveillance', dsMain: '/datasets/weekly-cases-by-zone-a1b2c3/from/b-react-surveillance/files', notebooks: '/notebooks', pipes: '/pipelines', pipe: '/pipelines/dhis2-extraction', run: '/pipelines/dhis2-extraction/runs/3f2a9c', settings: '/settings', webapps: '/webapps', studio: '/data-studio' };
+    const navOf = { home: 'home', files: 'files', db: 'database', dsList: 'datasets', dsMain: 'datasets', notebooks: 'jupyter', pipes: 'pipelines', pipe: 'pipelines', run: 'pipelines', settings: 'settings', webapps: 'apps', studio: 'dataStudio' };
+    const paths = { home: '', files: '/files', db: '/databases', dsList: '/datasets', dsMain: '/datasets/weekly-cases-by-zone-a1b2c3/from/b-react-surveillance/files', notebooks: '/notebooks', pipes: '/pipelines', pipe: '/pipelines/dhis2-extraction', run: '/pipelines/dhis2-extraction/runs/3f2a9c', settings: '/settings', webapps: '/webapps', studio: '/data-studio' };
     let dim = 0;
     const key = cur >= 0 ? segs[cur][0] : 'home';
     const fade = cur >= 0 ? prog(t, segs[cur][1], 0.35, ease.outCubic) : 1;
@@ -206,14 +204,14 @@ E.scene({
     const vo = TL.vo;
     showPanel(this.co.join.el, -1, c('files') - 0.3);
     steps(this.co.join.items, [c('invitation') - 0.2, c('joinNow') - 0.1, c('yourName') - 0.1, A.regDone + 0.3]);
-    showPanel(this.co.files.el, c('files') - 0.3, c('dataset') - 0.3);
-    showPanel(this.co.datasets.el, c('dataset') - 0.3, vo.s08 - 0.3);
-    showPanel(this.co.dsSteps.el, vo.s08 - 0.3, c('jupyter') - 0.3);
-    steps(this.co.dsSteps.items, [c('create') - 0.2, c('newVersion') - 0.2, c('filesTab') - 0.2, c('hover') - 0.2, c('older') - 0.2, c('access') - 0.2, TL.end('s12') + 0.5]);
+    showPanel(this.co.data.el, c('files') - 0.3, c('jupyter') - 0.3);
+    steps(this.co.data.items, [c('files') - 0.2, c('extracts') - 0.2, c('dataset') - 0.2, TL.end('s11') + 0.6]);
     showPanel(this.co.notebooks.el, c('jupyter') - 0.3, c('readDs') - 0.4);
     showPanel(this.co.sdk.el, c('readDs') - 0.4, T.rstudio + 0.4);
     steps(this.co.sdk.items, [c('readDs') - 0.1, c('createDs') - 0.1, c('publishVer') - 0.1, TL.end('s14') + 0.5]);
-    showPanel(this.co.pipelines.el, c('pipelines') - 0.3, c('settings') - 0.3);
+    showPanel(this.co.pipelines.el, c('pipelines') - 0.3, vo.d01 - 0.3);
+    showPanel(this.co.publish.el, vo.d01 - 0.3, T.breact + 0.4);
+    steps(this.co.publish.items, [vo.d01 - 0.2, c('hover') - 0.2, c('access') - 0.2, TL.end('s12') + 0.6]);
     showPanel(this.co.members.el, c('settings') - 0.3, c('webapps') - 0.3);
     this.roleRows.forEach((el, i) => el.classList.toggle('on', i === 0 && t >= c('lowest') - 0.1));
     const tp = prog(t, c('lowest') - 0.1, 0.45, ease.outBack);
@@ -223,7 +221,7 @@ E.scene({
     steps(this.co.ai.items, [vo.s24 - 0.6, c('sql') - 0.2, c('connect') - 0.2, TL.end('s24') + 0.6]);
 
     // ---------- cursor ----------
-    const P = this.pages, ds = P.dsMain, dn = P.dsNew;
+    const P = this.pages, ds = P.dsMain;
     const keys = [];
     const add = (time, el, opt = {}) => keys.push({ t: time, el, ...opt });
     add(T.join, null, { xy: [1500, 1000] });
@@ -235,12 +233,10 @@ E.scene({
     add(c('drop') - 0.05, P.files.drop, { dx: 0.5, dy: 0.6 });
     add(A.uploadSend, P.files.send, { click: true });
     add(A.uploadSend + 1.5, P.files.dl, {});
+    add(c('dbNav') - 0.1, this.side.items.database.el, { click: true, dx: 0.35 });
+    add(c('dbTables') + 0.3, P.db.tableCard, { dx: 0.3, dy: 0.45 });
     add(c('dataset') - 0.15, this.side.items.datasets.el, { click: true, dx: 0.35 });
-    add(A.dsOpen - 0.25, P.dsList.create, { click: true });
-    add(A.dsClose - 0.2, P.dsList.ok, { click: true });
-    add(A.verOpen - 0.3, dn.newVer, { click: true });
-    add(c('dropFiles') - 0.05, dn.vDrop, { dy: 0.4 });
-    add(A.verSend, dn.vSend, { click: true });
+    add(A.dsRow, P.dsList.row0, { click: true, dx: 0.2 });
     add(c('filesTab') + 0.1, ds.tabs[1], { click: true });
     add(c('statistics'), ds.ftabs[1], { click: true });
     add(c('hover') + 0.1, ds.colA, { dx: 0.55, dy: 0.35 });
@@ -251,18 +247,17 @@ E.scene({
     add(c('selector') + 0.15, ds.ver, { click: true, dx: 0.7 });
     add(A.pick, ds.verOpts[1], { click: true, dx: 0.6 });
     add(c('downloadFile') + 0.2, ds.download, { click: true });
-    add(c('access') + 0.1, ds.tabs[2], { click: true });
+    add(T.rstudio - 0.3, null, { xy: [700, 900] });
+    add(T.pipelines + 0.2, null, { xy: [700, 900] });
     add(A.linkOpen - 0.25, ds.shareBtn, { click: true });
     add(A.linkOpen + 0.4, ds.wsInput, { click: true, dx: 0.6 });
     add(A.linkOpen + 0.85, ds.wsOpt, { click: true, dx: 0.4 });
     add(A.linkDone - 0.3, ds.linkBtn, { click: true });
     add(T.breact - 0.3, null, { xy: [700, 900] });
-    add(T.notebooks + 0.2, null, { xy: [700, 900] });
+    add(T.members + 0.2, null, { xy: [700, 900] });
     add(c('jupyter') - 0.1, this.side.items.jupyter.el, { click: true, dx: 0.35 });
     add(c('python') + 0.1, P.notebooks.tiles[0], { dx: 0.5 });
     add(c('signedIn') - 0.5, P.notebooks.tiles[0], { click: true, dx: 0.5 });
-    add(T.rstudio - 0.3, null, { xy: [700, 900] });
-    add(T.pipelines + 0.2, null, { xy: [700, 900] });
     add(c('pipelines') - 0.1, this.side.items.pipelines.el, { click: true, dx: 0.35 });
     add(c('extracting') + 0.3, P.pipes.card0, { click: true, dx: 0.3, dy: 0.2 });
     add(A.runOpen - 0.3, P.pipe.run, { click: true });
@@ -273,6 +268,11 @@ E.scene({
     add(c('template') + 0.05, this.plDlg.opts[1], {});
     add(c('fromNotebook') + 0.05, this.plDlg.opts[2], {});
     add(c('withSdk') + 0.05, this.plDlg.cli, { dx: 0.4 });
+    add(c('runOutputs') - 0.1, P.run.dsRow, { dx: 0.35 });
+    add(A.viewClick, P.run.dsView, { click: true });
+    add(A.dsFilesTab, ds.tabs[1], { click: true });
+    add(c('hover') - 0.6, ds.tabs[1], {});
+    add(c('access') + 0.1, ds.tabs[2], { click: true });
     add(c('settings') - 0.1, this.side.items.settings.el, { click: true, dx: 0.35 });
     add(A.inviteOpen - 0.3, P.settings.invite, { click: true });
     add(c('lowest'), P.settings.role, { click: true, dx: 0.4 });
@@ -310,8 +310,9 @@ E.scene({
     ringAt(this.mail.joinBtn, c('joinNow') - 0.3, c('joinNow') + 0.55);
     ringAt(P.files.upload, c('upload') - 0.2, A.uploadOpen);
     ringAt(P.files.dl, A.uploadSend + 1.4, TL.end('s06') + 0.8);
-    ringAt(P.dsList.create, c('create') - 0.3, A.dsOpen);
-    ringAt(dn.newVer, A.verOpen - 0.7, A.verOpen);
+    ringAt(P.db.tableCard, c('dbTables') - 0.2, c('findDb') + 1.0);
+    ringAt(P.dsList.row0, c('dsEach') - 0.1, A.dsRow);
+    ringAt(P.run.dsView, c('viewBtn') - 0.3, A.viewClick);
     ringAt(ds.pencil, c('pencil') - 0.3, A.drawerOpen);
     ringAt(ds.ver, c('selector') - 0.25, c('selector') + 0.2);
     ringAt(ds.download, c('downloadFile') + 0.1, TL.end('s11') + 0.7);

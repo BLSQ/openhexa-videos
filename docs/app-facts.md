@@ -273,6 +273,7 @@ Checked at `4c2a83b4f`. FR strings were not checked for this section.
 - Pipeline page header button "Run" (`PlayIcon`), for anyone with run permission.
 - Dialog "Run pipeline": the pipeline's parameters, then "Advanced settings" ("Pipeline version, notifications and logs": Version, Send notifications, Show debug messages); Cancel / Run.
 - Run page: once finished, an "Outputs" section (title not translated) listing files, datasets and tables, or "No outputs".
+  - `RunOutputsTable.tsx`: columns Name / Type / actions. Files show their path and a download button; tables show `tableName` and **View**; dataset versions show the version name, then the dataset name in gray, and **View**, which opens the dataset at that version. Types: "File", "Database table", "Dataset version" (`renderOutputType`).
 
 **Templates** (`workspaces/features/TemplateCard`, `pipelines/features/PipelineCreateFromTemplateButton`)
 - Available Templates cards: name, a badge (the publishing organization's name for validated templates, else "Community"), description, a "Create pipeline" button.
@@ -334,6 +335,7 @@ Checked at openhexa-app `4c2a83b4f` (12 Nov 2026).
 **Who sees a template** (`backend/hexa/pipeline_templates/schema/queries.py`)
 - `pipelineTemplates` has no per-user or per-organization filter: every template on the instance is listed to every signed-in user ("All templates"). `workspaceSlug` only narrows to one workspace ("From this workspace").
 - `createPipelineFromTemplateVersion` only checks `pipelines.create_pipeline` on the target workspace. So a template cannot be shared with selected workspaces; it is visible across the instance.
+- Re-checked on `main` at `c2403b3dd` (18 Nov 2026, b-react-quickstart v4): `pipelineTemplates` is `@loginRequired` and still unfiltered, so templates reach users of other organizations on the same instance, not only your own organization.
 
 **Available Templates** (`pipelines/features/PipelineTemplates`, `workspaces/features/TemplateCard`)
 - Filters: "All templates" / "From this workspace"; "All publishers" / "Validated" / "Community"; "All types"; tags.
